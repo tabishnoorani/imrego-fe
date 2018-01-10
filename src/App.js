@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
+import './App.css';
 
 import config from './config';
 
@@ -28,6 +31,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Signin/>
+        <Signup/>
         <button onClick={this.fetchData}>Fetch Data</button>
         <label>{this.state.data}</label>
       </div>
