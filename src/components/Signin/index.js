@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { Form, Icon, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
@@ -52,7 +53,7 @@ class HorizontalLoginForm extends Component {
         <FormItem  style={{marginRight:'16px'}}>
           <Button
             // type="primary"
-            loading = "true"
+            loading = {this.props.Status.loders.signin}
             htmlType="submit"
             disabled={hasErrors(getFieldsError())}
           >
@@ -66,4 +67,9 @@ class HorizontalLoginForm extends Component {
 
 const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
 
-export default WrappedHorizontalLoginForm;
+const returnState = (store)=>{
+  return({
+    Status: store.Status 
+  });
+}
+export default connect(returnState)(WrappedHorizontalLoginForm);

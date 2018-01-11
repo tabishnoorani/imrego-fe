@@ -7,6 +7,7 @@ import Logo from './components/logo/index';
 import SearchBar from './components/SearchBar';
 import { Row, Col, Affix, Layout } from 'antd';
 import './App.css';
+import { connect } from 'react-redux';
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,12 +15,10 @@ class App extends Component {
 
   constructor(props){
     super(props);
-    
     this.state = {
       data:"",
       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bnNpZ25lZFRva2VuIjp7InNpZCI6IjVhNTQxOTY3NzkxNTdjMWEyODllM2UxNyIsInVpZCI6IjVhNTJkNGMwYjk1OWZmMDQyODUxNjI4NiJ9LCJpYXQiOjE1MTU0NjA5Njd9.1J4tKvWB7oo4unPPZfPBTYfurQqZgeCO_JaF6Q5mPuw'
     };
-
     this.fetchData = this.fetchData.bind(this);
   }
 
@@ -35,7 +34,6 @@ class App extends Component {
 
   render() {
     return (
-    // make it whitesmoke
     <Layout style={{background:"whitesmoke"}}>
       <Header style={{background: "darkgray", position: 'fixed', width: '100%', height:"auto" }}>
         <Row type="flex" justify="space-between" align="middle">
@@ -64,7 +62,7 @@ class App extends Component {
 
       <Affix offsetBottom={0}>
         <Footer style={{ background: "lightgray", textAlign: 'center', padding: '0px', margin: '0px' }}>
-          <b>IMREGO</b> ©2016 Created by OLEAW
+          <b>IMREGO</b> ©2016 - Created by OLEAW
         </Footer>
       </Affix>
     </Layout>
@@ -72,4 +70,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const returnState = (store)=>{
+  return({
+    User: store.User, 
+    Status: store.Status 
+  });
+}
+
+export default connect(returnState)(App);
