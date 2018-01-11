@@ -48,7 +48,7 @@ class CollectionsPage extends Component {
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>New Collection</Button>
+        <Button type="primary" onClick={this.showModal}>SIGN UP</Button>
         <CollectionCreateForm
           ref={this.saveFormRef}
           visible={this.state.visible}

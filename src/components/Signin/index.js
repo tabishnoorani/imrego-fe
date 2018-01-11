@@ -26,7 +26,9 @@ class HorizontalLoginForm extends Component {
     const userNameError = isFieldTouched('userName') && getFieldError('userName');
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
-      <Form layout="inline" onSubmit={this.handleSubmit}>
+      <Form layout="inline" 
+      onSubmit={this.handleSubmit} 
+      >
         <FormItem
           validateStatus={userNameError ? 'error' : ''}
           help={userNameError || ''}
@@ -47,13 +49,14 @@ class HorizontalLoginForm extends Component {
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
-        <FormItem>
+        <FormItem  style={{marginRight:'16px'}}>
           <Button
-            type="primary"
+            // type="primary"
+            loading = "true"
             htmlType="submit"
             disabled={hasErrors(getFieldsError())}
           >
-            Log in
+            SIGN IN
           </Button>
         </FormItem>
       </Form>
