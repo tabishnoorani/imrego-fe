@@ -1,0 +1,9 @@
+const actionConst = {
+    SIGNIN: "SIGNIN",
+    SIGNIN_PROCESS: "SIGNIN_PROCESS",
+    SIGNIN_PROCESS_DONE: "SIGNIN_PROCESS_DONE",
+    SIGNIN_FAILED: "SIGNIN_FAILED",
+    SIGNOUT: "SIGNOUT",
+    SIGNUP: "SIGNUP"
+}
+export default actionConst;

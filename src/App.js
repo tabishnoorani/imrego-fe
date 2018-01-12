@@ -12,27 +12,19 @@ import { connect } from 'react-redux';
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      data:"",
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bnNpZ25lZFRva2VuIjp7InNpZCI6IjVhNTQxOTY3NzkxNTdjMWEyODllM2UxNyIsInVpZCI6IjVhNTJkNGMwYjk1OWZmMDQyODUxNjI4NiJ9LCJpYXQiOjE1MTU0NjA5Njd9.1J4tKvWB7oo4unPPZfPBTYfurQqZgeCO_JaF6Q5mPuw'
-    };
-    this.fetchData = this.fetchData.bind(this);
-  }
-
-  fetchData (event) {
-    const token = this.state.token;
-    axios.get(`${config.HOST_URL}/api`, 
-            {headers: { authorization: `Bearer ${token}`}})
-    .then((res)=>{
-      this.setState ({data: res.data.msg})
-    })
-    .catch(function(err){});
-  }
-
   render() {
+    const SignedIn = (this.props.Status.auth)?"":(
+      <Col>
+        <Row type="flex" justify="end" align="middle">
+          <Col><Signin/></Col>
+          <Col><Signup/></Col>
+        </Row>
+        <Row type="flex" justify="end">
+        {/* Conver this to permanent notification */}
+          <Col>{this.props.Status.msg.signinFiled}</Col> 
+        </Row>
+      </Col>);
+      
     return (
     <Layout style={{background:"whitesmoke"}}>
       <Header style={{background: "darkgray", position: 'fixed', width: '100%', height:"auto" }}>
@@ -40,19 +32,14 @@ class App extends Component {
           <Col span={5}>
             <Logo />
           </Col>
-          <Col>
-            <Row type="flex" justify="end" align="middle">
-              <Col><Signin/></Col>
-              <Col><Signup/></Col>
-            </Row>
-            <Row type="flex" justify="end">
-            </Row>
-              {/* <Signup/> */}
-          </Col>
+          {SignedIn}
         </Row>
       </Header>
       
       <Content style={{ padding: '0 50px', marginTop: '150px', marginBottom:'20px' }}>
+        {`${this.props.User.fname} 
+        ${this.props.User.lname} 
+        ${this.props.User.email}`}
         <Row type="flex" justify="center">
           <Col span={20}>
             <SearchBar />
