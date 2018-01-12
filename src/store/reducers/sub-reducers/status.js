@@ -9,7 +9,7 @@ const defaultState = {
         imregoSearch: false
     },
     msg:{
-        signinFiled:""
+        signinField:""
     }
 }
 
