@@ -1,34 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form } from 'antd';
-import SignupForm from './SignupForm';
-
-
-const CollectionCreateForm = Form.create()(
-  (props) => {
-    const { visible, onCancel, onCreate } = props;
-    return (
-      <Modal
-        visible={visible}
-        title="Signup for a new account"
-        okText="Create"
-        onCancel={onCancel}
-        onOk={onCreate}
-      >
-        <SignupForm/>
-      </Modal>
-    );
-  }
-);
+import { connect } from 'react-redux';
+import { Button } from 'antd';
+import CollectionCreateForm from './SignupForm';
+import { signup, signupCancel, signupCreate } from '../../store/actions';
 
 class CollectionsPage extends Component {
-  state = {
-    visible: false,
-  };
   showModal = () => {
-    this.setState({ visible: true });
+    signup(this.props.dispatch)
   }
   handleCancel = () => {
-    this.setState({ visible: false });
+    signupCancel(this.props.dispatch)
   }
   handleCreate = () => {
     const form = this.form;
@@ -36,10 +17,8 @@ class CollectionsPage extends Component {
       if (err) {
         return;
       }
-
-      console.log('Received values of form: ', values);
-      form.resetFields();
-      this.setState({ visible: false });
+      signupCreate(this.props.dispatch, values, this.form);
+      // console.log('Received values of form: ', values);
     });
   }
   saveFormRef = (form) => {
@@ -51,13 +30,22 @@ class CollectionsPage extends Component {
         <Button onClick={this.showModal}>SIGN UP</Button>
         <CollectionCreateForm
           ref={this.saveFormRef}
-          visible={this.state.visible}
+          visible={this.props.showSignupModal}
+          createUserLoder={this.props.createUser}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
+          DesSignupModal={this.props.DesSignupModal}
         />
       </div>
     );
   }
 }
 
-export default CollectionsPage;
+const returnState = (store)=>{
+  return({
+    showSignupModal: store.Status.showSignupModal,
+    createUser: store.Status.loders.createUser,
+    DesSignupModal: store.Status.DesSignupModal
+  });
+}
+export default connect(returnState)(CollectionsPage);

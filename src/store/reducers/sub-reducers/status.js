@@ -6,11 +6,14 @@ const defaultState = {
     loders: { //Button Clicks
         signin: false,
         signup: false,
-        imregoSearch: false
+        imregoSearch: false,
+        createUser: false
     },
     msg:{
         signinField:""
-    }
+    },
+    showSignupModal: false,
+    DesSignupModal: false,
 }
 
 function Status (state=defaultState, action) {
@@ -31,13 +34,29 @@ function Status (state=defaultState, action) {
             }
         }
         case actions.SIGNOUT: {
-            return {...state, auth: false, loders: {signout: false}}
+            return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
         }
         case actions.RESET_SIGNIN_FAILED: {
             return {...state, msg:{signinField:""}}
         }
         case actions.SIGNOUT_PROCESS: {
             return {...state, loders: {signout: true} }
+        }
+        case actions.SIGNUP: {
+            return {...state, showSignupModal: true, DesSignupModal: false}
+        }
+        case actions.SIGNUP_CANCEL:{
+            return {...state, showSignupModal: false}
+        }
+        case actions.SIGNUP_CREATE:{
+            return {...state, loders: {createUser: true}}
+        }
+        case actions.SIGNUP_CREATED:{
+            return {...state,
+                Test:"Compeleted",
+                DesSignupModal: true, 
+                loders: {createUser: false}, 
+                showSignupModal: false }
         }
         default: {
             return {...state }

@@ -6,7 +6,7 @@ import Signup from '../Signup';
 import { resetSigninNotification } from '../../store/actions/index'
 
 class SignInUp extends React.Component{
-  aNotification(message) {
+  aNotification(message=this.props.signinField) {
     if (this.props.signinField!==""){
       notification.open({
         message: 'Invalid User',
@@ -18,11 +18,11 @@ class SignInUp extends React.Component{
   }
 
   render(){
-    this.aNotification(this.props.signinField);
+    // this.aNotification(this.props.signinField);
     return(
     <Col>
       <Row type="flex" justify="end" align="middle">
-        <Col><Signin/></Col>
+        <Col><Signin aNotification={this.aNotification.bind(this)}/></Col>
         <Col><Signup/></Col>
       </Row>
     </Col>
