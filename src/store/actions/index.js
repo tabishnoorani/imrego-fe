@@ -32,9 +32,26 @@ export function signin(dispatch, credential){
     
 };
 
-export function signout(){
-    return ({
-        type: "SIGNOUT",
-        payload: ""
+export function signout(dispatch, token){
+    dispatch({
+        type: actions.SIGNOUT_PROCESS,
+    });
+    axios.get(`${config.HOST_URL}/auth/signout`, {
+        headers:{
+            authorization: `Bearer ${token}`
+        }
+    }).then((res)=>{
+        console.log(res)
+        if (res.data.success===true) {
+            dispatch({
+                type: actions.SIGNOUT,
+            })
+        }
+    })
+}
+
+export function resetSigninNotification(dispatch) {
+    dispatch({
+        type: actions.RESET_SIGNIN_FAILED,
     });
 }

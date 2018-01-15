@@ -35,9 +35,12 @@ class HorizontalLoginForm extends Component {
         <FormItem
           validateStatus={emailError ? 'error' : ''}
           help={emailError || ''}
+          hasFeedback = {true}
         >
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please input your email!' }],
+            rules: [{ required: true, message: 'Please input your email!' },
+                    { type: 'email', message: 'The input is not valid E-mail!'}
+                  ],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
           )}
@@ -45,16 +48,20 @@ class HorizontalLoginForm extends Component {
         <FormItem
           validateStatus={passwordError ? 'error' : ''}
           help={passwordError || ''}
+          hasFeedback = {true}
         >
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            rules: [
+              { required: true, message: 'Please input your Password!' },
+              { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , message: 'The input is not valid Password!'}
+            ],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
         <FormItem  style={{marginRight:'16px'}}>
           <Button
-            // type="primary"
+            type="primary"
             loading = {this.props.Status.loders.signin}
             htmlType="submit"
             disabled={hasErrors(getFieldsError())}

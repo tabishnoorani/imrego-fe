@@ -9,7 +9,7 @@ const CollectionCreateForm = Form.create()(
     return (
       <Modal
         visible={visible}
-        title="Create a new collection"
+        title="Signup for a new account"
         okText="Create"
         onCancel={onCancel}
         onOk={onCreate}
@@ -48,7 +48,7 @@ class CollectionsPage extends Component {
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>SIGN UP</Button>
+        <Button onClick={this.showModal}>SIGN UP</Button>
         <CollectionCreateForm
           ref={this.saveFormRef}
           visible={this.state.visible}

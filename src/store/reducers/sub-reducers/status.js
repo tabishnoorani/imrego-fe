@@ -27,14 +27,20 @@ function Status (state=defaultState, action) {
         case actions.SIGNIN_FAILED:{
             return {...state, 
                 loders: {signin: false}, 
-                msg:{signinFiled: action.payload}
+                msg:{signinField: action.payload}
             }
         }
         case actions.SIGNOUT: {
-            return {...state, auth: false}
+            return {...state, auth: false, loders: {signout: false}}
+        }
+        case actions.RESET_SIGNIN_FAILED: {
+            return {...state, msg:{signinField:""}}
+        }
+        case actions.SIGNOUT_PROCESS: {
+            return {...state, loders: {signout: true} }
         }
         default: {
-            return {...state}
+            return {...state }
         }
     }
 }
