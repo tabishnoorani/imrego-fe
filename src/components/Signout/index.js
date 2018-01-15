@@ -7,10 +7,9 @@ const Signout = (props) =>{
         signout(props.dispatch, props.token);
     }
     return(
-        <Button 
-        type="primary" 
+        <Button  
         shape="circle" 
-        icon="search" 
+        icon="logout" 
         loading={props.signoutLoder} 
         onClick={Signout} />
     );
