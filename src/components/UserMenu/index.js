@@ -1,21 +1,28 @@
 import React from 'react';
-import Signout from '../Signout';
 import { Row, Col } from 'antd';
+import Signout from '../Signout';
+import Notifications from '../Notifications';
+import ManageItems from '../ManageItems';
+import Settings from '../Settings';
 
 const UserMenu = (props)=>{
+
+    const { notification, manageItems, settings, signout } = props.userMenuSelect;
+
     return(
-        <Row type="flex" justify="end" align="middle">
+        <Row gutter={16} type="flex" justify="center" align="middle">
             <Col>
-                Notification
+                <Notifications dispatch={props.dispatch} activeLink = {notification}/>
             </Col>
             <Col>
-                Manage List
+                <ManageItems dispatch={props.dispatch} activeLink = {manageItems}/>
             </Col>
             <Col>
-                Settings
+                <Settings dispatch={props.dispatch} activeLink = {settings}/>
             </Col>
             <Col>
                 <Signout 
+                    activeLink = {signout}
                     signoutLoder={props.signoutLoder}
                     dispatch={props.dispatch}
                     token={props.token}

@@ -97,3 +97,19 @@ export function signupCreate (dispatch, user, form) {
     })
 
 }
+
+export function userMenuSelect (dispatch, select) {
+    const payload = {
+        notifications: false,
+        manageItems: false,
+        settings: false,
+        signout: false
+    };
+    payload[select] = true;
+
+    console.log (payload);
+    dispatch({
+        type: actions.USER_MENU_SELECT,
+        payload: payload
+    })
+}
