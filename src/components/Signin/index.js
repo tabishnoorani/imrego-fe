@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signin } from '../../store/actions/index';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, notification } from 'antd';
+import { signin, resetSigninNotification } from '../../store/actions/index';
+
+
+
 const FormItem = Form.Item;
 
 function hasErrors(fieldsError) {
@@ -9,23 +12,35 @@ function hasErrors(fieldsError) {
 }
 
 class HorizontalLoginForm extends Component {
+  
   componentDidMount() {
-    // To disabled submit button at the beginning.
     this.props.form.validateFields();
   }
+  
+  aNotification(message=this.props.signinField) {
+    if (this.props.signinField!==""){
+      notification.open({
+        message: 'Invalid User',
+        description: message,
+        duration: 0,
+      });
+      resetSigninNotification(this.props.dispatch);
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const { dispatch } = this.props
-        signin(dispatch, values, this.props.aNotification);
+        signin(dispatch, values, this.aNotification.bind(this));
       }
     });
   }
+
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
-    // Only show error after a field is touched.
     const emailError = isFieldTouched('email') && getFieldError('email');
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
@@ -78,7 +93,8 @@ const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
 
 const returnState = (store)=>{
   return({
-    Status: store.Status 
+    Status: store.Status, 
+    signinField: store.Status.msg.signinField 
   });
 }
 export default connect(returnState)(WrappedHorizontalLoginForm);

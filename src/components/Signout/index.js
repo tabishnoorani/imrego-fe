@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { signout } from '../../store/actions';
 
 const Signout = (props) =>{
@@ -7,11 +7,14 @@ const Signout = (props) =>{
         signout(props.dispatch, props.token);
     }
     return(
-        <Button  
-        shape="circle" 
-        icon="logout" 
-        loading={props.signoutLoder} 
-        onClick={Signout} />
+        <Tooltip placement="topRight" title="Signout">
+            <Button  
+                shape="circle" 
+                icon="logout" 
+                loading={props.signoutLoder} 
+                onClick={Signout} 
+            />
+        </Tooltip>
     );
 }
 

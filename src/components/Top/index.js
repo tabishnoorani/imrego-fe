@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Layout } from 'antd';
-import SignInUp from './sign-in-up';
+import { Row, Layout } from 'antd';
 import Logo from '../logo';
-import Signout from '../Signout';
+import Menu from '../Menu';
 
 const { Header } = Layout;
 
@@ -17,15 +16,8 @@ const Top = (props)=>{
     height:"auto",
     }}>
       <Row type="flex" justify="space-between" align="middle">
-        <Col span={5}>
-          <Logo />
-        </Col>
-        {(props.auth)? 
-        <Signout 
-        signoutLoder={props.signoutLoder}
-        dispatch={props.dispatch}
-        token={props.token}/>: 
-        <SignInUp/>}  
+        <Logo />
+        <Menu/>
       </Row>    
     </Header>
 )}

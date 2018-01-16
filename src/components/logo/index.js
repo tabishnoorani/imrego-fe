@@ -1,10 +1,14 @@
 import React from 'react';
-import './style/style.css'
+import { Col } from 'antd';
+import './style/style.css';
+
 const Logo = (props)=>{
     return (
-        <div className='logo'>
-            IMREGO
-        </div>
+        <Col span={5}>
+            <div className='logo'>
+                IMREGO
+            </div>
+        </Col>
     )
 }
 
