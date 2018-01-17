@@ -1,3 +1,4 @@
+import actions from '../../actions/action-const';
 
 const defaultState = {
     fname: "Tabbish",
@@ -8,7 +9,7 @@ const defaultState = {
 }
 function User (state=defaultState, action) {
     switch (action.type){
-        case "SIGNIN":
+        case actions.SIGNIN:
         {
             const {fname, lname, email, token} = action.payload
             return ({...state,
@@ -17,6 +18,9 @@ function User (state=defaultState, action) {
                 email,
                 token
             });
+        }
+        case actions.SIGNOUT:{
+            return ({...defaultState})
         }
         default:{
             return({...state});

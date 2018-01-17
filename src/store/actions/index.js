@@ -1,11 +1,10 @@
+import axios from 'axios';
 import actions from './action-const';
 import config from '../../config';
-import axios from 'axios';
 
-export function signin(dispatch, credential,aNotification){
+export function signin(dispatch, credential, aNotification){
     dispatch({
         type: actions.SIGNIN_PROCESS,
-        payload: ""
     });
 
     axios.post(`${config.HOST_URL}/auth/signin`,{
@@ -14,9 +13,11 @@ export function signin(dispatch, credential,aNotification){
     })
     .then((res)=>{
         if (res.data.success) {
+            const {data, token} = res.data;
+            localStorage.setItem('token', token);
             dispatch({
                 type: actions.SIGNIN,
-                payload:{...res.data.data, token: res.data.token}
+                payload:{...data, token: token}
             });
         } else {
             dispatch({
@@ -46,9 +47,10 @@ export function signout(dispatch, token){
     }).then((res)=>{
         console.log(res)
         if (res.data.success===true) {
+            localStorage.removeItem('token');
             dispatch({
                 type: actions.SIGNOUT,
-            })
+            });
         }
     })
 }
@@ -112,4 +114,34 @@ export function userMenuSelect (dispatch, select) {
         type: actions.USER_MENU_SELECT,
         payload: payload
     })
+}
+
+export function initializeToken (dispatch, token) {
+    axios.get(`${config.HOST_URL}/auth/initializeToken`,{
+        headers:{
+            authorization: `Bearer ${token}`
+        }
+    })
+    .then((res)=>{
+        console.log (res.data);
+        if (res.data.success){
+            dispatch({
+                type: actions.SIGNIN,
+                payload:{...res.data.data, token: token}
+            })
+        }else {
+            localStorage.removeItem('token');
+            dispatch({
+                type: actions.SIGNIN_FAILED,
+                payload:"Invalid or expired token. Please signin again."
+            });
+        }
+    })
+    .catch((err)=>{
+        localStorage.removeItem('token');
+        dispatch({
+            type: actions.SIGNIN_FAILED,
+            payload: "Error in signing in. Please contact the webmaster."
+        });
+    });
 }

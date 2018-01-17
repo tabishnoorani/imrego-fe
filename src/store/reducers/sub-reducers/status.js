@@ -40,7 +40,8 @@ function Status (state=defaultState, action) {
             }
         }
         case actions.SIGNOUT: {
-            return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
+            return ({...defaultState})
+            // return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
         }
         case actions.RESET_SIGNIN_FAILED: {
             return {...state, msg:{signinField:""}}

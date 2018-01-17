@@ -30,10 +30,10 @@ class HorizontalLoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, credentials) => {
       if (!err) {
         const { dispatch } = this.props
-        signin(dispatch, values, this.aNotification.bind(this));
+        signin(dispatch, credentials, this.aNotification.bind(this));
       }
     });
   }
