@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 
 const MenuLink = (props) => {
-// class MenuLink extends React.Component{
+    
     const { link, dispatch, activeLink, icon, toolTip, history } = props
     
     function handleClick(){
@@ -19,9 +19,7 @@ const MenuLink = (props) => {
     
         userMenuSelect(dispatch, dispProps);
     }
-
-    const localLink = false; 
-
+ 
     const buttonSettings = {
         type:(activeLink)?"primary":"secondary",
         shape:"circle", 
