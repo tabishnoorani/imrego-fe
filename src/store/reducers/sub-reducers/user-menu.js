@@ -1,6 +1,17 @@
 import actions from '../../actions/action-const';
 
 const defaultState = {
+    home: {
+        noPush: false,
+        link:"home",
+        icon:"home", 
+        activeLink: false,
+        callback: "",
+        toolTip:{
+            placement: "top",
+            title:"Home"
+        }
+    },
     notifications: {
         noPush: false,
         link:"notifications",
