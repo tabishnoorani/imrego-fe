@@ -6,10 +6,15 @@ import { withRouter } from 'react-router-dom';
 
 const MenuLink = (props) => {
     
-    const { link, dispatch, activeLink, icon, toolTip, history } = props
+    const { noPush, link, dispatch, activeLink, icon, callback, toolTip, history } = props
     
     function handleClick(){
-        history.push(link);
+        if (callback!==""){
+            callback();
+        }
+        if (noPush!==true){
+            history.push(link);
+        }
         const dispProps = {
             link: link,
             icon: icon, 

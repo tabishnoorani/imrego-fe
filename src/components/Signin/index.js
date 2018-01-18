@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, notification } from 'antd';
 import { signin, resetSigninNotification } from '../../store/actions/index';
 
-
-
 const FormItem = Form.Item;
 
 function hasErrors(fieldsError) {
@@ -33,6 +31,7 @@ class HorizontalLoginForm extends Component {
     this.props.form.validateFields((err, credentials) => {
       if (!err) {
         const { dispatch } = this.props
+
         signin(dispatch, credentials, this.aNotification.bind(this));
       }
     });

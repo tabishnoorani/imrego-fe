@@ -6,6 +6,7 @@ const defaultState = {
     loders: { //Button Clicks
         signin: false,
         signup: false,
+        signout: false,
         imregoSearch: false,
         createUser: false
     },
@@ -40,8 +41,7 @@ function Status (state=defaultState, action) {
             }
         }
         case actions.SIGNOUT: {
-            return ({...defaultState})
-            // return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
+            return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
         }
         case actions.RESET_SIGNIN_FAILED: {
             return {...state, msg:{signinField:""}}

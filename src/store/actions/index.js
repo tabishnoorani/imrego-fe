@@ -46,13 +46,15 @@ export function signout(dispatch, token){
         }
     }).then((res)=>{
         if (res.data.success===true) {
-            localStorage.removeItem('token');
+            localStorage.clear();
+
             dispatch({
                 type: actions.SIGNOUT,
             });
         }
     })
 }
+
 
 export function resetSigninNotification(dispatch) {
     dispatch({
