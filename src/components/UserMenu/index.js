@@ -1,33 +1,24 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import Signout from '../Signout';
-import Notifications from '../Notifications';
-import ManageItems from '../ManageItems';
-import Settings from '../Settings';
+import MenuLink from '../menuLink';
 
 const UserMenu = (props)=>{
 
-    const { notification, manageItems, settings, signout } = props.userMenuSelect;
-
+    const { userMenu, dispatch } = props;
+    
     return(
-        <Row gutter={16} type="flex" justify="center" align="middle">
-            <Col>
-                <Notifications dispatch={props.dispatch} activeLink = {notification}/>
-            </Col>
-            <Col>
-                <ManageItems dispatch={props.dispatch} activeLink = {manageItems}/>
-            </Col>
-            <Col>
-                <Settings dispatch={props.dispatch} activeLink = {settings}/>
-            </Col>
-            <Col>
-                <Signout 
-                    activeLink = {signout}
-                    signoutLoder={props.signoutLoder}
-                    dispatch={props.dispatch}
-                    token={props.token}
-                />
-            </Col>
+        <Row gutter={8} type="flex" justify="center" align="middle">
+        {
+            Object.keys(userMenu).map((key, index)=>{
+                return (
+                    <Col key={`userMenu ${key}`}>
+                        <MenuLink 
+                        {...userMenu[key]} 
+                        dispatch={dispatch}/>
+                    </Col>
+                )
+            })
+        }
         </Row>
     )
 }

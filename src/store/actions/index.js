@@ -45,7 +45,6 @@ export function signout(dispatch, token){
             authorization: `Bearer ${token}`
         }
     }).then((res)=>{
-        console.log(res)
         if (res.data.success===true) {
             localStorage.removeItem('token');
             dispatch({
@@ -95,21 +94,15 @@ export function signupCreate (dispatch, user, form) {
             type: actions.SIGNIN,
             payload:{...res.data.data, token: res.data.token}
         });
-        console.log(res);
     })
 
 }
 
-export function userMenuSelect (dispatch, select) {
-    const payload = {
-        notifications: false,
-        manageItems: false,
-        settings: false,
-        signout: false
-    };
-    payload[select] = true;
+export function userMenuSelect (dispatch, props) {
+    var payload={};
+    const select = props.link
+    payload[select] = {...props, activeLink: true}
 
-    console.log (payload);
     dispatch({
         type: actions.USER_MENU_SELECT,
         payload: payload
@@ -123,7 +116,6 @@ export function initializeToken (dispatch, token) {
         }
     })
     .then((res)=>{
-        console.log (res.data);
         if (res.data.success){
             dispatch({
                 type: actions.SIGNIN,

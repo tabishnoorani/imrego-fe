@@ -13,7 +13,8 @@ const Menu = (props) => {
             signoutLoder={props.signoutLoder}
             dispatch={props.dispatch}
             token={props.token}
-            userMenuSelect={props.userMenuSelect}/>: 
+            userMenu={props.userMenu}/>
+            : 
             <SignInUp/>}
     </Col>
     )
@@ -24,7 +25,7 @@ const returnState = (store)=>{
       auth: store.Status.auth,
       signoutLoder: store.Status.loders.signout,
       token: store.User.token,
-      userMenuSelect: store.Status.userMenuSelect
+      userMenu: store.UserMenu
     });
   } 
 
