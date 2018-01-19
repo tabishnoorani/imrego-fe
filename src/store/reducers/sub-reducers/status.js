@@ -15,12 +15,6 @@ const defaultState = {
     },
     showSignupModal: false,
     DesSignupModal: false,
-    userMenuSelect: {
-        notifications: false,
-        manageItems: false,
-        settings: false,
-        signout: false
-    }
 }
 
 function Status (state=defaultState, action) {
