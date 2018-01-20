@@ -16,9 +16,11 @@ const MenuLink = (props) => {
             history.push(link);
         }
         const dispProps = {
+            noPush: noPush,
             link: link,
             icon: icon, 
             activeLink: activeLink,
+            callback: callback,
             toolTip: toolTip
         }
     
