@@ -26,19 +26,19 @@ const Mid = (props)=> {
                     <SearchBar />
                     
                     <Route 
-                    exact path='/home' 
+                    exact path={'/home'} 
                     render={() => <Home auth={auth}/>}/>
 
                     <Route 
-                    exact path='/notifications' 
+                    exact path={'/notifications'} 
                     render={()=> <Notifications auth={auth}/>}/>
 
                     <Route 
-                    exact path='/manageitems' 
+                    exact path={'/manageitems'} 
                     render={()=><ManageItems auth={auth}/>}/>
                     
                     <Route 
-                    exact path='/settings' 
+                    exact path={'/settings'} 
                     render={()=><Settings auth={auth}/>}/>
 
 
@@ -48,10 +48,11 @@ const Mid = (props)=> {
     );
 }
 
-const returnState = (store)=>{
-    return({
-      auth: store.Status.auth,
-      token: store.User.token
-    });
-  } 
-export default connect(returnState)(Mid);
+// const returnState = (store)=>{
+//     return({
+//       auth: store.Status.auth,
+//       token: store.User.token
+//     });
+//   } 
+// export default connect(returnState)(Mid);
+export default Mid;

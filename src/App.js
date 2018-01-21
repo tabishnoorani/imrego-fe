@@ -15,11 +15,14 @@ class App extends Component {
     }
   }
 
-  render() {  
+  render() {
+    const {auth, token} = this.props;
     return (
     <Layout style={{background:"whitesmoke"}}>
       <Top />
-      <Mid />
+      <Mid 
+        auth={auth}
+        token={token}/>
       <Bottom />
     </Layout>
     );
@@ -28,7 +31,9 @@ class App extends Component {
 
 const returnState = (store)=>{
   return({
-    UserMenu: store.UserMenu
+    UserMenu: store.UserMenu,
+    auth: store.Status.auth,
+    token: store.User.token
   });
 }
 
