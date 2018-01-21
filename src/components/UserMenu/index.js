@@ -26,6 +26,7 @@ class UserMenu extends React.Component {
     
     Signout(){
         signout(this.props.dispatch, this.props.token);
+        this.props.history.push('/');
     }
 
     render(){

@@ -21,10 +21,12 @@ const Mid = (props)=> {
             marginTop: '80px', 
             marginBottom:'20px' 
             }}>
+                
+            <Route exact path={['/', '/home']}
+            render={()=> <SearchBar />} />
+
             <Row type="flex" justify="center">
-                <Col span={20}>
-                    <SearchBar />
-                    
+                <Col>
                     <Route 
                     exact path={'/home'} 
                     render={() => <Home auth={auth}/>}/>
@@ -48,11 +50,4 @@ const Mid = (props)=> {
     );
 }
 
-// const returnState = (store)=>{
-//     return({
-//       auth: store.Status.auth,
-//       token: store.User.token
-//     });
-//   } 
-// export default connect(returnState)(Mid);
 export default Mid;

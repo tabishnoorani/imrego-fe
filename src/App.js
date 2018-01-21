@@ -20,8 +20,7 @@ class App extends Component {
     return (
     <Layout style={{background:"whitesmoke"}}>
       <Top />
-      <Mid 
-        auth={auth}
+      <Mid auth={auth}
         token={token}/>
       <Bottom />
     </Layout>
