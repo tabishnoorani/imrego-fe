@@ -18,13 +18,20 @@ class App extends Component {
   }
 
   render() {
-    const {auth, token} = this.props;
+    const {auth, token, mid, dispatch} = this.props;
     return (
     <Layout style={{background:"whitesmoke"}}>
+    
       <Top />
-      <Mid auth={auth}
-        token={token}/>
+      
+      <Mid 
+        auth={auth}
+        token={token}
+        dispatch = {dispatch}
+        Mid = {mid}/>
+      
       <Bottom />
+    
     </Layout>
     );
   }
@@ -34,7 +41,8 @@ const returnState = (store)=>{
   return({
     UserMenu: store.UserMenu,
     auth: store.Status.auth,
-    token: store.User.token
+    token: store.User.token,
+    mid: store.Mid,
   });
 }
 

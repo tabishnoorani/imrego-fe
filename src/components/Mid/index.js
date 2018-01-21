@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row, Col, Layout } from 'antd';
+import { Row, Layout } from 'antd';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 import SearchBar from '../SearchBar';
 import Home from './Home';
 import Notifications from './Notifications';
@@ -13,36 +12,36 @@ const { Content } = Layout;
 
 const Mid = (props)=> {
     
-    const { auth, token } = props;
+    const { auth, dispatch, token, Mid } = props;
+
+    const ManageItemsProps = {auth, dispatch, token, ...Mid.manageitems}
 
     return(
         <Content style={{ 
-            padding: '0 50px', 
+            // padding: '0 50px', 
             marginTop: '80px', 
             marginBottom:'20px' 
             }}>
                 
             <Route exact path={['/', '/home']}
             render={()=> <SearchBar />} />
-
+            
             <Row type="flex" justify="center">
-                <Col>
-                    <Route 
-                    exact path={'/home'} 
-                    render={() => <Home auth={auth}/>}/>
+                <Route 
+                exact path={'/home'} 
+                render={() => <Home auth={auth}/>}/>
 
-                    <Route 
-                    exact path={'/notifications'} 
-                    render={()=> <Notifications auth={auth}/>}/>
+                <Route 
+                exact path={'/notifications'} 
+                render={()=> <Notifications auth={auth}/>}/>
 
-                    <Route 
-                    exact path={'/manageitems'} 
-                    render={()=><ManageItems auth={auth}/>}/>
-                    
-                    <Route 
-                    exact path={'/settings'} 
-                    render={()=><Settings auth={auth}/>}/>
-                </Col>
+                <Route 
+                exact path={'/manageitems'} 
+                render={()=><ManageItems {...ManageItemsProps}/>}/>
+                
+                <Route 
+                exact path={'/settings'} 
+                render={()=><Settings auth={auth}/>}/>
             </Row>
         </Content>
     );

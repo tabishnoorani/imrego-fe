@@ -139,3 +139,15 @@ export function initializeToken (dispatch, token) {
         });
     });
 }
+
+export function showAddItem (dispatch) {
+    dispatch({
+        type: actions.SHOW_ADD_ITEM
+    })
+}
+
+export function showAddItemCancel(dispatch){
+    dispatch({
+        type: actions.SHOW_ADD_ITEM_CANCEL
+    })
+}

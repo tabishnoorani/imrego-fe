@@ -27,27 +27,27 @@ class RegistrationForm extends Component {
       onCancel= {onCancel}
       onOk = {onCreate}
       destroyOnClose={DesSignupModal}>
-      <FormItem
-        {...formItemLayout}
-        label="First Name"
-      >
-        {getFieldDecorator('fname', {
-          rules: [{ required: true, message: 'Please input your First Name.', whitespace: true }],
-        })(
-          <Input disabled= {createUserLoder}/>
-        )}
-      </FormItem>
-      <FormItem
-        {...formItemLayout}
-        label="Last Name"
-      >
-        {getFieldDecorator('lname', {
-          rules: [{ required: true, message: 'Please input your Last Name.', whitespace: true }],
-        })(
-          <Input disabled= {createUserLoder}/>
-        )}
-      </FormItem>
       <Form>
+        <FormItem
+          {...formItemLayout}
+          label="First Name"
+        >
+          {getFieldDecorator('fname', {
+            rules: [{ required: true, message: 'Please input your First Name.', whitespace: true }],
+          })(
+            <Input disabled= {createUserLoder}/>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Last Name"
+        >
+          {getFieldDecorator('lname', {
+            rules: [{ required: true, message: 'Please input your Last Name.', whitespace: true }],
+          })(
+            <Input disabled= {createUserLoder}/>
+          )}
+        </FormItem>
         <FormItem
           {...formItemLayout}
           label="E-mail"
