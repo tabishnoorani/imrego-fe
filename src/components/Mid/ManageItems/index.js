@@ -1,11 +1,15 @@
 import React from 'react';
+import config from '../../../config';
 import NotAuth from '../NotAuth';
 
 const ManageItems = (props)=>{
+    window.document.title=`${config.APP_NAME} - Manage Items`
     const {auth} = props;
     if (auth!==false){
         return (
-            <div>Manage Items</div>
+            <div>
+
+            </div>
         )
     } else return (<NotAuth />)
 }

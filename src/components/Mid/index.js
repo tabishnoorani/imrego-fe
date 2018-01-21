@@ -42,8 +42,6 @@ const Mid = (props)=> {
                     <Route 
                     exact path={'/settings'} 
                     render={()=><Settings auth={auth}/>}/>
-
-
                 </Col>
             </Row>
         </Content>

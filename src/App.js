@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
+import config from './config';
 import './App.css';
 import Top from './components/Top';
 import Mid from './components/Mid';
@@ -13,6 +14,7 @@ class App extends Component {
     if (token) {
       initializeToken(this.props.dispatch, token);
     }
+    window.document.title=config.APP_NAME;
   }
 
   render() {
