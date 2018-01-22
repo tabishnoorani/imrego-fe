@@ -151,3 +151,25 @@ export function showAddItemCancel(dispatch){
         type: actions.SHOW_ADD_ITEM_CANCEL
     })
 }
+
+export function addItem (dispatch, values, token){
+    console.log(values)
+    dispatch({
+        type: actions.ADD_ITEM_CREATE
+    });
+
+    axios({
+        method: 'POST',
+        url: `${config.HOST_URL}/api/imgupload`,
+        headers:{
+            authorization: `Bearer ${token}`,
+            // 'Content-Type': 'image/jpeg'
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        json: true,
+        files: values
+        // data: values.imgs
+    }).then((res)=>{
+        console.log(res.data);
+    })
+}

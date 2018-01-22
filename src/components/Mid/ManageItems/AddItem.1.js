@@ -18,25 +18,23 @@ class AddItem extends Component {
       onCreate, 
       addItemLoder, 
       desAddItemModal=true,
-      token
       } = this.props;
     
     const imgProps = {
       action: `${config.HOST_URL}/api/imgupload`,
-      name: 'file',
-      headers: {
-        authorization: `Bearer ${token}`,
+
+      onRemove: (file) => {
+        this.setState({
+          fileList: [],
+        });
       },
-      onChange(info) {
-        if (info.file.status !== 'uploading') {
-        }
-        if (info.file.status === 'done') {
-          console.log (info.file.response)
-          message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
+      
+      beforeUpload: (file) => {
+        this.setState({fileList:[file]})
+        return false;
       },
+
+      fileList: this.state.fileList,
     };
 
     const { getFieldDecorator } = this.props.form;

@@ -3,16 +3,19 @@ import { Button, Tooltip, Row, Col } from 'antd';
 import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
-import {showAddItem, showAddItemCancel} from '../../../store/actions';
+import { 
+    showAddItem, 
+    showAddItemCancel, 
+    addItem } from '../../../store/actions';
 
-const ManageItems = (props)=>{
-    
+class ManageItems extends React.Component {
+    render(){
     const { 
         auth, 
         dispatch, 
         showAddItemModal, 
         desAddItemModal, 
-        loder } = props;
+        loder, token } = this.props;
     
     const showModal = () => {
         showAddItem(dispatch);
@@ -23,17 +26,16 @@ const ManageItems = (props)=>{
     }
     
     const handleCreate = () => {
-        // const form = this.form;
-        // form.validateFields((err, values) => {
-        //     if (err) {
-        //     return;
-        //     }
-        //     signupCreate(this.props.dispatch, values, this.form);
-        // });
+        const form= this.form;
+        form.validateFields((err, values) => {
+            if (!err) {
+                addItem(dispatch, values, token);
+            }
+        });
     }
     
-    const saveFormRef = (form) => {
-        this.form = form;
+    const saveFormRef = (Form) => {
+        this.form = Form;
     }
    
     if (auth!==false){
@@ -55,15 +57,17 @@ const ManageItems = (props)=>{
                 <AddItem
                 ref={saveFormRef}
                 visible={showAddItemModal}
-                addItemLoder={loder.addItemLoder}
+                addItemLoder={loder.addItem}
                 onCancel={handleCancel.bind(this)}
                 onCreate={handleCreate}
                 DesSignupModal={desAddItemModal}
+                token={token}
                 />
             </Row>
                 
         )
     } else return (<NotAuth />)
+}
 }
 
 export default ManageItems

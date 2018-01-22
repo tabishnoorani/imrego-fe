@@ -19,6 +19,15 @@ function Mid (state=defaultState, action) {
             return {...state, 
                 manageitems:{...state.manageitems, showAddItemModal:false}}
         }
+        case actions.ADD_ITEM_CREATE: {
+            return {...state, 
+                manageitems:{...state.manageitems, 
+                    loder:{...state.manageitems.loder, 
+                        addItem: true
+                    }
+                }
+            }
+        }
         default: {
             return {...state }
         }
