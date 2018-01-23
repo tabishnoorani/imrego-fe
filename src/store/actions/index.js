@@ -153,7 +153,7 @@ export function showAddItemCancel(dispatch){
 }
 
 export function addItem (dispatch, values, token){
-    console.log(values)
+    // console.log(values)
     dispatch({
         type: actions.ADD_ITEM_CREATE
     });
@@ -163,13 +163,33 @@ export function addItem (dispatch, values, token){
         url: `${config.HOST_URL}/api/imgupload`,
         headers:{
             authorization: `Bearer ${token}`,
-            // 'Content-Type': 'image/jpeg'
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         json: true,
-        files: values
-        // data: values.imgs
+        data: {
+            file: values.imgs.fileList[0]
+        }
     }).then((res)=>{
-        console.log(res.data);
+        axios({
+            method: 'POST',
+            url: `${config.HOST_URL}/api/imrego`,
+            headers:{
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            json: true,
+            data: {
+                title: values.title,
+                catagory: values.catagory,
+                description: values.description,
+                imgURL: res.data.url
+            }
+        }).then((res)=>{
+            console.log(res.data);
+            dispatch({
+                type: actions.ADD_ITEM_CREATED
+            })            
+        })
+        
     })
 }

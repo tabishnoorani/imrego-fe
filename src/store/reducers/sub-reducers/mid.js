@@ -28,6 +28,15 @@ function Mid (state=defaultState, action) {
                 }
             }
         }
+        case actions.ADD_ITEM_CREATED:{
+            return {...state,
+                manageitems:{...state.manageitems, showAddItemModal: false,
+                    loder: {...state.manageitems.loder,
+                        addItem: false
+                    }
+                }
+            }
+        }
         default: {
             return {...state }
         }
