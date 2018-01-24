@@ -145,17 +145,17 @@ export function signupCreate (dispatch, user, form) {
     })
 }
 
-export function userMenuSelect (dispatch, props) {
-    // var payload={};
-    const link = props
-    // payload[link] = {...props, activeLink: true}
-    const payload=link;
+// export function userMenuSelect (dispatch, props) {
+//     // var payload={};
+//     const link = props
+//     // payload[link] = {...props, activeLink: true}
+//     const payload=link;
 
-    dispatch({
-        type: actions.USER_MENU_SELECT, 
-        payload: payload
-    })
-}
+//     dispatch({
+//         type: actions.USER_MENU_SELECT, 
+//         payload: payload
+//     })
+// }
 
 
 

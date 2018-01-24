@@ -1,8 +1,8 @@
 import React from 'react';
 import { Col } from 'antd';
 import { connect } from 'react-redux';
-import UserMenu from '../UserMenu'
-import SignInUp from '../sign-in-up';
+import UserMenu from './UserMenu'
+import SignInUp from './sign-in-up';
 
 const Menu = (props) => {
     return(

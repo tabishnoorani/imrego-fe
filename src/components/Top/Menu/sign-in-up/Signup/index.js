@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import CollectionCreateForm from './SignupForm';
-import { signup, signupCancel, signupCreate } from '../../store/actions';
+import { signup, signupCancel, signupCreate } from '../../../../../store/actions';
 
 class CollectionsPage extends Component {
   showModal = () => {

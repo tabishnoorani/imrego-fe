@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Tooltip } from 'antd';
-// import { userMenuSelect } from '../../store/actions'
 import { withRouter } from 'react-router-dom';
 
 const MenuLink = (props) => {

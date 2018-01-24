@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import Signin from '../Signin';
-import Signup from '../Signup';
+import Signin from './Signin';
+import Signup from './Signup';
 
 
 const SignInUp = (props) => {

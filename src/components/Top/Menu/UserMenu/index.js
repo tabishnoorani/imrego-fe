@@ -1,9 +1,7 @@
 import React from 'react';
-// import {withRouter} from 'react-router-dom';
-import {Push} from '../../store/actions';
 import { Row, Col } from 'antd';
-import MenuLink from '../menuLink';
-import { signout } from '../../store/actions';
+import { Push, signout } from '../../../../store/actions'
+import MenuLink from './menuLink';
 
 class UserMenu extends React.Component {
 

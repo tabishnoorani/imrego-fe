@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, notification } from 'antd';
-import { signin, resetSigninNotification } from '../../store/actions/index';
+import { signin, resetSigninNotification } from '../../../../../store/actions';
 
 const FormItem = Form.Item;
 

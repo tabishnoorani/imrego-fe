@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Layout } from 'antd';
 import {connect} from 'react-redux';
-import SearchBar from '../SearchBar';
+import SearchBar from './SearchBar';
 import Home from './Home';
 import Notifications from './Notifications';
 import Settings from './Settings';

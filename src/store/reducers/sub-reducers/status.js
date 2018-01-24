@@ -59,11 +59,6 @@ function Status (state=defaultState, action) {
                 loders: {createUser: false}, 
                 showSignupModal: false }
         }
-        // case actions.USER_MENU_SELECT: {
-        //             return{...state,
-        //                 userMenuSelect: {...action.payload}
-        //             }
-        //         }
         default: {
             return {...state }
         }
