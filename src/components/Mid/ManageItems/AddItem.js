@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Modal, Upload, Button, Icon } from 'antd';
+import { Form, Input, Modal, Upload, Button, Icon, Spin } from 'antd';
 import config from '../../../config';
 
 const FormItem = Form.Item;
@@ -28,17 +28,6 @@ class AddItem extends Component {
           fileList: [],
         });
       },
-
-      // onChange(info) {
-      //   if (info.file.status !== 'uploading') {
-      //   }
-      //   if (info.file.status === 'done') {
-      //     console.log (info.file.response)
-      //     message.success(`${info.file.name} file uploaded successfully`);
-      //   } else if (info.file.status === 'error') {
-      //     message.error(`${info.file.name} file upload failed.`);
-      //   }
-      // },
       
       beforeUpload: (file) => {
         this.setState({fileList:[file]})
@@ -60,6 +49,11 @@ class AddItem extends Component {
         },
     };
 
+    function onCreateI () {
+      this.setState({fileList: []});
+      onCreate();
+    }
+
     return (
       <Modal 
       visible={visible}
@@ -67,9 +61,10 @@ class AddItem extends Component {
       okText="Add"
       confirmLoading = {addItemLoder}
       onCancel= {onCancel}
-      onOk = {onCreate}
+      onOk = {onCreateI.bind(this)}
       destroyOnClose={desAddItemModal}>
 
+      <Spin spinning={addItemLoder}>
       <Form>
           <FormItem
           {...formItemLayout}
@@ -113,6 +108,7 @@ class AddItem extends Component {
           </Upload>)}
           </FormItem>
       </Form>
+      </Spin>
       </Modal>
     );
   }

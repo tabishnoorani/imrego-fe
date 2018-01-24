@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {message} from 'antd';
 import actions from './action-const';
 import config from '../../config';
 
@@ -186,6 +187,7 @@ export function addItem (dispatch, values, token){
             }
         }).then((res)=>{
             console.log(res.data);
+            message.success('Item added!')
             dispatch({
                 type: actions.ADD_ITEM_CREATED
             })            
