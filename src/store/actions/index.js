@@ -101,9 +101,10 @@ export function signupCreate (dispatch, user, form) {
 }
 
 export function userMenuSelect (dispatch, props) {
-    var payload={};
-    const select = props.link
-    payload[select] = {...props, activeLink: true}
+    // var payload={};
+    const link = props.link
+    // payload[link] = {...props, activeLink: true}
+    const payload=link;
 
     dispatch({
         type: actions.USER_MENU_SELECT, 

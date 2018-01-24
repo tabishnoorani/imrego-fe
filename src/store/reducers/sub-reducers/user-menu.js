@@ -65,8 +65,22 @@ const defaultState = {
 
 function UserMenu (state=defaultState, action) {
     switch (action.type) {
-        case actions.USER_MENU_SELECT: { 
-            return{...defaultState, ...action.payload}
+        case actions.USER_MENU_SELECT: {
+            var newState={};
+            for (var key in state){
+                if (key===action.payload){
+                    newState[key]={
+                        ...state[key], 
+                        activeLink:true
+                    }
+                } else {
+                    newState[key]={
+                        ...state[key], 
+                        activeLink: false
+                    }
+                }
+            } 
+            return{...newState}
         }
         case actions.SIGNOUT_PROCESS: {
             return {...state,
