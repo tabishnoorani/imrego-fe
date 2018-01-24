@@ -11,8 +11,10 @@ import { initializeToken } from './store/actions';
 class App extends Component {
 
     componentWillMount(){
+      const {pathname, dispatch} = this.props
       const token = localStorage.getItem('token');
-      initializeToken(this.props.dispatch, token);
+      initializeToken(dispatch, token, pathname);
+      console.log(pathname);
     }
 
   render() {
@@ -41,6 +43,7 @@ const returnState = (store)=>{
     auth: store.Status.auth,
     token: store.User.token,
     mid: store.Mid,
+    pathname: store.router.location.pathname
   });
 }
 

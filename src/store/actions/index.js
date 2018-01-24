@@ -43,7 +43,7 @@ export function initializeToken (dispatch, token) {
     }
 }
 
-export function testPush (pushTo){
+export function Push (pushTo){
     Dispatch(push(pushTo));
 }
 
@@ -96,6 +96,7 @@ export function signout(dispatch, token){
             dispatch({
                 type: actions.SIGNOUT,
             });
+            Push('/');
         }
     })
 }

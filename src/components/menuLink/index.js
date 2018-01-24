@@ -7,7 +7,6 @@ const MenuLink = (props) => {
     
     const { noPush, 
             link, 
-            dispatch,  
             icon, 
             callback, 
             toolTip, 
@@ -24,14 +23,6 @@ const MenuLink = (props) => {
         }
         if (noPush!==true){
             history.push(link);
-        }
-        const dispProps = {
-            noPush,
-            link,
-            icon, 
-            activeLink,
-            callback,
-            toolTip,
         }
     }
     

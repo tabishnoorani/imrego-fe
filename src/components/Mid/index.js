@@ -1,18 +1,21 @@
 import React from 'react';
 import { Row, Layout } from 'antd';
-import { Route } from 'react-router-dom';
+import {connect} from 'react-redux';
 import SearchBar from '../SearchBar';
 import Home from './Home';
 import Notifications from './Notifications';
 import Settings from './Settings';
 import ManageItems from './ManageItems';
+// import {checkPathname} from '../../store/actions';
 
 
 const { Content } = Layout;
 
 const Mid = (props)=> {
     
-    const { auth, dispatch, token, Mid } = props;
+    const { auth, dispatch, token, Mid, pathname } = props;
+
+    const Pathname = pathname.split('/')[1];
 
     const ManageItemsProps = {auth, dispatch, token, ...Mid.manageitems}
 
@@ -22,29 +25,32 @@ const Mid = (props)=> {
             marginTop: '80px', 
             marginBottom:'20px' 
             }}>
-                
-            <Route exact path = {'/home'}
-            render={()=> <SearchBar />} />
-            
+
+            {(Pathname==='home'||Pathname==='')?<SearchBar/>:""}
+                            
             <Row type="flex" justify="center">
-                <Route 
-                exact path={'/home'} 
-                render={() => <Home auth={auth}/>}/>
 
-                <Route 
-                exact path={'/notifications'} 
-                render={()=> <Notifications auth={auth}/>}/>
+                {(Pathname==='home')?
+                <Home auth={auth}/>:""}
 
-                <Route 
-                exact path={'/manageitems'} 
-                render={()=><ManageItems {...ManageItemsProps}/>}/>
+                {(Pathname==='notifications')?
+                <Notifications auth={auth}/>:""}
+
+                {(Pathname==='manageitems')?
+                <ManageItems {...ManageItemsProps}/>:""}
+
+                {(Pathname==='settings')?
+                <Settings auth={auth}/>:""}
                 
-                <Route 
-                exact path={'/settings'} 
-                render={()=><Settings auth={auth}/>}/>
             </Row>
         </Content>
     );
 }
 
-export default Mid;
+const returnState = (store)=>{
+    return({
+      pathname: store.router.location.pathname
+    });
+  }
+
+export default connect(returnState)(Mid);

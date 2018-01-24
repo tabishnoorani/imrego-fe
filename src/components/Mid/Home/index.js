@@ -1,10 +1,10 @@
 import React from 'react';
 import NotAuth from '../NotAuth';
 import config from '../../../config';
-import {testPush} from '../../../store/actions';
+import {Push} from '../../../store/actions';
 
 function handleClick(e){
-    testPush('/settings');
+    Push('/settings');
 }
 
 const Home = (props)=>{

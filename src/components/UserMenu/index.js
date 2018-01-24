@@ -1,8 +1,9 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+// import {withRouter} from 'react-router-dom';
+import {Push} from '../../store/actions';
 import { Row, Col } from 'antd';
 import MenuLink from '../menuLink';
-import {userMenuSelect, signout} from '../../store/actions';
+import { signout } from '../../store/actions';
 
 class UserMenu extends React.Component {
 
@@ -12,21 +13,16 @@ class UserMenu extends React.Component {
     }
     
     componentWillMount(){
-        const link = this.props.location.pathname;
-        var activeLink = link.slice(1);
-        if (activeLink==="") {
-            activeLink='home';
-            this.props.history.push('/home');
+        const {pathname} = this.props;
+        var linkName = pathname.split('/')
+        if (linkName[1]==="") {
+            Push('/home');
         }   
-            userMenuSelect(
-                this.props.dispatch,
-                activeLink
-            );
     }
     
     Signout(){ 
         signout(this.props.dispatch, this.props.token);
-        this.props.history.push('/');
+        // this.props.history.push('/');
     }
 
     render(){
@@ -51,4 +47,4 @@ class UserMenu extends React.Component {
     }
 }
 
-export default withRouter(UserMenu);
+export default UserMenu;
