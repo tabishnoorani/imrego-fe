@@ -31,7 +31,7 @@ const MenuLink = (props) => {
             toolTip
         }
     
-        userMenuSelect(dispatch, dispProps); 
+        userMenuSelect(dispatch, link); 
     }
  
     const buttonSettings = {

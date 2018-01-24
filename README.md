@@ -99,7 +99,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 
 ## FINAL THINGS TO DO:
+React-Router-Redux
 XSS
 Form validations
 Responsive
 Code performance
+

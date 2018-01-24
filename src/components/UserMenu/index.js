@@ -19,13 +19,10 @@ class UserMenu extends React.Component {
             activeLink='home';
             this.props.history.push('/home');
         }   
-        const activeMenu = userMenu[activeLink] ? userMenu[activeLink] : "";
-        if (activeMenu!=="") { 
             userMenuSelect(
                 this.props.dispatch,
-                activeMenu
+                activeLink
             );
-        }
     }
     
     Signout(){

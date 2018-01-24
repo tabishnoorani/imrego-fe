@@ -102,7 +102,7 @@ export function signupCreate (dispatch, user, form) {
 
 export function userMenuSelect (dispatch, props) {
     // var payload={};
-    const link = props.link
+    const link = props
     // payload[link] = {...props, activeLink: true}
     const payload=link;
 
