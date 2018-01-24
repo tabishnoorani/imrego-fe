@@ -23,7 +23,7 @@ const Mid = (props)=> {
             marginBottom:'20px' 
             }}>
                 
-            <Route exact path={['/', '/home']}
+            <Route exact path = {'/home'}
             render={()=> <SearchBar />} />
             
             <Row type="flex" justify="center">

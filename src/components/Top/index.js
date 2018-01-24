@@ -18,7 +18,7 @@ const Top = (props)=>{
       <Row type="flex" justify="space-between" align="middle">
         <Logo />
         <Menu/>
-      </Row>    
+      </Row>     
     </Header>
 )}
 

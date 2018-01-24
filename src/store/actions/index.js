@@ -20,6 +20,7 @@ export function signin(dispatch, credential, aNotification){
                 type: actions.SIGNIN,
                 payload:{...data, token: token}
             });
+
         } else {
             dispatch({
                 type: actions.SIGNIN_FAILED,
@@ -48,7 +49,6 @@ export function signout(dispatch, token){
     }).then((res)=>{
         if (res.data.success===true) {
             localStorage.clear();
-
             dispatch({
                 type: actions.SIGNOUT,
             });
@@ -98,7 +98,6 @@ export function signupCreate (dispatch, user, form) {
             payload:{...res.data.data, token: res.data.token}
         });
     })
-
 }
 
 export function userMenuSelect (dispatch, props) {
@@ -107,12 +106,14 @@ export function userMenuSelect (dispatch, props) {
     payload[select] = {...props, activeLink: true}
 
     dispatch({
-        type: actions.USER_MENU_SELECT,
+        type: actions.USER_MENU_SELECT, 
         payload: payload
     })
 }
 
 export function initializeToken (dispatch, token) {
+    window.document.title=config.APP_NAME;
+    if (token){
     axios.get(`${config.HOST_URL}/auth/initializeToken`,{
         headers:{
             authorization: `Bearer ${token}`
@@ -122,7 +123,7 @@ export function initializeToken (dispatch, token) {
         if (res.data.success){
             dispatch({
                 type: actions.SIGNIN,
-                payload:{...res.data.data, token: token}
+                payload:{...res.data.data, token: token, loading: false}
             })
         }else {
             localStorage.removeItem('token');
@@ -139,7 +140,13 @@ export function initializeToken (dispatch, token) {
             payload: "Error in signing in. Please contact the webmaster."
         });
     });
+    } else {
+        dispatch({
+            type: actions.SIGNOUT 
+        })
+    }
 }
+
 
 export function showAddItem (dispatch) {
     dispatch({

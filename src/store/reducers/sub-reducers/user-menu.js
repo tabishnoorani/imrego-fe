@@ -7,6 +7,7 @@ const defaultState = {
         icon:"home", 
         activeLink: false,
         callback: "",
+        loading: false,
         toolTip:{
             placement: "top",
             title:"Home"
@@ -18,6 +19,7 @@ const defaultState = {
         icon:"notification", 
         activeLink: false,
         callback: "",
+        loading: false,
         toolTip:{
             placement: "top",
             title:"Notification"
@@ -29,6 +31,7 @@ const defaultState = {
         icon:"qrcode", 
         activeLink: false,
         callback: "",
+        loading: false,
         toolTip:{
             placement: "top",
             title:"Manage Items"
@@ -40,6 +43,7 @@ const defaultState = {
         icon:"setting", 
         activeLink: false,
         callback: "",
+        loading: false,
         toolTip:{
             placement: "top",
             title:"Manage Items"
@@ -51,6 +55,7 @@ const defaultState = {
         icon:"logout", 
         activeLink: false,
         callback: "",
+        loading: false,
         toolTip:{
             placement: "topRight",
             title:"Signout"
@@ -60,11 +65,21 @@ const defaultState = {
 
 function UserMenu (state=defaultState, action) {
     switch (action.type) {
-        case actions.USER_MENU_SELECT: {
+        case actions.USER_MENU_SELECT: { 
             return{...defaultState, ...action.payload}
         }
+        case actions.SIGNOUT_PROCESS: {
+            return {...state,
+                signout:{...state.signout, loading: true} 
+            }
+        }
+        case actions.SIGNOUT: {
+            return {...state,
+                signout:{...state.signout, loading: false} 
+            }
+        }
         default: {
-            return {...state }
+            return {...state}
         }
     }
 }

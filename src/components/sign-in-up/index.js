@@ -6,14 +6,18 @@ import Signup from '../Signup';
 
 const SignInUp = (props) => {
   return(
-  <Row type="flex" justify="end" align="middle">
-    <Col>
-      <Signin/>
-    </Col>
-    <Col>
-      <Signup/>
-    </Col>
-  </Row>
+  <div>
+    {(props.auth===false && props.loading===false)?
+    <Row type="flex" justify="end" align="middle">
+      <Col>
+        <Signin/>
+      </Col>
+      <Col>
+        <Signup/>
+      </Col>
+    </Row>
+    :""}
+  </div>
   );
 }
 

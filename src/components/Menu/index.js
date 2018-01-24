@@ -1,9 +1,8 @@
 import React from 'react';
 import { Col } from 'antd';
 import { connect } from 'react-redux';
-
-import SignInUp from '../sign-in-up';
 import UserMenu from '../UserMenu'
+import SignInUp from '../sign-in-up';
 
 const Menu = (props) => {
     return(
@@ -15,7 +14,8 @@ const Menu = (props) => {
             token={props.token}
             userMenu={props.userMenu}/>
             : 
-            <SignInUp/>}
+            <SignInUp auth={props.auth} 
+            loading={props.loading}/>}
     </Col>
     )
 }
@@ -25,7 +25,8 @@ const returnState = (store)=>{
       auth: store.Status.auth,
       signoutLoder: store.Status.loders.signout,
       token: store.User.token,
-      userMenu: store.UserMenu
+      userMenu: store.UserMenu,
+      loading: store.Status.loading
     });
   } 
 

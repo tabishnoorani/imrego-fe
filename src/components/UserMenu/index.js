@@ -11,12 +11,16 @@ class UserMenu extends React.Component {
         this.Signout = this.Signout.bind(this);
     }
     
-    componentDidMount(){
+    componentWillMount(){
         const link = this.props.location.pathname;
         const {userMenu} = this.props;
-        const activeLink = link.slice(1);
+        var activeLink = link.slice(1);
+        if (activeLink==="") {
+            activeLink='home';
+            this.props.history.push('/home');
+        }   
         const activeMenu = userMenu[activeLink] ? userMenu[activeLink] : "";
-        if (activeLink!=="" && activeMenu!=="") {
+        if (activeMenu!=="") { 
             userMenuSelect(
                 this.props.dispatch,
                 activeMenu
@@ -31,7 +35,7 @@ class UserMenu extends React.Component {
 
     render(){
         const { userMenu, dispatch } = this.props;
-        userMenu['signout'].callback = this.Signout
+        userMenu['signout'].callback = this.Signout.bind(this)
         return(
             <Row gutter={8} type="flex" justify="center" align="middle">
             {

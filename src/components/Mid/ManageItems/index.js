@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip, Row, Col, Modal } from 'antd';
+import { Button, Tooltip, Row, Col } from 'antd';
 import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
@@ -54,6 +54,7 @@ class ManageItems extends React.Component {
                         onClick={showModal} />
                     </Tooltip>
                 </Col>
+
                 <AddItem
                 ref={saveFormRef}
                 visible={showAddItemModal}
@@ -63,6 +64,9 @@ class ManageItems extends React.Component {
                 DesSignupModal={desAddItemModal}
                 token={token}
                 />
+
+                
+
             </Row>
                 
         )

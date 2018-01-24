@@ -3,6 +3,7 @@ import actions from '../../actions/action-const';
 const defaultState = {
     auth: false,
     date: "",
+    loading: true,
     loders: { //Button Clicks
         signin: false,
         signup: false,
@@ -29,13 +30,13 @@ function Status (state=defaultState, action) {
             return {...state, auth: true, loders: {signin: false}}
         }
         case actions.SIGNIN_FAILED:{
-            return {...state, 
+            return {...state, loading : false,
                 loders: {signin: false}, 
                 msg:{signinField: action.payload}
             }
         }
         case actions.SIGNOUT: {
-            return {...state, auth: false, loders: {signout: false}, showSignupModal: false}
+            return {...state, auth: false, loders: {signout: false}, showSignupModal: false, loading: false}
         }
         case actions.RESET_SIGNIN_FAILED: {
             return {...state, msg:{signinField:""}}
@@ -59,11 +60,11 @@ function Status (state=defaultState, action) {
                 loders: {createUser: false}, 
                 showSignupModal: false }
         }
-        case actions.USER_MENU_SELECT: {
-                    return{...state,
-                        userMenuSelect: {...action.payload}
-                    }
-                }
+        // case actions.USER_MENU_SELECT: {
+        //             return{...state,
+        //                 userMenuSelect: {...action.payload}
+        //             }
+        //         }
         default: {
             return {...state }
         }
