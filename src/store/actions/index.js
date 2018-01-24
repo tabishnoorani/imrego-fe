@@ -1,7 +1,51 @@
 import axios from 'axios';
 import {message} from 'antd';
+import {push} from 'react-router-redux';
 import actions from './action-const';
 import config from '../../config';
+
+var Dispatch = "";
+
+export function initializeToken (dispatch, token) {
+    Dispatch=dispatch;
+    window.document.title=config.APP_NAME;
+    if (token){
+    axios.get(`${config.HOST_URL}/auth/initializeToken`,{
+        headers:{
+            authorization: `Bearer ${token}`
+        }
+    })
+    .then((res)=>{
+        if (res.data.success){
+            dispatch({
+                type: actions.SIGNIN,
+                payload:{...res.data.data, token: token, loading: false}
+            })
+        }else {
+            localStorage.removeItem('token');
+            dispatch({
+                type: actions.SIGNIN_FAILED,
+                payload:"Invalid or expired token. Please signin again."
+            });
+        }
+    })
+    .catch((err)=>{
+        localStorage.removeItem('token');
+        dispatch({
+            type: actions.SIGNIN_FAILED,
+            payload: "Error in signing in. Please contact the webmaster."
+        });
+    });
+    } else {
+        dispatch({
+            type: actions.SIGNOUT 
+        })
+    }
+}
+
+export function testPush (pushTo){
+    Dispatch(push(pushTo));
+}
 
 export function signin(dispatch, credential, aNotification){
     dispatch({
@@ -112,41 +156,6 @@ export function userMenuSelect (dispatch, props) {
     })
 }
 
-export function initializeToken (dispatch, token) {
-    window.document.title=config.APP_NAME;
-    if (token){
-    axios.get(`${config.HOST_URL}/auth/initializeToken`,{
-        headers:{
-            authorization: `Bearer ${token}`
-        }
-    })
-    .then((res)=>{
-        if (res.data.success){
-            dispatch({
-                type: actions.SIGNIN,
-                payload:{...res.data.data, token: token, loading: false}
-            })
-        }else {
-            localStorage.removeItem('token');
-            dispatch({
-                type: actions.SIGNIN_FAILED,
-                payload:"Invalid or expired token. Please signin again."
-            });
-        }
-    })
-    .catch((err)=>{
-        localStorage.removeItem('token');
-        dispatch({
-            type: actions.SIGNIN_FAILED,
-            payload: "Error in signing in. Please contact the webmaster."
-        });
-    });
-    } else {
-        dispatch({
-            type: actions.SIGNOUT 
-        })
-    }
-}
 
 
 export function showAddItem (dispatch) {

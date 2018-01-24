@@ -9,9 +9,10 @@ const Menu = (props) => {
     <Col>
         {(props.auth)? 
             <UserMenu 
-            signoutLoder={props.signoutLoder}
+            // signoutLoder={props.signoutLoder}
             dispatch={props.dispatch}
             token={props.token}
+            pathname={props.pathname}
             userMenu={props.userMenu}/>
             : 
             <SignInUp auth={props.auth} 
@@ -23,10 +24,10 @@ const Menu = (props) => {
 const returnState = (store)=>{
     return({
       auth: store.Status.auth,
-      signoutLoder: store.Status.loders.signout,
       token: store.User.token,
       userMenu: store.UserMenu,
-      loading: store.Status.loading
+      loading: store.Status.loading,
+      pathname: store.router.location.pathname
     });
   } 
 

@@ -13,7 +13,6 @@ class UserMenu extends React.Component {
     
     componentWillMount(){
         const link = this.props.location.pathname;
-        const {userMenu} = this.props;
         var activeLink = link.slice(1);
         if (activeLink==="") {
             activeLink='home';
@@ -25,13 +24,13 @@ class UserMenu extends React.Component {
             );
     }
     
-    Signout(){
+    Signout(){ 
         signout(this.props.dispatch, this.props.token);
         this.props.history.push('/');
     }
 
     render(){
-        const { userMenu, dispatch } = this.props;
+        const { userMenu, dispatch, pathname } = this.props;
         userMenu['signout'].callback = this.Signout.bind(this)
         return(
             <Row gutter={8} type="flex" justify="center" align="middle">
@@ -41,7 +40,8 @@ class UserMenu extends React.Component {
                         <Col key={`userMenu ${key}`}>
                             <MenuLink 
                             {...userMenu[key]} 
-                            dispatch={dispatch}/>
+                            dispatch={dispatch}
+                            pathname={pathname}/>
                         </Col>
                     )
                 })

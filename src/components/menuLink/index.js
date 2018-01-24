@@ -1,20 +1,23 @@
 import React from 'react';
 import { Button, Tooltip } from 'antd';
-import { userMenuSelect } from '../../store/actions'
+// import { userMenuSelect } from '../../store/actions'
 import { withRouter } from 'react-router-dom';
 
 const MenuLink = (props) => {
     
     const { noPush, 
             link, 
-            dispatch, 
-            activeLink, 
+            dispatch,  
             icon, 
             callback, 
             toolTip, 
             history,
-            loading} = props
-    
+            loading,
+            pathname} = props
+            
+    const linkName = pathname.split('/')
+    var activeLink = (linkName[1]===link);
+
     function handleClick(){
         if (callback!==""){
             callback();
@@ -28,12 +31,10 @@ const MenuLink = (props) => {
             icon, 
             activeLink,
             callback,
-            toolTip
+            toolTip,
         }
-    
-        userMenuSelect(dispatch, link); 
     }
- 
+    
     const buttonSettings = {
         type:(activeLink)?"primary":"secondary",
         shape:"circle", 

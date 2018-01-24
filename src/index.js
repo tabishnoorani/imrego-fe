@@ -5,14 +5,15 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import {Provider} from 'react-redux';
-import Store from './store';
+import {ConnectedRouter} from 'react-router-redux';
+import Store, {history} from './store';
 
 const Root = (props) =>{
     return(
     <Provider store={Store}>
-        <Router>
+        <ConnectedRouter history={history}>
                 <App/>
-        </Router>
+        </ConnectedRouter>
     </Provider>
 )}
 

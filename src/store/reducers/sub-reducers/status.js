@@ -7,7 +7,6 @@ const defaultState = {
     loders: { //Button Clicks
         signin: false,
         signup: false,
-        signout: false,
         imregoSearch: false,
         createUser: false
     },
