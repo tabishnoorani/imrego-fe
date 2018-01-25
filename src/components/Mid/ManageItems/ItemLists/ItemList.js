@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Row, Col, Button} from 'antd';
+import {Row, Col, Button, Divider} from 'antd';
 
 const ItemList = (props)=>{
     const Style={
@@ -21,6 +21,9 @@ const ItemList = (props)=>{
                 icon="delete" 
                 size="default" 
                 ghost/>
+
+                <span style={{color:'whitesmoke'}}>-  |  -</span>
+                
                 <Button 
                 type="primary" 
                 shape="circle" 
@@ -32,12 +35,14 @@ const ItemList = (props)=>{
 
         <Col span={4} style={{...Style.allCenter}}>
             <img style={{padding:'5px', maxWidth:'100%', maxHeight:'170px'}}
+            alt="TITLE"
             src='https://res.cloudinary.com/oleaw/image/upload/v1514192577/sample.jpg'/>
         </Col>
 
         <Col span={12} style={{...Style.allCenter, justifyContent:'flex-start', padding: '0px 20px'}}>
-            <div>
-                <h2>TITLE</h2>
+            <div style={{width:'100%'}}>
+                {/* <h2>TITLE</h2> */}
+                <Divider>TITLE</Divider>
                 <p><b>Catagory: </b>Flower</p>
                 <p><b>Desciption: </b>Red Flower</p>
                 <p><b>IM: </b>133122-123312-12313123-123123</p>
@@ -45,9 +50,9 @@ const ItemList = (props)=>{
         </Col>
 
         <Col span={5} style={{...Style.allCenter}}>
-            <div>
-                Sponsor
-            </div>
+            <img style={{padding:'5px', maxWidth:'100%', maxHeight:'170px'}}
+            alt="TITLE"
+            src='http://logonoid.com/images/suncorp-logo.png'/>
         </Col>
 
     </Row>
