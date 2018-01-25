@@ -9,7 +9,7 @@ const defaultState = {
         callback: "",
         loading: false,
         toolTip:{
-            placement: "top",
+            placement: "bottom",
             title:"Home"
         }
     },
@@ -21,7 +21,7 @@ const defaultState = {
         callback: "",
         loading: false,
         toolTip:{
-            placement: "top",
+            placement: "bottom",
             title:"Notification"
         }
     },
@@ -33,7 +33,7 @@ const defaultState = {
         callback: "",
         loading: false,
         toolTip:{
-            placement: "top",
+            placement: "bottom",
             title:"Manage Items"
         }
     },
@@ -45,7 +45,7 @@ const defaultState = {
         callback: "",
         loading: false,
         toolTip:{
-            placement: "top",
+            placement: "bottom",
             title:"Manage Items"
         }
     },
@@ -57,7 +57,7 @@ const defaultState = {
         callback: "",
         loading: false,
         toolTip:{
-            placement: "topRight",
+            placement: "bottomRight",
             title:"Signout"
         }
     },

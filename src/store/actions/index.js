@@ -5,10 +5,13 @@ import actions from './action-const';
 import config from '../../config';
 
 var Dispatch = "";
+var Token="";
 
 export function initializeToken (dispatch, token) {
     Dispatch=dispatch;
+    Token=token;
     window.document.title=config.APP_NAME;
+
     if (token){
     axios.get(`${config.HOST_URL}/auth/initializeToken`,{
         headers:{
@@ -48,6 +51,7 @@ export function Push (pushTo){
 }
 
 export function signin(dispatch, credential, aNotification){
+    Dispatch=dispatch;
     dispatch({
         type: actions.SIGNIN_PROCESS,
     });
@@ -59,12 +63,13 @@ export function signin(dispatch, credential, aNotification){
     .then((res)=>{
         if (res.data.success) {
             const {data, token} = res.data;
+            Token=token;
             localStorage.setItem('token', token);
             dispatch({
                 type: actions.SIGNIN,
                 payload:{...data, token: token}
             });
-
+            Push('/home');
         } else {
             dispatch({
                 type: actions.SIGNIN_FAILED,
@@ -101,7 +106,6 @@ export function signout(dispatch, token){
     })
 }
 
-
 export function resetSigninNotification(dispatch) {
     dispatch({
         type: actions.RESET_SIGNIN_FAILED,
@@ -122,6 +126,8 @@ export function signupCancel (dispatch) {
 
 export function signupCreate (dispatch, user, form) {
     // form.resetFields();
+    Dispatch=dispatch;
+
     dispatch({
         type: actions.SIGNUP_CREATE
     });
@@ -135,6 +141,7 @@ export function signupCreate (dispatch, user, form) {
     })
     .then((res)=>{
         form.resetFields();
+        Token=res.data.token;
         dispatch({
             type: actions.SIGNUP_CREATED,
         });
@@ -144,20 +151,6 @@ export function signupCreate (dispatch, user, form) {
         });
     })
 }
-
-// export function userMenuSelect (dispatch, props) {
-//     // var payload={};
-//     const link = props
-//     // payload[link] = {...props, activeLink: true}
-//     const payload=link;
-
-//     dispatch({
-//         type: actions.USER_MENU_SELECT, 
-//         payload: payload
-//     })
-// }
-
-
 
 export function showAddItem (dispatch) {
     dispatch({
@@ -204,7 +197,7 @@ export function addItem (dispatch, values, token){
                 imgURL: res.data.url
             }
         }).then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             message.success('Item added!')
             dispatch({
                 type: actions.ADD_ITEM_CREATED
@@ -212,4 +205,29 @@ export function addItem (dispatch, values, token){
         })
         
     })
+}
+
+export function delItem (id){
+
+}
+
+export function fetchItemLists (){
+    axios({
+        method: 'POST',
+        url: `${config.HOST_URL}/api/fetch-item-lists`,
+        headers:{
+            authorization: `Bearer ${Token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then((res)=>{
+        // console.log(res.data);
+        if (res.data.success){
+            message.success('Item list updated!')
+            Dispatch({
+                type: actions.ITEM_LISTS_FETCHED,
+                payload:res.data.itemLists
+            })            
+        }
+    })   
 }

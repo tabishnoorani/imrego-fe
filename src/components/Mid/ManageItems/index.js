@@ -4,6 +4,7 @@ import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
 import ItemLists from './ItemLists';
+import {fetchItemLists} from '../../../store/actions';
 
 import { 
     showAddItem, 
@@ -11,6 +12,10 @@ import {
     addItem } from '../../../store/actions';
 
 class ManageItems extends React.Component {
+    componentWillMount(){
+        fetchItemLists();
+    }
+
     render(){
     const { 
         auth, 

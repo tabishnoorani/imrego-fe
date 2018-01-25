@@ -1,7 +1,32 @@
 import React from 'react';
-import {Row, Col, Button, Divider} from 'antd';
+import {Modal, Row, Col, Button, Divider} from 'antd';
+import { delItem } from '../../../../store/actions/index';
+
+const confirm = Modal.confirm;
+
 
 const ItemList = (props)=>{
+    
+    function RemoveItem(){
+        confirm({
+            title: props.title||'title',
+            content: props.description||'content',
+            okText: 'Yes',
+            okType: props.okType||'danger',
+            cancelText: 'No',
+            onOk() {
+                delItem(props)||console.log('OK');
+            },
+            onCancel() {
+                // props.onCancel()||console.log('Cancel');
+            },
+        });
+    }
+    
+    function EditItem() {
+
+    }
+
     const Style={
         allCenter:{
             display:'flex', 
