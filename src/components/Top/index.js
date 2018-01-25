@@ -10,10 +10,11 @@ const { Header } = Layout;
 const Top = (props)=>{ 
     return(
     <Header style={{
-    background: "darkgray", 
+    background: "rgba(200, 200, 200, .5)", 
     position: 'fixed', 
     width: '100%', 
     height:"auto",
+    zIndex:'1'
     }}>
       <Row type="flex" justify="space-between" align="middle">
         <Logo />

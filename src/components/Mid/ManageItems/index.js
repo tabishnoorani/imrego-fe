@@ -3,6 +3,8 @@ import { Button, Tooltip, Row, Col } from 'antd';
 import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
+import ItemLists from './ItemLists';
+
 import { 
     showAddItem, 
     showAddItemCancel, 
@@ -45,6 +47,7 @@ class ManageItems extends React.Component {
                 <Col span={22}>
                     <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2>
                 </Col>
+
                 <Col span={2}>
                     <Tooltip placement="bottom" title="Add Item">
                         <Button 
@@ -64,14 +67,13 @@ class ManageItems extends React.Component {
                 DesSignupModal={desAddItemModal}
                 token={token}
                 />
-
                 
+                <ItemLists />
 
-            </Row>
+            </Row>           
                 
-        )
-    } else return (<NotAuth />)
-}
+        )} else return (<NotAuth />)
+    }
 }
 
 export default ManageItems
