@@ -197,21 +197,48 @@ export function addItem (dispatch, values, token){
                 imgURL: res.data.url
             }
         }).then((res)=>{
-            // console.log(res.data);
+            console.log(res.data);
             message.success('Item added!')
             dispatch({
-                type: actions.ADD_ITEM_CREATED
-            })            
+                type: actions.ADD_ITEM_CREATED,
+                payload: {...res.data.imrego._doc, deleting: false}
+            })          
         })
         
     })
 }
 
-export function delItem (id){
-
+export function delItem (id, key){
+    Dispatch({
+        type: actions.ITEM_LISTS_DELETING,
+        payload: key,
+    });
+    axios({
+        method: 'POST',
+        url: `${config.HOST_URL}/api/delete-item-list`,
+        headers:{
+            authorization: `Bearer ${Token}`,
+            'Content-Type': 'application/json'
+        },
+        data:{
+            id: id
+        }
+    })
+    .then((res)=>{
+        if (res.data.success){
+            message.success('Item deleted!')
+            Dispatch({
+                type: actions.ITEM_LISTS_DELETED,
+                payload:key
+            })            
+        }
+    })   
 }
 
 export function fetchItemLists (){
+    Dispatch({
+        type: actions.ITEM_LISTS_FETCH
+    })
     axios({
         method: 'POST',
         url: `${config.HOST_URL}/api/fetch-item-lists`,

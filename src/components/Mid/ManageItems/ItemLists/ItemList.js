@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Row, Col, Button, Divider} from 'antd';
+import {Modal, Row, Col, Button, Divider, Spin} from 'antd';
 import { delItem } from '../../../../store/actions/index';
 
 const confirm = Modal.confirm;
@@ -9,13 +9,18 @@ const ItemList = (props)=>{
     
     function RemoveItem(){
         confirm({
-            title: props.title||'title',
-            content: props.description||'content',
+            title: `Deleting ${props.title}.`,
+            content:
+                <div>
+                    <p><b>Description:</b> {props.description}</p>
+                    <p><b>IM#:</b> {props.imNum}</p>
+                    <p>Are you sure you want to delete it?</p>
+                </div>,
             okText: 'Yes',
-            okType: props.okType||'danger',
+            okType: 'danger',
             cancelText: 'No',
             onOk() {
-                delItem(props)||console.log('OK');
+                delItem(props._id, props.iKey);
             },
             onCancel() {
                 // props.onCancel()||console.log('Cancel');
@@ -36,6 +41,7 @@ const ItemList = (props)=>{
         }
     }
     return(
+    <Spin spinning={props.deleting||false}>
     <Row style={{marginTop:'10px', padding:'15px', width:'95%', height:'200px', backgroundColor:'white'}} justify="space-around" align="middle">
         
         <Col span={3} style={{...Style.allCenter}}>
@@ -44,7 +50,8 @@ const ItemList = (props)=>{
                 type="danger" 
                 shape="circle" 
                 icon="delete" 
-                size="default" 
+                size="default"
+                onClick={RemoveItem} 
                 ghost/>
 
                 <span style={{color:'whitesmoke'}}>-  |  -</span>
@@ -53,24 +60,26 @@ const ItemList = (props)=>{
                 type="primary" 
                 shape="circle" 
                 icon="edit" 
-                size="default" 
+                size="default"
+                onClick={EditItem}
                 ghost/>
             </span>
         </Col>
 
         <Col span={4} style={{...Style.allCenter}}>
             <img style={{padding:'5px', maxWidth:'100%', maxHeight:'170px'}}
-            alt="TITLE"
-            src='https://res.cloudinary.com/oleaw/image/upload/v1514192577/sample.jpg'/>
+            alt={props.title}
+            src={props.imgURL}/>
         </Col>
 
         <Col span={12} style={{...Style.allCenter, justifyContent:'flex-start', padding: '0px 20px'}}>
             <div style={{width:'100%'}}>
-                {/* <h2>TITLE</h2> */}
-                <Divider>TITLE</Divider>
-                <p><b>Catagory: </b>Flower</p>
-                <p><b>Desciption: </b>Red Flower</p>
-                <p><b>IM: </b>133122-123312-12313123-123123</p>
+                <Divider>{props.title}</Divider>
+                <p><b>Catagory: </b>{props.catagory}</p>
+                <p><b>Desciption: </b>{props.description}</p>
+                <p><b>IM: </b>{props.imNum}</p>
+                <p><b>Date added: </b>{props.date}</p>
+
             </div>
         </Col>
 
@@ -81,6 +90,7 @@ const ItemList = (props)=>{
         </Col>
 
     </Row>
+    </Spin>
     )
 }
 
