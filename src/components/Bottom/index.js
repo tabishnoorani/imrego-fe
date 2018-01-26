@@ -5,7 +5,12 @@ const { Footer } = Layout;
 
 const Bottom =(props) => {
     return(
-        <Affix offsetBottom={0}>
+        <div style={{    
+            position: "fixed",
+            bottom: '0',
+            left: '0',
+            width: '100%'}}>
+
             <Footer style={{ 
                 background: "lightgray", 
                 textAlign: 'center', 
@@ -13,7 +18,7 @@ const Bottom =(props) => {
                 margin: '0px' }}>
                 <b>IMREGO</b> ©2016 - Created by OLEAW
             </Footer>
-        </Affix>
+        </div>
     );
 }
 
