@@ -26,11 +26,13 @@ const MenuLink = (props) => {
     }
     
     const buttonSettings = {
-        type:(activeLink)?"primary":"secondary",
+        // type:(activeLink)?"primary":"secondary",
+        type:"primary",
         shape:"circle", 
         icon:icon,
         loading:loading,
-        onClick:handleClick
+        onClick:handleClick,
+        ghost: !activeLink
     };
     
     const TooltipSettings = {

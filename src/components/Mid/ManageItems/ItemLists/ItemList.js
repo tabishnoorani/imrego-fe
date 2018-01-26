@@ -41,9 +41,17 @@ const ItemList = (props)=>{
         }
     }
     return(
-    <Spin spinning={props.deleting||false}>
-    <Row style={{marginTop:'10px', padding:'15px', width:'95%', height:'200px', backgroundColor:'white'}} justify="space-around" align="middle">
-        
+    <Spin spinning={props.deleting ||false}>
+    <Row gutter={0} type="flex" 
+            justify="center" 
+            style= {{width:'100%'}}>
+    <Row style={{
+        marginTop:'10px',
+        padding:'15px', width:'95%', 
+        height:'200px', 
+        backgroundColor:'white'}} 
+        justify="space-around" 
+        align="middle">
         <Col span={3} style={{...Style.allCenter}}>
             <span>
                 <Button 
@@ -88,7 +96,7 @@ const ItemList = (props)=>{
             alt="TITLE"
             src='http://logonoid.com/images/suncorp-logo.png'/>
         </Col>
-
+    </Row>
     </Row>
     </Spin>
     )

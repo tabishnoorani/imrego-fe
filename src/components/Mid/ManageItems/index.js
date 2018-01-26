@@ -4,7 +4,7 @@ import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
 import ItemLists from './ItemLists';
-import {itemListsInitilized} from '../../../store/actions';
+import {itemListsInitilized, fetchItemLists} from '../../../store/actions';
 
 import { 
     showAddItem, 
@@ -34,6 +34,10 @@ class ManageItems extends React.Component {
     const handleCancel = () => {
         showAddItemCancel(dispatch);
     }
+
+    const FetchItemLists= ()=>{
+        fetchItemLists('Item List Reloaded!')
+    }
     
     const handleCreate = () => {
         const form= this.form;
@@ -51,18 +55,32 @@ class ManageItems extends React.Component {
     if (auth!==false){
         window.document.title=`${config.APP_NAME} - Manage Items`
         return (
-            <Row type="flex" justify="end" style= {{width:'100%'}}>
-                <Col span={22}>
+        <div>
+            <Row gutter={0} type="flex" 
+            justify="center" 
+            style= {{width:'100%'}}>
+                <Col span={20}>
                     <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2>
                 </Col>
 
                 <Col span={2}>
-                    <Tooltip placement="bottom" title="Add Item">
+                    <Tooltip placement="bottom" title="Reload List">
                         <Button 
                         type="primary" 
                         shape="circle" 
+                        icon="reload" 
+                        onClick={FetchItemLists} 
+                        ghost/>
+                    </Tooltip>
+
+                    <Tooltip placement="bottom" title="Add Item">
+                        <Button 
+                        style={{marginLeft:'10px'}}
+                        type="primary" 
+                        shape="circle" 
                         icon="plus" 
-                        onClick={showModal} />
+                        onClick={showModal} 
+                        ghost/>
                     </Tooltip>
                 </Col>
 
@@ -75,11 +93,11 @@ class ManageItems extends React.Component {
                 DesSignupModal={desAddItemModal}
                 token={token}
                 />
-                
-                <ItemLists />
-
             </Row>           
-                
+            
+            <ItemLists />
+            
+        </div>  
         )} else return (<NotAuth />)
     }
 }

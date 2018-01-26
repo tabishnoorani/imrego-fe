@@ -46,7 +46,7 @@ const defaultState = {
         loading: false,
         toolTip:{
             placement: "bottom",
-            title:"Manage Items"
+            title:"Settings"
         }
     },
     signout: {
