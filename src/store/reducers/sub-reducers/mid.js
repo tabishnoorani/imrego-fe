@@ -2,6 +2,7 @@ import actions from '../../actions/action-const';
 
 const defaultState = {
     manageitems:{
+        initialized: false,
         showAddItemModal: false,
         desAddItemModal: false,
         loder: {
@@ -12,12 +13,20 @@ const defaultState = {
 
 function Mid (state=defaultState, action) {
     switch (action.type) {
+        case actions.ITEM_LISTS_INITIALIZED:{
+            return {...state, 
+                manageitems:{...state.manageitems, initialized:true}
+            }
+        }
         case actions.SHOW_ADD_ITEM: {
-            return {...state, manageitems:{...state.manageitems, showAddItemModal:true}}
+            return {...state, 
+                manageitems:{...state.manageitems, showAddItemModal:true}
+            }
         }
         case actions.SHOW_ADD_ITEM_CANCEL: {
             return {...state, 
-                manageitems:{...state.manageitems, showAddItemModal:false}}
+                manageitems:{...state.manageitems, showAddItemModal:false}
+            }
         }
         case actions.ADD_ITEM_CREATE: {
             return {...state, 

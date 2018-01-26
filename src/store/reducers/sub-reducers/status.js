@@ -23,10 +23,12 @@ function Status (state=defaultState, action) {
             return {...state, loders:{signin: true}}
         }
         case actions.SIGNIN_PROCESS_DONE:{
-            return {...state, loders: {signin: false}}
+            return {...state,  loading : false,
+                loders: {signin: false}}
         }
         case actions.SIGNIN:{
-            return {...state, auth: true, loders: {signin: false}}
+            return {...state, auth: true, loading : false,
+                loders: {signin: false}}
         }
         case actions.SIGNIN_FAILED:{
             return {...state, loading : false,

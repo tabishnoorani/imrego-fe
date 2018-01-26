@@ -235,7 +235,13 @@ export function delItem (id, key){
     })   
 }
 
-export function fetchItemLists (){
+export function itemListsInitilized(){
+    Dispatch({
+        type: actions.ITEM_LISTS_INITIALIZED
+    });
+    fetchItemLists('Item list initialized!');
+}
+export function fetchItemLists (msg){
     Dispatch({
         type: actions.ITEM_LISTS_FETCH
     })
@@ -250,7 +256,7 @@ export function fetchItemLists (){
     .then((res)=>{
         // console.log(res.data);
         if (res.data.success){
-            message.success('Item list updated!')
+            message.success(msg)
             Dispatch({
                 type: actions.ITEM_LISTS_FETCHED,
                 payload:res.data.itemLists

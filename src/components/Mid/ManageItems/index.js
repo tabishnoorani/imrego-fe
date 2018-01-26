@@ -4,7 +4,7 @@ import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
 import ItemLists from './ItemLists';
-import {fetchItemLists} from '../../../store/actions';
+import {itemListsInitilized} from '../../../store/actions';
 
 import { 
     showAddItem, 
@@ -13,7 +13,9 @@ import {
 
 class ManageItems extends React.Component {
     componentWillMount(){
-        fetchItemLists();
+        if (!this.props.initialized){
+            itemListsInitilized();
+        }
     }
 
     render(){
@@ -21,7 +23,8 @@ class ManageItems extends React.Component {
         auth, 
         dispatch, 
         showAddItemModal, 
-        desAddItemModal, 
+        desAddItemModal,
+        initialized, 
         loder, token } = this.props;
     
     const showModal = () => {
