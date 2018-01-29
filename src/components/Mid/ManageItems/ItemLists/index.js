@@ -13,7 +13,7 @@ const ItemLists = (props) => {
             <Spin spinning={props.fetching} size="large">
                     {(props.ItemLists.length !== 0) ? 
                         ItemListCompound
-                        :<Card >No items found! Click Add Item button to add items.</Card>}
+                        :<Card style={{width:"90vw", marginTop:'10px'}}>No items found! Click Add Item button to add items.</Card>}
             </Spin>
         </Row>
     )

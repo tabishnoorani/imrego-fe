@@ -58,7 +58,7 @@ class ManageItems extends React.Component {
         <div>
             <Row gutter={0} type="flex" 
             justify="center" 
-            style= {{width:'100%'}}>
+            style= {{width:'100vw'}}>
                 <Col span={20}>
                     <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2>
                 </Col>
