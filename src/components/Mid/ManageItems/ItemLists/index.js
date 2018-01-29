@@ -2,9 +2,14 @@ import React from 'react';
 import {Row, Spin, Card} from 'antd';
 import ItemList from './ItemList';
 import { connect } from 'react-redux';
+import _ from 'lodash'
 
 const ItemLists = (props) => {
-    const ItemListCompound = props.ItemLists.map((itemList, index)=>
+
+    const sortedItemLists = _.sortBy(props.ItemLists, function(item){
+        return item[props.sortBy]
+    })
+    const ItemListCompound = sortedItemLists.map((itemList, index)=>
         <ItemList iKey={index} key={`${index}-ItemList`} {...itemList}/>
     );
     

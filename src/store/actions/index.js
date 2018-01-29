@@ -241,6 +241,7 @@ export function itemListsInitilized(){
     });
     fetchItemLists('Item list initialized!');
 }
+
 export function fetchItemLists (msg){
     Dispatch({
         type: actions.ITEM_LISTS_FETCH
@@ -264,3 +265,10 @@ export function fetchItemLists (msg){
         }
     })   
 }
+
+export function currentCatagory (catagory){
+    Dispatch({
+        type: actions.ITEM_LISTS_CATAGORY,
+        payload: catagory
+    })
+} 

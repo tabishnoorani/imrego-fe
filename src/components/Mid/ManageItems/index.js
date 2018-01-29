@@ -4,6 +4,7 @@ import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
 import ItemLists from './ItemLists';
+import SortBy from './SortBy';
 import {itemListsInitilized, fetchItemLists} from '../../../store/actions';
 
 import { 
@@ -60,7 +61,8 @@ class ManageItems extends React.Component {
             justify="center" 
             style= {{width:'100vw'}}>
                 <Col span={20}>
-                    <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2>
+                    <SortBy/>
+                    {/* <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2> */}
                 </Col>
 
                 <Col span={2}>

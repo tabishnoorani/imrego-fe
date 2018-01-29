@@ -1,8 +1,32 @@
 import actions from '../../actions/action-const';
 
 const defaultState = {
+    catagories:[
+        {
+            optionName: "Title",
+            value:"title"
+        },
+        {
+            optionName: "Desciption",
+            value:"description"
+        },
+        {
+            optionName: "Catagory",
+            value:"catagory"
+        },
+        {
+            optionName: "IM Number",
+            value:"imNum"
+        },
+        {
+            optionName: "Date Added On",
+            value:"date"
+        },
+
+    ],
     fetching: false,
     ItemLists: [],
+    sortBy:""
 };
 
 function ItemLists (state=defaultState, action) {
@@ -28,6 +52,9 @@ function ItemLists (state=defaultState, action) {
             const ItemLists = [...state.ItemLists];
             ItemLists.splice(action.payload,1);
             return {...state, ItemLists: ItemLists}
+        }
+        case actions.ITEM_LISTS_CATAGORY:{
+            return {...state, sortBy: action.payload}
         }
         default: {
             return {...state}
