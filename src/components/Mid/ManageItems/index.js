@@ -24,8 +24,7 @@ class ManageItems extends React.Component {
         auth, 
         dispatch, 
         showAddItemModal, 
-        desAddItemModal,
-        initialized, 
+        desAddItemModal, 
         loder, token } = this.props;
     
     const showModal = () => {
@@ -62,7 +61,6 @@ class ManageItems extends React.Component {
             style= {{width:'100vw'}}>
                 <Col span={20}>
                     <SortBy/>
-                    {/* <h2 style={{display:"block",margin:'auto'}}>Manage Items</h2> */}
                 </Col>
 
                 <Col span={2}>

@@ -208,10 +208,10 @@ export function addItem (dispatch, values, token){
     })
 }
 
-export function delItem (id, key){
+export function delItem (id){
     Dispatch({
         type: actions.ITEM_LISTS_DELETING,
-        payload: key,
+        payload: id,
     });
     axios({
         method: 'POST',
@@ -229,7 +229,7 @@ export function delItem (id, key){
             message.success('Item deleted!')
             Dispatch({
                 type: actions.ITEM_LISTS_DELETED,
-                payload:key
+                payload:id
             })            
         }
     })   

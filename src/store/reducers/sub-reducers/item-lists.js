@@ -1,4 +1,5 @@
 import actions from '../../actions/action-const';
+import _ from 'lodash';
 
 const defaultState = {
     catagories:[
@@ -29,6 +30,8 @@ const defaultState = {
     sortBy:""
 };
 
+var Index;
+
 function ItemLists (state=defaultState, action) {
     switch (action.type) {
         case actions.ADD_ITEM_CREATED:{
@@ -45,12 +48,14 @@ function ItemLists (state=defaultState, action) {
         }
         case actions.ITEM_LISTS_DELETING:{
             const ItemLists = [...state.ItemLists];
-            ItemLists[action.payload].deleting=true;
+            Index = _.findIndex(ItemLists, function(item) { return item._id == action.payload; });
+            ItemLists[Index].deleting = true;
             return {...state, ItemLists: ItemLists}
         }
         case actions.ITEM_LISTS_DELETED: {
             const ItemLists = [...state.ItemLists];
-            ItemLists.splice(action.payload,1);
+            ItemLists.splice(Index,1);
+            Index = null;
             return {...state, ItemLists: ItemLists}
         }
         case actions.ITEM_LISTS_CATAGORY:{

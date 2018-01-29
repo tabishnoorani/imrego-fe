@@ -1,5 +1,5 @@
 import React from 'react';
-import { Affix, Layout } from 'antd';
+import { Layout } from 'antd';
 
 const { Footer } = Layout;
 

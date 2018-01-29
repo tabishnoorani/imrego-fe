@@ -20,7 +20,8 @@ const ItemList = (props)=>{
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                delItem(props._id, props.iKey);
+                // delItem(props._id, props.iKey);
+                delItem(props._id);
             },
             onCancel() {
                 // props.onCancel()||console.log('Cancel');

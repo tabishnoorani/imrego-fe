@@ -2,7 +2,7 @@ import React from 'react';
 import {Row, Spin, Card} from 'antd';
 import ItemList from './ItemList';
 import { connect } from 'react-redux';
-import _ from 'lodash'
+import _ from 'lodash';
 
 const ItemLists = (props) => {
 
