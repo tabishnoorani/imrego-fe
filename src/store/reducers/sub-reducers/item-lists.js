@@ -48,7 +48,7 @@ function ItemLists (state=defaultState, action) {
         }
         case actions.ITEM_LISTS_DELETING:{
             const ItemLists = [...state.ItemLists];
-            Index = _.findIndex(ItemLists, function(item) { return item._id == action.payload; });
+            Index = _.findIndex(ItemLists, function(item) { return item._id === action.payload; });
             ItemLists[Index].deleting = true;
             return {...state, ItemLists: ItemLists}
         }

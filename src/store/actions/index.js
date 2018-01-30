@@ -272,3 +272,26 @@ export function currentCatagory (catagory){
         payload: catagory
     })
 } 
+
+export function AXIOS (CONFIG){
+  const {
+    method='POST', 
+    url="", 
+    data="", 
+    cb=(res)=>{console.log(res)}
+  } = CONFIG;
+
+  axios({
+    method: method,
+    url: `${config.HOST_URL}${url}`,
+    headers:{
+        authorization: `Bearer ${Token}`,
+        'Content-Type': 'multipart/form-data'
+        // 'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    json: true,
+    data: data,
+  }).then((res)=>{
+    cb(res);
+  });
+}
