@@ -165,46 +165,33 @@ export function showAddItemCancel(dispatch){
 }
 
 export function addItem (dispatch, values, token){
-    // console.log(values)
+    console.log(values)
     dispatch({
         type: actions.ADD_ITEM_CREATE
     });
-
+    const formData = new FormData
+    
+    for (var key in values) {
+        formData.append(key, values[key]);
+    }
+    formData.append('file',values.imgs.fileList[0])
+    
     axios({
         method: 'POST',
-        url: `${config.HOST_URL}/api/imgupload`,
+        url: `${config.HOST_URL}/api/imrego`,
         headers:{
             authorization: `Bearer ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded'
+            // 'Content-Type': 'application/json'
         },
         json: true,
-        data: {
-            file: values.imgs.fileList[0]
-        }
+        data: formData 
     }).then((res)=>{
-        axios({
-            method: 'POST',
-            url: `${config.HOST_URL}/api/imrego`,
-            headers:{
-                authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            json: true,
-            data: {
-                title: values.title,
-                catagory: values.catagory,
-                description: values.description,
-                imgURL: res.data.url
-            }
-        }).then((res)=>{
-            console.log(res.data);
-            message.success('Item added!')
-            dispatch({
-                type: actions.ADD_ITEM_CREATED,
-                payload: {...res.data.imrego._doc, deleting: false}
-            })          
-        })
-        
+        console.log(res.data);
+        message.success('Item added!')
+        dispatch({
+            type: actions.ADD_ITEM_CREATED,
+            payload: {...res.data.imrego._doc, deleting: false}
+        })          
     })
 }
 

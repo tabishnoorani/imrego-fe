@@ -12,22 +12,27 @@ class ImageForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    function cb(res){
-      console.log (res);
-    }
-    const { fileList } = this.state;
-    const formData = new FormData();
-    formData.append('file', fileList[0]);
-
-    this.setState({
-      uploading: true,
-    });
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        function cb(res){
+          console.log (res);
+        }
+        const { fileList } = this.state;
+        const formData = new FormData();
+        formData.append('file', fileList[0]);
+        formData.append('title', values.title);
+        formData.append('catagory', values.catagory);
+        formData.append('description', values.description);
+
+    
+        this.setState({
+          uploading: true,
+        });
         
         AXIOS({
           method:'POST', 
-          url:'/api/imgupload', 
+          // url:'/api/imgupload', 
+          url:'/api/imrego', 
           data: formData, 
           cb: cb});
       }
@@ -61,14 +66,17 @@ class ImageForm extends React.Component {
 
     return (
         <div>
+          {/* title, catagory, description */}
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           label="E-mail"
         >
-          {getFieldDecorator('email', {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
+          {getFieldDecorator('title', {
+            rules: [
+            // {
+            //   type: 'email', message: 'The input is not valid E-mail!',
+            // },
+            {
               required: true, message: 'Please input your E-mail!',
             }],
           })(
@@ -78,7 +86,16 @@ class ImageForm extends React.Component {
         <FormItem
           label='Nick Name'
         >
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('catagory', {
+            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          label='Nick Name'
+        >
+          {getFieldDecorator('description', {
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
           })(
             <Input />
