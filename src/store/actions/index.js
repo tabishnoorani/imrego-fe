@@ -174,7 +174,11 @@ export function addItem (dispatch, values, token){
     for (var key in values) {
         formData.append(key, values[key]);
     }
-    formData.append('file',values.imgs.fileList[0])
+    const imgFile = (values.imgs!==undefined) ?
+                    values.imgs.fileList[0] :
+                    null;
+    
+    formData.append('file',imgFile)
     
     axios({
         method: 'POST',
