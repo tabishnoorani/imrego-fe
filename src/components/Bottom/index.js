@@ -16,7 +16,7 @@ const Bottom =(props) => {
                 textAlign: 'center', 
                 padding: '0px', 
                 margin: '0px' }}>
-                <b>IMREGO</b> ©2016 - Created by OLEAW
+                <b>IMREGO</b> 2018 - Created by OLEAW
             </Footer>
         </div>
     );

@@ -41,7 +41,7 @@ class ImageForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { uploading } = this.state;
+    // const { uploading } = this.state;
     
     const uploadProps = {
       action: 'http://localhost:4000/api/imgupload',

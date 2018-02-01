@@ -27,7 +27,8 @@ const defaultState = {
     ],
     fetching: false,
     ItemLists: [],
-    sortBy:""
+    sortBy:"",
+    showEditItemID: "",
 };
 
 var Index;
@@ -60,6 +61,15 @@ function ItemLists (state=defaultState, action) {
         }
         case actions.ITEM_LISTS_CATAGORY:{
             return {...state, sortBy: action.payload}
+        }
+        case actions.SHOW_EDIT_ITEM:{
+            return {...state, showEditItemID: action.payload}
+        }
+        case actions.MODAL_FORM_SENT_DATA:{
+            const ItemLists = [...state.ItemLists];
+            Index=_.findIndex(ItemLists, function(item){ return item._id===action.payload._id;});
+            ItemLists[Index] = action.payload;
+            return {...state, ItemLists}
         }
         default: {
             return {...state}

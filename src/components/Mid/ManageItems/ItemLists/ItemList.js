@@ -1,9 +1,8 @@
 import React from 'react';
 import {Modal, Row, Col, Button, Divider, Spin} from 'antd';
-import { delItem } from '../../../../store/actions/index';
+import { delItem, showModalForm } from '../../../../store/actions/index';
 
 const confirm = Modal.confirm;
-
 
 const ItemList = (props)=>{
     
@@ -20,7 +19,6 @@ const ItemList = (props)=>{
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                // delItem(props._id, props.iKey);
                 delItem(props._id);
             },
             onCancel() {
@@ -29,8 +27,8 @@ const ItemList = (props)=>{
         });
     }
     
-    function EditItem() {
-
+    function editItem() {
+        showModalForm(props._id)
     }
 
     const Style={
@@ -70,7 +68,7 @@ const ItemList = (props)=>{
                 shape="circle" 
                 icon="edit" 
                 size="default"
-                onClick={EditItem}
+                onClick={editItem}
                 ghost/>
             </span>
         </Col>

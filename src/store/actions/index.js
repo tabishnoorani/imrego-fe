@@ -169,7 +169,7 @@ export function addItem (dispatch, values, token){
     dispatch({
         type: actions.ADD_ITEM_CREATE
     });
-    const formData = new FormData
+    const formData = new FormData()
     
     for (var key in values) {
         formData.append(key, values[key]);
@@ -285,4 +285,35 @@ export function AXIOS (CONFIG){
   }).then((res)=>{
     cb(res);
   });
+}
+
+export function showModalForm(_id=""){
+    Dispatch({
+        type: actions.SHOW_MODAL_FORM,
+        payload: _id,
+    })
+}
+
+export function hideModalForm(){
+    Dispatch({
+        type: actions.HIDE_MODAL_FORM,
+    })
+}
+
+export function modalFromSendData (formData){
+    Dispatch({
+        type: actions.MODAL_FORM_SENDING_DATA
+    });
+    AXIOS({
+        method:'POST', 
+        url:"/api/updateimrego", 
+        data:formData, 
+        cb:(res)=>{
+            console.log(res);
+            Dispatch({
+                type: actions.MODAL_FORM_SENT_DATA,
+                payload: res.data.imrego
+            })
+        }
+      })
 }

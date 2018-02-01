@@ -1,5 +1,6 @@
 import React from 'react';
 import NotAuth from '../NotAuth';
+import Banner from '../../extra-components/Banner';
 import config from '../../../config';
 
 const Home = (props)=>{
@@ -8,7 +9,7 @@ const Home = (props)=>{
     if (auth!==false){
         return (
             <div>
-             <div>Home New</div>
+             <Banner/>
             </div>
         )
     } else return (<NotAuth />)
