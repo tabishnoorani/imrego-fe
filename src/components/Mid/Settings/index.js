@@ -2,6 +2,7 @@ import React from 'react';
 import NotAuth from '../NotAuth';
 import config from '../../../config';
 import Setting from './Settings';
+import Options from './options'
 // import ImageUploader from './ImageUploader';
 
 const Settings = (props)=>{
@@ -9,7 +10,8 @@ const Settings = (props)=>{
     const {auth} = props;
     if (auth!==false){
         return (
-            <Setting/>
+            <Options/>
+            // <Setting/>
         )
     } else return (<NotAuth />)
 }

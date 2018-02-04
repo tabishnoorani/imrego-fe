@@ -317,3 +317,31 @@ export function modalFromSendData (formData){
         }
       })
 }
+
+export function updateImregoStatus (_id, status) {
+    Dispatch({
+        type: actions.UPDATING_IMREGO_STATUS,
+        payload: _id
+    });
+
+    axios({
+        method: 'POST',
+        url: `${config.HOST_URL}/api/updateimregostatus`,
+        headers:{
+            authorization: `Bearer ${Token}`,
+            'Content-Type': 'application/json'
+        },
+        data:{
+            id: _id,
+            status: status
+        }
+    })
+    .then((res)=>{
+        if (res.data.success){
+            Dispatch({
+                type: actions.UPDATED_IMREGO_STATUS,
+                payload: status
+            })           
+        }
+    }) 
+}

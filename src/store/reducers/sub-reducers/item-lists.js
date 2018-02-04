@@ -71,6 +71,18 @@ function ItemLists (state=defaultState, action) {
             ItemLists[Index] = action.payload;
             return {...state, ItemLists}
         }
+        case actions.UPDATING_IMREGO_STATUS:{
+            const ItemLists = [...state.ItemLists];
+            Index = _.findIndex(ItemLists, function(item) { return item._id === action.payload; });
+            ItemLists[Index].loadingLFB = true;
+            return {...state, ItemLists: ItemLists}
+        }
+        case actions.UPDATED_IMREGO_STATUS:{
+            const ItemLists = [...state.ItemLists];
+            ItemLists[Index].loadingLFB = false;
+            ItemLists[Index].status = action.payload;
+            return {...state, ItemLists: ItemLists}
+        }
         default: {
             return {...state}
         }

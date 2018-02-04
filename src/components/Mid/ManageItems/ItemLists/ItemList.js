@@ -1,6 +1,7 @@
 import React from 'react';
 import {Modal, Row, Col, Button, Divider, Spin} from 'antd';
 import { delItem, showModalForm } from '../../../../store/actions/index';
+import LostFoundButton from './LostFoundButton';
 
 const confirm = Modal.confirm;
 
@@ -52,25 +53,35 @@ const ItemList = (props)=>{
         justify="space-around" 
         align="middle">
         <Col span={3} style={{...Style.allCenter}}>
-            <span>
-                <Button 
-                type="danger" 
-                shape="circle" 
-                icon="delete" 
-                size="default"
-                onClick={RemoveItem} 
-                ghost/>
+            <Row>
+                <Col span={24} style={{...Style.allCenter}}>
+                    <span>
+                        <Button 
+                        type="danger" 
+                        shape="circle" 
+                        icon="delete" 
+                        size="default"
+                        onClick={RemoveItem} 
+                        ghost/>
 
-                <span style={{color:'whitesmoke'}}>-  |  -</span>
-                
-                <Button 
-                type="primary" 
-                shape="circle" 
-                icon="edit" 
-                size="default"
-                onClick={editItem}
-                ghost/>
-            </span>
+                        <span style={{color:'whitesmoke'}}>-  |  -</span>
+                        
+                        <Button 
+                        type="primary" 
+                        shape="circle" 
+                        icon="edit" 
+                        size="default"
+                        onClick={editItem}
+                        ghost/>
+                    </span>
+                </Col>
+                <Col span={24} style={{...Style.allCenter, marginTop:'10px'}}>
+                    <LostFoundButton 
+                    loadingLFB={props.loadingLFB} 
+                    _id={props._id} 
+                    status = {props.status} />
+                </Col>
+            </Row>
         </Col>
 
         <Col span={4} style={{...Style.allCenter}}>

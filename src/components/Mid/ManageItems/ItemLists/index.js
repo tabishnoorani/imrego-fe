@@ -15,6 +15,7 @@ const ItemLists = (props) => {
         <ItemList iKey={index} key={`${index}-ItemList`} {...itemList}/>
     );
     
+    
     return(
         <Row type="flex" justify="center" style= {{width:'100%'}}>
             <Spin spinning={props.fetching} size="large">
