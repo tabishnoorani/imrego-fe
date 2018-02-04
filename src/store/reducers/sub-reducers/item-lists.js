@@ -4,6 +4,10 @@ import _ from 'lodash';
 const defaultState = {
     catagories:[
         {
+            optionName: "Status",
+            value:"status"
+        },
+        {
             optionName: "Title",
             value:"title"
         },
