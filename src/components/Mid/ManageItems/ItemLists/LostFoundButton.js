@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'antd';
+import {Button, Tooltip} from 'antd';
 import {updateImregoStatus} from '../../../../store/actions';
 
 const LostFoundButton = (props) =>{
@@ -12,14 +12,17 @@ const LostFoundButton = (props) =>{
         updateImregoStatus(props._id, newStatus)
     }
 
+    const buttonText= (lost) ? "FOUND IT" : "LOST IT"
     return(
-        <Button
-        loading={props.loadingLFB}
-        style={{width:'100%'}}
-        type={(lost) ? "secondary" : "primary"} 
-        onClick = {updateStatus}>
-            {(lost) ? "FOUND IT" : "LOST IT"}
-        </Button>
+        <Tooltip placement="bottom" title={buttonText}>
+            <Button
+            loading={props.loadingLFB}
+            style={{width:'100%'}}
+            type={(lost) ? "secondary" : "primary"} 
+            onClick = {updateStatus}>
+            {buttonText}
+            </Button>
+        </Tooltip>
     );
 }
 

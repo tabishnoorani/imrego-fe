@@ -21,7 +21,7 @@ const MenuLink = (props) => {
             callback();
         }
         if (noPush!==true){
-            history.push(link);
+            history.push(`/${link}`);
         }
     }
     
