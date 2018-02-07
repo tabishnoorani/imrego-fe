@@ -13,7 +13,7 @@ class Settings extends React.Component {
     return (
       <Row type="flex" justify="start" gutter={16} style={{width:'100%', margin:'0px 50px 15px 50px'}}>
         <Col span={12}>
-          <Profile user={user}/>
+          <Profile user={user} profile={settings.profile}/>
         </Col>
         <Col span={12}>
           <Privacy/>

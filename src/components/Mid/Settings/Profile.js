@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Spin,
   Card,
   Row,
   Col, 
@@ -20,6 +21,11 @@ const RadioGroup = Radio.Group
 class Profile extends React.Component {
   state = {
     fileList: [],
+    updateDisable: true,
+  }
+  constructor(props){
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +34,10 @@ class Profile extends React.Component {
         console.log('Received values of form: ', values);
       }
     });
+  }
+
+  handleChange(e){
+    this.setState({updateDisable: false});
   }
 
   render() {
@@ -42,10 +52,11 @@ class Profile extends React.Component {
         });
       },
       beforeUpload: (file) => {
-        this.setState({fileList:[file]})
+        this.setState({fileList:[file]});
         return false;
       },
       fileList: this.state.fileList,
+      onChange: this.handleChange
     };
 
     const prefixSelector = getFieldDecorator('prefix', {
@@ -56,15 +67,18 @@ class Profile extends React.Component {
       </Select>
     );
 
-    const {user} = this.props;
-
+    const {user, profile} = this.props;
     const {fname, lname, email} = user;
-    
+    const {gender, address, contact, profilePicture, loader} = profile;
+    const pp = (profilePicture!=='' && profilePicture!==undefined)?
+              profilePicture : '/profile.png';
+
     return (
       <Card title="Profile" bordered={false} style={{ height: '100%', width: '100%' }}>
+      <Spin size="large" spinning={loader}>
         <Row>
           <Col span={8} style={{padding:'0px 10px'}}>
-            <img alt='' src='/profile.png' style={{width:'100%'}}/>
+            <img alt='' src={pp} style={{width:'100%'}}/>
           </Col>
 
           <Col span={16}>
@@ -79,9 +93,9 @@ class Profile extends React.Component {
             label={<b>Gender</b>}
           >
             {getFieldDecorator('gender', {
-              initialValue:'u'
+              initialValue: gender
             })(
-            <RadioGroup>
+            <RadioGroup onChange={this.handleChange}>
               <RadioButton value="f">Female</RadioButton>
               <RadioButton value="m">Male</RadioButton>
               <RadioButton value="o">Other</RadioButton>
@@ -93,8 +107,10 @@ class Profile extends React.Component {
           <FormItem
             label={<b>Address</b>}
           >
-            {getFieldDecorator('confirm', {})(
-              <Input type="text" onBlur={this.handleConfirmBlur} />
+            {getFieldDecorator('confirm', {
+              initialValue: address
+            })(
+              <Input type="text" onChange={this.handleChange} onBlur={this.handleConfirmBlur} />
             )}
           </FormItem>
 
@@ -102,9 +118,9 @@ class Profile extends React.Component {
             label={<b>Contact Number</b>}
           >
             {getFieldDecorator('phone', {
-              rules: [{ required: false, message: 'Please input your contact number!' }],
+              initialValue: contact
             })(
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              <Input addonBefore={prefixSelector} style={{ width: '100%' }} onChange={this.handleChange} />
             )}
           </FormItem>
 
@@ -120,9 +136,10 @@ class Profile extends React.Component {
           </FormItem>
 
           <FormItem>
-            <Button type="primary" htmlType="submit">Update</Button>
+            <Button type="primary" htmlType="submit" disabled={this.state.updateDisable}>Update</Button>
           </FormItem>
         </Form>
+      </Spin>
       </Card>
     );
   }
