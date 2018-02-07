@@ -28,11 +28,18 @@ const MenuLink = (props) => {
     const buttonSettings = {
         // type:(activeLink)?"primary":"secondary",
         type:"primary",
-        shape:"circle", 
+        // shape:"circle", 
+        size:"large",
         icon:icon,
         loading:loading,
         onClick:handleClick,
-        ghost: !activeLink
+        ghost: !activeLink,
+        style:{
+            fontSize: '24px',
+            border: 'none',
+            width:'80px',
+            borderRadius: '0px'
+        }
     };
     
     const TooltipSettings = {

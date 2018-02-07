@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Layout } from 'antd';
+import { Row, Layout, Card } from 'antd';
 import Logo from './logo';
 import Menu from './Menu';
 
@@ -10,11 +10,15 @@ const { Header } = Layout;
 const Top = (props)=>{ 
     return(
     <Header style={{
-    background: "rgba(200, 200, 200, .5)", 
+    background: 'white',
+    // borderBottom:'.5px solid whitesmoke',
+    boxShadow: '1px 0px 10px 0px gray',
     position: 'fixed', 
     width: '100%', 
     height:"auto",
-    zIndex:'1'
+    paddingTop: '20px',
+    // paddingBottom: '0px',
+    zIndex:'10'
     }}>
       <Row type="flex" justify="space-between" align="middle">
         <Logo />

@@ -74,12 +74,14 @@ class Profile extends React.Component {
           <FormItem
             label={<b>Gender</b>}
           >
-            {getFieldDecorator('gender', {})(
-            <RadioGroup defaultValue="undisclosed">
-              <RadioButton value="female">Female</RadioButton>
-              <RadioButton value="male">Male</RadioButton>
-              <RadioButton value="other">Other</RadioButton>
-              <RadioButton value="undisclosed">Undisclosed</RadioButton>
+            {getFieldDecorator('gender', {
+              initialValue:'u'
+            })(
+            <RadioGroup>
+              <RadioButton value="f">Female</RadioButton>
+              <RadioButton value="m">Male</RadioButton>
+              <RadioButton value="o">Other</RadioButton>
+              <RadioButton value="u">Undisclosed</RadioButton>
             </RadioGroup>
             )}
           </FormItem>

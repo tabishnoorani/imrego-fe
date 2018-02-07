@@ -6,7 +6,7 @@ const Logo = (props)=>{
     return (
         <Col span={5}>
             <div className='logo'>
-                IMREGO
+                <span class='logoIcon'>IM</span>REGO
             </div>
         </Col>
     )

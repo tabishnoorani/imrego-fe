@@ -1,6 +1,12 @@
 .logo {
     font-size: 4em;
     font-weight: bold;
-    color: whitesmoke;
+    color: black;
+    padding-bottom: 10px;
     /* padding: 10px 0px */
+}
+.logoIcon {
+    background: #1DA57A;
+    color: white;
+    padding: 0px 10px;
 }

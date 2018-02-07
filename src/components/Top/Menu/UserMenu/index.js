@@ -27,7 +27,7 @@ class UserMenu extends React.Component {
         const { userMenu, dispatch, pathname } = this.props;
         userMenu['signout'].callback = this.Signout.bind(this)
         return(
-            <Row gutter={8} type="flex" justify="center" align="middle">
+            <Row gutter={0} type="flex" justify="center" align="middle">
             {
                 Object.keys(userMenu).map((key, index)=>{
                     return (

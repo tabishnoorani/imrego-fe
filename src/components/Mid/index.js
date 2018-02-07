@@ -22,7 +22,7 @@ const Mid = (props)=> {
     return(
         <Content style={{ 
             // padding: '0 50px', 
-            marginTop: '80px', 
+            marginTop: '150px', 
             marginBottom:'20px' 
             }}>
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Spin } from 'antd';
-// import config from './config';
 import './App.css';
 import Top from './components/Top';
 import Mid from './components/Mid';
@@ -22,17 +21,13 @@ class App extends Component {
     return (
     <Layout style={{background:"whitesmoke"}}>
       <Spin spinning={this.props.loading}>
-    
         <Top />
-        
         <Mid 
           auth={auth}
           token={token}
           dispatch = {dispatch}
           Mid = {mid}/>
-        
         <Bottom />
-
       </Spin>
     </Layout>
     );

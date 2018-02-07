@@ -42,7 +42,9 @@ class Privacy extends React.Component {
           <FormItem
             label={<b>Visible contact details to public</b>}
           >
-            {getFieldDecorator('visibleContact', {})(
+            {getFieldDecorator('visibleContact', {
+                initialValue:['Email']
+            })(
               <CheckboxGroup options={['Email', 'Contact Number', 'Address']} />
             )}
           </FormItem>
@@ -50,8 +52,10 @@ class Privacy extends React.Component {
           <FormItem
             label={<b>Do make visible very item in the search?</b>}
           >
-            {getFieldDecorator('itemvisible', {})(
-            <RadioGroup defaultValue="false">
+            {getFieldDecorator('itemvisible', {
+                initialValue:'false'
+            })(
+            <RadioGroup>
               <RadioButton value="true">Yes</RadioButton>
               <RadioButton value="false">No</RadioButton>
             </RadioGroup>
