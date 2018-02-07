@@ -1,20 +1,26 @@
 import React from 'react';
-import NotAuth from '../NotAuth';
-import config from '../../../config';
-import { Col, Row } from 'antd';
-// import SettingMenu from './Menu';
-import Profile from './Profile';
+import { Row, Col } from 'antd';
+import Profile from './Profile'
+import Privacy from './Privacy';
+import Security from './Security';
 
-const Settings = (props)=>{
-  window.document.title=`${config.APP_NAME} - Settings`
-  const {auth} = props;
-  if (auth!==false){
+
+
+
+class Settings extends React.Component {
+  render(){
     return (
-      <Row type="flex" justify="start" style={{width:'100%', margin:'0px 25px'}}>
-        <Profile/>
+      <Row type="flex" justify="start" gutter={16} style={{width:'100%'}}>
+        <Col span={12}>
+          <Profile/>
+        </Col>
+        <Col span={12}>
+          <Privacy/>
+          <Security/>
+        </Col>
       </Row>
-    )
-  } else return (<NotAuth />)
+    );
+  }
 }
 
 export default Settings;
