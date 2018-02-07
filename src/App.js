@@ -6,6 +6,7 @@ import Top from './components/Top';
 import Mid from './components/Mid';
 import Bottom from './components/Bottom';
 import { initializeToken } from './store/actions';
+import config from './config';
 
 class App extends Component {
 
@@ -19,7 +20,7 @@ class App extends Component {
   render() {
     const {auth, token, mid, dispatch} = this.props;
     return (
-    <Layout style={{background:"whitesmoke"}}>
+    <Layout style={{background:config.THEME.BACKGROUND_COLOR}}>
       <Spin spinning={this.props.loading}>
         <Top />
         <Mid 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Layout, Card } from 'antd';
 import Logo from './logo';
 import Menu from './Menu';
+import config from '../../config';
 
 const { Header } = Layout;
 
@@ -10,14 +11,12 @@ const { Header } = Layout;
 const Top = (props)=>{ 
     return(
     <Header style={{
-    background: 'white',
-    // borderBottom:'.5px solid whitesmoke',
+    background: config.THEME.BRIGHT_COLOR,
     boxShadow: '1px 0px 10px 0px gray',
     position: 'fixed', 
     width: '100%', 
     height:"auto",
     paddingTop: '20px',
-    // paddingBottom: '0px',
     zIndex:'10'
     }}>
       <Row type="flex" justify="space-between" align="middle">

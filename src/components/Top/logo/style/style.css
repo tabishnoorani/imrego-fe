@@ -1,12 +1,13 @@
 .logo {
     font-size: 4em;
     font-weight: bold;
-    color: black;
+    color: #FAED26;
     padding-bottom: 10px;
     /* padding: 10px 0px */
 }
 .logoIcon {
-    background: #1DA57A;
-    color: white;
+    /* background: #1DA57A; */
+    background: #FAED26;
+    color: black;
     padding: 0px 10px;
 }

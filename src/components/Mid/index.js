@@ -20,10 +20,10 @@ const Mid = (props)=> {
     const ManageItemsProps = {auth, dispatch, token, ...Mid.manageitems}
 
     return(
-        <Content style={{ 
-            // padding: '0 50px', 
+        <Content style={{  
             marginTop: '150px', 
-            marginBottom:'20px' 
+            marginBottom:'20px',
+            height: '100%'
             }}>
 
             {(Pathname==='home'||Pathname==='')?<SearchBar/>:""}

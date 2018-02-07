@@ -70,7 +70,7 @@ class ManageItems extends React.Component {
                         shape="circle" 
                         icon="reload" 
                         onClick={FetchItemLists} 
-                        ghost/>
+                        />
                     </Tooltip>
 
                     <Tooltip placement="bottom" title="Add Item">
@@ -80,7 +80,7 @@ class ManageItems extends React.Component {
                         shape="circle" 
                         icon="plus" 
                         onClick={showModal} 
-                        ghost/>
+                        />
                     </Tooltip>
                 </Col>
 
