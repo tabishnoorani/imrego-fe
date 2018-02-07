@@ -2,7 +2,10 @@ const config = require('./src/config');
 module.exports = { 
     "@primary-color" : config.THEME.PRIMARY_COLOR,
 
+    //Buttons
     "@btn-primary-color" : config.THEME.BUTTON_FONT_COLOR,
+    "@btn-danger-bg" : config.THEME.DANGER_BUTTON_BG_COLOR,
+    "@btn-danger-color " : 'white',
 
     //card
     "@card-head-color": "@heading-color",

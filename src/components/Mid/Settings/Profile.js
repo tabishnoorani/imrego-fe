@@ -56,6 +56,10 @@ class Profile extends React.Component {
       </Select>
     );
 
+    const {user} = this.props;
+
+    const {fname, lname, email} = user;
+    
     return (
       <Card title="Profile" bordered={false} style={{ height: '100%', width: '100%' }}>
         <Row>
@@ -64,9 +68,9 @@ class Profile extends React.Component {
           </Col>
 
           <Col span={16}>
-            <p><b>First Name:</b> Tabbish</p>
-            <p><b>Last Name:</b> Noorani</p>
-            <p><b>Email:</b> tabish.noornai@gmail.com</p>
+            <p><b>First Name:</b> {fname}</p>
+            <p><b>Last Name:</b> {lname}</p>
+            <p><b>Email:</b> {email}</p>
           </Col>
         </Row>
       

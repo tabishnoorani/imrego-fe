@@ -62,7 +62,7 @@ const ItemList = (props)=>{
                         icon="delete" 
                         size="default"
                         onClick={RemoveItem} 
-                        ghost/>
+                        />
 
                         <span style={{color:'whitesmoke'}}>-  |  -</span>
                         
@@ -72,7 +72,7 @@ const ItemList = (props)=>{
                         icon="edit" 
                         size="default"
                         onClick={editItem}
-                        ghost/>
+                        />
                     </span>
                 </Col>
                 <Col span={24} style={{...Style.allCenter, marginTop:'10px'}}>

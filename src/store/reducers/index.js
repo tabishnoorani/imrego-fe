@@ -6,6 +6,7 @@ import UserMenu from './sub-reducers/user-menu';
 import ItemLists from './sub-reducers/item-lists';
 import Mid from './sub-reducers/mid';
 import ModalForm from './sub-reducers/modal-form';
+import Settings from './sub-reducers/settings';
 
 const Reducers = combineReducers({
     Status: Status,
@@ -15,6 +16,7 @@ const Reducers = combineReducers({
     ItemLists: ItemLists,
     router: routerReducer,
     ModalForm: ModalForm,
+    Settings: Settings,
 });
 
 export default Reducers;
