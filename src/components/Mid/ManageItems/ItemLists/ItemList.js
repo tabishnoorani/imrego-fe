@@ -2,6 +2,8 @@ import React from 'react';
 import {Modal, Row, Col, Button, Divider, Spin} from 'antd';
 import { delItem, showModalForm } from '../../../../store/actions/index';
 import LostFoundButton from './LostFoundButton';
+import moment from 'moment';
+import config from '../../../../config';
 
 const confirm = Modal.confirm;
 
@@ -40,7 +42,12 @@ const ItemList = (props)=>{
             alignItems:'center'
         }
     }
+    
+    const dateAdded= moment(props.date).format(config.DATE_FORMAT);
+    const timeAdded= moment(props.date).format(config.TIME_FORMAT);
+    
     return(
+    
     <Spin spinning={props.deleting ||false}>
     <Row gutter={0} type="flex" 
             justify="center" 
@@ -96,7 +103,7 @@ const ItemList = (props)=>{
                 <p><b>Catagory: </b>{props.catagory}</p>
                 <p><b>Desciption: </b>{props.description}</p>
                 <p><b>IM: </b>{props.imNum}</p>
-                <p><b>Date added: </b>{props.date}</p>
+                <p><b>Date added: </b>{dateAdded} (<i>{timeAdded}</i>)</p>
 
             </div>
         </Col>

@@ -1,18 +1,22 @@
 import React from 'react';
+import moment from 'moment';
 import {
-  Spin,
+  Button, 
   Card,
-  Row,
   Col, 
-  Upload, 
-  Radio, 
+  DatePicker,
   Form, 
-  Input,  
   Icon,  
+  Input,  
+  Radio, 
+  Row,
   Select, 
-  Button } from 'antd';
+  Spin,
+  Upload, 
+} from 'antd';
 
 import config from '../../../config';
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
@@ -69,7 +73,16 @@ class Profile extends React.Component {
 
     const {user, profile} = this.props;
     const {fname, lname, email} = user;
-    const {gender, address, contact, profilePicture, loader} = profile;
+    const {
+      dob, 
+      gender, 
+      contact, 
+      address, 
+      profilePicture, 
+      modifiedDate, 
+      loader} = profile;
+    const modifieddate = moment(modifiedDate).format(config.DATE_FORMAT);
+    const modifiedtime = moment(modifiedDate).format(config.TIME_FORMAT);
     const pp = (profilePicture!=='' && profilePicture!==undefined)?
               profilePicture : '/profile.png';
 
@@ -85,6 +98,7 @@ class Profile extends React.Component {
             <p><b>First Name:</b> {fname}</p>
             <p><b>Last Name:</b> {lname}</p>
             <p><b>Email:</b> {email}</p>
+            <p><b>Last Modified:</b> {modifieddate} <i>({modifiedtime})</i></p>
           </Col>
         </Row>
       
@@ -105,9 +119,21 @@ class Profile extends React.Component {
           </FormItem>
 
           <FormItem
+            label={<b>Date of birth</b>}
+          >
+            {getFieldDecorator('dob', {
+              initialValue: moment(dob)
+            })(
+              <DatePicker 
+                onChange={this.handleChange} 
+                format={config.DATE_FORMAT} />
+            )}
+          </FormItem>
+
+          <FormItem
             label={<b>Address</b>}
           >
-            {getFieldDecorator('confirm', {
+            {getFieldDecorator('address', {
               initialValue: address
             })(
               <Input type="text" onChange={this.handleChange} onBlur={this.handleConfirmBlur} />

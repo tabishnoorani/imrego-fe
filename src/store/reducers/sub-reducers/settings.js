@@ -2,6 +2,8 @@ import actions from '../../actions/action-const';
 
 const defaultState = {
     profile: {
+        modifiedDate: '2018-02-01T00:00:00.000Z', 
+        dob: '1985-12-18T00:00:00.000Z',
         gender: "m",
         address: "U22 11 Penny St Algester 4115",
         contact: "0401112637",
