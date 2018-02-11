@@ -1,10 +1,9 @@
 import actions from '../../actions/action-const';
 
 const defaultState = {
-    fname: "Tabbish",
-    lname: "Noorani",
+    fname: "",
+    lname: "",
     email: "",
-    verified: false, // add the function in the database at server side.
     token: "",
 }
 function User (state=defaultState, action) {

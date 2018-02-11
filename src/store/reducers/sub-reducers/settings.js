@@ -2,6 +2,8 @@ import actions from '../../actions/action-const';
 
 const defaultState = {
     profile: {
+        _id:"",
+        verified: false,
         modifiedDate: '2018-02-01T00:00:00.000Z', 
         dob: '1985-12-18T00:00:00.000Z',
         gender: "m",
@@ -11,11 +13,11 @@ const defaultState = {
         loader: false,
     },
     privacy: {
-
+        _id:"",
+        displayname: "",
+        visiblecontacts: ["email"],
+        visibleitem: false
     },
-    Security:{
-
-    }
 }
 
 function Settings (state=defaultState, action) {
