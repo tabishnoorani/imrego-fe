@@ -14,7 +14,7 @@ class App extends Component {
     const {pathname, dispatch} = this.props
     const token = localStorage.getItem('token');
     initializeToken(dispatch, token, pathname);
-    console.log(pathname);
+    // console.log(pathname);
   }
 
   render() {

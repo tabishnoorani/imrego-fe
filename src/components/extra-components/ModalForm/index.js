@@ -29,9 +29,9 @@ class ModalForm extends React.Component {
     function onOk() {
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          const file = (values.imgs!==undefined)?values.imgs.fileList[0]:""
+          const file = (values.imgs!==undefined)?values.imgs.fileList[0]:"";
           const formData = new FormData();
-          formData.append('id',_id)
+          formData.append('id',_id);
           formData.append('title', values.title);
           formData.append('catagory', values.catagory);
           formData.append('description', values.description);

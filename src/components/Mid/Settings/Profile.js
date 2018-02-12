@@ -7,14 +7,17 @@ import {
   DatePicker,
   Form, 
   Icon,  
-  Input,  
+  Input,
+  Popconfirm,  
   Radio, 
   Row,
   Select, 
   Spin,
-  Upload, 
+  Tag,
+  Tooltip,
+  Upload,
 } from 'antd';
-
+import {updateProfile, removeImg} from '../../../store/actions';
 import config from '../../../config';
 
 const FormItem = Form.Item;
@@ -33,9 +36,22 @@ class Profile extends React.Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll((err, values) => 
+    {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const {_id} = this.props.profile;
+        const file = (values.imgs!==undefined) ? values.imgs.fileList[0] : "";
+        const formData = new FormData();
+        formData.append('id', _id);
+        formData.append('gender', values.gender);
+        formData.append('dob', values.dob);
+        formData.append('address', values.address);
+        formData.append('prefix', values.prefix)
+        formData.append('contact', values.phone);
+        formData.append('file', file);
+        updateProfile(formData);
+        this.setState({fileList: [],
+          updateDisable: true});
       }
     });
   }
@@ -44,7 +60,19 @@ class Profile extends React.Component {
     this.setState({updateDisable: false});
   }
 
+  delImg(){
+    removeImg(this.props.profile._id)
+  }
+
   render() {
+    const Style={
+      allCenter:{
+          display:'flex', 
+          height: '100%', 
+          justifyContent:'center', 
+          alignItems:'center'
+      }
+    }
 
     const { getFieldDecorator } = this.props.form;
     
@@ -79,19 +107,42 @@ class Profile extends React.Component {
       contact, 
       address, 
       profilePicture, 
-      modifiedDate, 
-      loader} = profile;
+      modifiedDate,
+      verified, 
+      loader
+    } = profile;
     const modifieddate = moment(modifiedDate||creationDate).format(config.DATE_FORMAT);
     const modifiedtime = moment(modifiedDate||creationDate).format(config.TIME_FORMAT);
     const pp = (profilePicture!=='' && profilePicture!==undefined)?
               profilePicture : '/profile.png';
+    const vtag = (verified)? ["green", "Verified"] : ["red", "Not Verified!"];
+    const vtext = (verified)? "You are a verified user!" : "Please check your registered email and click the link that has been sent for verification.";
+    const deleteImg = (profilePicture==='')? "" :
+      <Popconfirm 
+      placement="bottom" 
+      title="Are you sure you want to remove the profile picture?" 
+      onConfirm={this.delImg.bind(this)} 
+      okText="Yes" 
+      cancelText="No">
+        <Button 
+        type="danger" 
+        size="small"
+        shape="circle" 
+        icon="delete" 
+        // ghost
+        style={{position:"absolute", right:'10px'}}
+        />
+      </Popconfirm>
 
     return (
       <Card title="Profile" bordered={false} style={{ height: '100%', width: '100%' }}>
       <Spin size="large" spinning={loader}>
         <Row>
           <Col span={8} style={{padding:'0px 10px'}}>
-            <img alt='' src={pp} style={{width:'100%'}}/>
+            <div style={{height:'100%'}}>
+              {deleteImg}
+              <img alt='' src={pp} style={{width:'100%'}}/>
+            </div>
           </Col>
 
           <Col span={16}>
@@ -99,6 +150,9 @@ class Profile extends React.Component {
             <p><b>Last Name:</b> {lname}</p>
             <p><b>Email:</b> {email}</p>
             <p><b>Last Modified:</b> {modifieddate} <i>({modifiedtime})</i></p>
+            <Tooltip placement="top" title={vtext}>
+              <Tag color={vtag[0]}>{vtag[1]}</Tag>
+            </Tooltip>
           </Col>
         </Row>
       

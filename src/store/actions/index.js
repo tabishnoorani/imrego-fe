@@ -85,7 +85,7 @@ export function signin(dispatch, credential, aNotification){
         });
     });
     
-};
+}
 
 export function signout(dispatch, token){
     dispatch({
@@ -188,7 +188,6 @@ export function showAddItemCancel(dispatch){
 }
 
 export function addItem (dispatch, values, token){
-    console.log(values)
     dispatch({
         type: actions.ADD_ITEM_CREATE
     });
@@ -213,7 +212,6 @@ export function addItem (dispatch, values, token){
         json: true,
         data: formData 
     }).then((res)=>{
-        console.log(res.data);
         message.success('Item added!')
         dispatch({
             type: actions.ADD_ITEM_CREATED,
@@ -269,7 +267,6 @@ export function fetchItemLists (msg){
         }
     })
     .then((res)=>{
-        // console.log(res.data);
         if (res.data.success){
             message.success(msg)
             Dispatch({
@@ -290,6 +287,7 @@ export function currentCatagory (catagory){
 export function AXIOS (CONFIG){
   const {
     method='POST', 
+    multipart=true,
     url="", 
     data="", 
     cb=(res)=>{console.log(res)}
@@ -300,8 +298,7 @@ export function AXIOS (CONFIG){
     url: `${config.HOST_URL}${url}`,
     headers:{
         authorization: `Bearer ${Token}`,
-        'Content-Type': 'multipart/form-data'
-        // 'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': (multipart) ? 'multipart/form-data' : 'application/json'
     },
     json: true,
     data: data,
@@ -332,7 +329,6 @@ export function modalFromSendData (formData){
         url:"/api/updateimrego", 
         data:formData, 
         cb:(res)=>{
-            console.log(res);
             Dispatch({
                 type: actions.MODAL_FORM_SENT_DATA,
                 payload: res.data.imrego
@@ -367,4 +363,39 @@ export function updateImregoStatus (_id, status) {
             })           
         }
     }) 
+}
+
+export function updateProfile (formData) {
+    Dispatch({
+        type: actions.PROFILE_UPDATING,
+    });
+    AXIOS({
+        method:'POST', 
+        url:"/api/updateprofile", 
+        data:formData, 
+        cb:(res)=>{
+            Dispatch({
+                type: actions.PROFILE_UPDATED,
+                payload: res.data.profile
+            })
+        }
+    });
+}
+
+export function removeImg(id){
+    Dispatch({
+        type: actions.PROFILE_UPDATING,
+    });
+    AXIOS({
+        method:'POST', 
+        multipart: false,
+        url:"/api/removeimg", 
+        data: {id}, 
+        cb:(res)=>{
+            Dispatch({
+                type: actions.PROFILE_UPDATED,
+                payload: res.data.profile
+            })
+        }
+    });
 }

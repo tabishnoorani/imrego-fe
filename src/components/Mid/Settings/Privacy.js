@@ -49,7 +49,7 @@ class Privacy extends React.Component {
             )}
           </FormItem>
 
-          <FormItem
+          {/* <FormItem
             label={<b>Do make visible very item in the search?</b>}
           >
             {getFieldDecorator('itemvisible', {
@@ -60,7 +60,7 @@ class Privacy extends React.Component {
               <RadioButton value="false">No</RadioButton>
             </RadioGroup>
             )}
-          </FormItem>
+          </FormItem> */}
           <FormItem>
             <Button type="primary" htmlType="submit">Update</Button>
           </FormItem>

@@ -24,11 +24,27 @@ function Settings (state=defaultState, action) {
     switch (action.type) {
         case actions.SIGNIN: {
             const {privacy, profile} = action.payload;
-            console.log({privacy,profile});
             return {...state,
                 profile:{...state.profile, ...profile},
                 privacy: {...state.privacy, ...privacy},
             }
+        }
+        case actions.PROFILE_UPDATING: {
+            return {...state,
+                profile: {...state.profile, loader: true}
+            }
+        }
+        case actions.PROFILE_UPDATED:{
+            return {...state,
+                profile: {
+                    ...state.profile, 
+                    ...action.payload,
+                    loader: false
+                }
+            }
+        }
+        case actions.SIGNOUT: {
+            return {...defaultState}
         }
         default: {
             return {...state }

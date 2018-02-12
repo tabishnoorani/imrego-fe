@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Layout, Card } from 'antd';
+import { Row, Layout } from 'antd';
 import Logo from './logo';
 import Menu from './Menu';
 import config from '../../config';

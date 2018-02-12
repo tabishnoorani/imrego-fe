@@ -87,6 +87,9 @@ function ItemLists (state=defaultState, action) {
             ItemLists[Index].status = action.payload;
             return {...state, ItemLists: ItemLists}
         }
+        case actions.SIGNOUT: {
+            return {...defaultState}
+        }
         default: {
             return {...state}
         }

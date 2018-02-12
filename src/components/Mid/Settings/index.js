@@ -8,7 +8,7 @@ import Security from './Security';
 class Settings extends React.Component {
   render(){
     const {settings, user} = this.props
-    console.log (user);
+    // console.log (user);
 
     return (
       <Row type="flex" justify="start" gutter={16} style={{width:'100%', margin:'0px 50px 15px 50px'}}>
