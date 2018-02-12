@@ -97,6 +97,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ##THINGS TO DO:
 
+###THINGS TO FIX:
++Profile is visiable when it is signout.
 
 ## FINAL THINGS TO DO:
 React-Router-Redux

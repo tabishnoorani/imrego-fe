@@ -102,6 +102,7 @@ export function signout(dispatch, token){
                 type: actions.SIGNOUT,
             });
             Push('/');
+            // window.location.reload(true)
         }
     })
 }

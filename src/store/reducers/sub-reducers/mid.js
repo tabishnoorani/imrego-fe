@@ -46,6 +46,9 @@ function Mid (state=defaultState, action) {
                 }
             }
         }
+        case actions.SIGNOUT: {
+            return {...defaultState}
+        }
         default: {
             return {...state }
         }

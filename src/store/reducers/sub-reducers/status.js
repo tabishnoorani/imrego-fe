@@ -37,7 +37,12 @@ function Status (state=defaultState, action) {
             }
         }
         case actions.SIGNOUT: {
-            return {...state, auth: false, loders: {signout: false}, showSignupModal: false, loading: false}
+            return {...state, 
+                auth: false, 
+                loders: {signout: false}, 
+                showSignupModal: false, 
+                loading: false
+            }
         }
         case actions.RESET_SIGNIN_FAILED: {
             return {...state, msg:{signinField:""}}
