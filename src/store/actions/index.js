@@ -128,7 +128,7 @@ export function signupCreate (dispatch, user, form) {
     // form.resetFields();
     Dispatch=dispatch;
 
-    dispatch({
+    Dispatch({
         type: actions.SIGNUP_CREATE
     });
     axios.post(`${config.HOST_URL}/auth/signup`, {
@@ -140,15 +140,37 @@ export function signupCreate (dispatch, user, form) {
         }
     })
     .then((res)=>{
-        form.resetFields();
-        Token=res.data.token;
-        dispatch({
-            type: actions.SIGNUP_CREATED,
-        });
-        dispatch({
-            type: actions.SIGNIN,
-            payload:{...res.data.data, token: res.data.token}
-        });
+        if (res.data.success) {
+            form.resetFields();
+
+            // Token=res.data.token;
+            // dispatch({
+            //     type: actions.SIGNUP_CREATED,
+            // });
+            // localStorage.setItem('token', Token);
+            // dispatch({
+                //     type: actions.SIGNIN,
+                //     payload:{...res.data.data, token: Token}
+                // });
+            const {data, token} = res.data;
+            Token=token;
+            localStorage.setItem('token', token);
+            
+            dispatch({
+                type: actions.SIGNUP_CREATED,
+            });
+            dispatch({
+                type: actions.SIGNIN,
+                payload:{...data, token: token}
+            });
+            Push('/home');
+            message.success('New user created. Please check your email and verify the account!', 10);
+        } else {
+            message.error(res.data.msg, 10)
+            Dispatch({
+                type: actions.SIGNUP_REFUSED
+            })
+        }
     })
 }
 

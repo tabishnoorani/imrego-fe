@@ -61,6 +61,9 @@ function Status (state=defaultState, action) {
                 loders: {createUser: false}, 
                 showSignupModal: false }
         }
+        case actions.SIGNUP_REFUSED:{
+            return {...state, loders: {createUser: false}}
+        }
         default: {
             return {...state }
         }

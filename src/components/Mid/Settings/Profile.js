@@ -72,7 +72,7 @@ class Profile extends React.Component {
     );
 
     const {user, profile} = this.props;
-    const {fname, lname, email} = user;
+    const {fname, lname, email, creationDate} = user;
     const {
       dob, 
       gender, 
@@ -81,8 +81,8 @@ class Profile extends React.Component {
       profilePicture, 
       modifiedDate, 
       loader} = profile;
-    const modifieddate = moment(modifiedDate).format(config.DATE_FORMAT);
-    const modifiedtime = moment(modifiedDate).format(config.TIME_FORMAT);
+    const modifieddate = moment(modifiedDate||creationDate).format(config.DATE_FORMAT);
+    const modifiedtime = moment(modifiedDate||creationDate).format(config.TIME_FORMAT);
     const pp = (profilePicture!=='' && profilePicture!==undefined)?
               profilePicture : '/profile.png';
 

@@ -5,17 +5,19 @@ const defaultState = {
     lname: "",
     email: "",
     token: "",
+    creationDate: "",
 }
 function User (state=defaultState, action) {
     switch (action.type){
         case actions.SIGNIN:
         {
-            const {fname, lname, email, token} = action.payload
+            const {fname, lname, email, creationDate, token} = action.payload
             return ({...state,
                 fname,
                 lname,
                 email,
-                token
+                token,
+                creationDate,
             });
         }
         case actions.SIGNOUT:{
