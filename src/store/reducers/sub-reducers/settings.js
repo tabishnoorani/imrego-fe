@@ -16,6 +16,7 @@ const defaultState = {
         _id:"",
         displayname: "",
         visiblecontacts: ["Email"],
+        loader: false,
     },
 }
 

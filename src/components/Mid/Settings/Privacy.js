@@ -1,10 +1,12 @@
 import React from 'react';
 import {
+  Button, 
   Card,
-  Form, 
-  Input,  
   Checkbox, 
-  Button } from 'antd';
+  Form, 
+  Input,
+  Spin,  
+} from 'antd';
 import {updatePrivacy} from '../../../store/actions';
 
 const FormItem = Form.Item;
@@ -48,6 +50,7 @@ class Privacy extends React.Component {
 
     return (
         <Card title="Privacy" bordered={false} style={{ width: '100%' }}>
+        <Spin size="large" spinning={this.props.privacy.loader}>
         <Form onSubmit={this.handleSubmit} style={{width:'100%'}}>
           <FormItem
             label={<b>Display Name</b>}
@@ -73,6 +76,7 @@ class Privacy extends React.Component {
             <Button disabled={this.state.updateDisable} type="primary" htmlType="submit">Update</Button>
           </FormItem>
         </Form>
+        </Spin>
       </Card>
     );
   }
