@@ -17,7 +17,7 @@ class Settings extends React.Component {
         </Col>
         <Col span={12}>
           <Privacy privacy={settings.privacy}/>
-          <Security/>
+          <Security security={settings.security}/>
         </Col>
       </Row>
     );

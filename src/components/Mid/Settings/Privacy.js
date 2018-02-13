@@ -26,10 +26,6 @@ class Privacy extends React.Component {
     {
       if (!err) {
         const {_id} = this.props.privacy;
-        const formData = new FormData();
-        // formData.append('id', _id);
-        // formData.append('displayname', values.displayname);
-        // formData.append('visiblecontacts', values.visiblecontacts);
         updatePrivacy({id:_id, ...values});
         this.setState({updateDisable: true});
       }
@@ -46,7 +42,6 @@ class Privacy extends React.Component {
 
     const {privacy} = this.props;
     const {displayname, visiblecontacts} = privacy;
-    console.log (visiblecontacts);
 
     return (
         <Card title="Privacy" bordered={false} style={{ width: '100%' }}>

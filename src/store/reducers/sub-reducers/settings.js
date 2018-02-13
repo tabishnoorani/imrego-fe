@@ -18,6 +18,9 @@ const defaultState = {
         visiblecontacts: ["Email"],
         loader: false,
     },
+    security:{
+        loader: false
+    }
 }
 
 function Settings (state=defaultState, action) {

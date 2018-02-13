@@ -1,48 +1,105 @@
 import React from 'react';
 import {
+  Button, 
   Card,
   Form, 
-  Input, 
-  Tooltip, 
   Icon, 
-  Button } from 'antd';
+  Input,
+  Spin, 
+  Tooltip, 
+} from 'antd';
+import {updatePassword} from '../../../store/actions'
 
 const FormItem = Form.Item;
 
 class Security extends React.Component {
+  state = {
+    updateDisable: true,
+  }
+  constructor(props){
+    super(props);
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll((err, values) => 
+    {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const {_id} = this.props.privacy;
+        updatePassword({id:_id, ...values});
+        this.setState({updateDisable: true});
       }
     });
   }
 
+  matchPassword (rule, value, callback) {
+    const { getFieldValue, validateFieldsAndScroll, setFields } = this.props.form;
+    switch(rule.field){
+      case 'confirmPassword': {
+        console.log('Confirm Password')
+        if (getFieldValue('newPassword')===value){
+          callback();                    
+        } else callback('Password does not match with new password!')
+        break;
+      }
+      case 'newPassword': {
+        console.log('newPassword')
+        const confirmPassword = getFieldValue('confirmPassword')
+        if (confirmPassword!==undefined) {
+          setFields({
+            confirmPassword: {
+              value: getFieldValue('confirmPassword'),
+              message:"",
+              errors: ""
+            },
+          });
+          callback();
+          break;
+        } else callback();
+        break;
+      }
+      case 'password':{
+        console.log ('Iam here')
+        callback();
+        break;
+      }
+      default: {
+        callback();
+        break;
+      }
+    }
+
+    validateFieldsAndScroll((err,values)=>{
+      if (!err) {
+        this.setState({updateDisable: false})
+      } else {
+        this.setState({updateDisable:true})
+      }
+    });
+  }
+
+
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator, getFieldValue, setFields } = this.props.form;
     return (
-      <Card title="Security" bordered={false} style={{ width: '100%', marginTop:'20px' }}>
-        <Form>
-          <FormItem
-          label={(
-            <span>
-            Current Password&nbsp;
-            <Tooltip title={`- at least 8 characters
-            - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-            - Can contain special characters`}>
-              <Icon type="question-circle-o" />
-            </Tooltip>
-            </span>
-          )}
-          >
+      <Card title="Security" bordered={false} style={{ width: '100%', marginTop:'20px' }}>        
+        <Spin size="large" spinning={this.props.security.loader}>
+        <Form onSubmit={this.handleSubmit} style={{width:'100%'}}>
+          
+          <FormItem label= "Current Password">
           {getFieldDecorator('password', {
             rules: [
-              { required: true, message: 'Please input your Password!' },
-              { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , message: 'The input is not valid Password!'}
+              { 
+                required: true, 
+                message: 'Please input your Password!' 
+              },
+              { 
+                pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , 
+                message: 'The input is not valid Password!'
+              },
+              // { validator:  this.matchPassword.bind(this) }
             ],
           })(
-            <Input type="password" disabled= {false}/>
+            <Input type="password" />
           )}
           </FormItem>
 
@@ -50,18 +107,27 @@ class Security extends React.Component {
           label={(
             <span>
             New Password&nbsp;
-            <Tooltip title={`- at least 8 characters
-            - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-            - Can contain special characters`}>
+            <Tooltip title={
+              <div>
+              <b>Password conditions:</b>
+              <ul>
+                <li>At least 8 characters</li>
+                <li>Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number</li>
+                <li>Can contain special characters</li>
+              </ul>
+              </div>
+            }
+            >
               <Icon type="question-circle-o" />
             </Tooltip>
             </span>
           )}
           >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('newPassword', {
             rules: [
               { required: true, message: 'Please input your Password!' },
-              { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , message: 'The input is not valid Password!'}
+              { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , message: 'The input is not valid Password!'},
+              { validator:  this.matchPassword.bind(this) },
             ],
           })(
             <Input type="password" disabled= {false}/>
@@ -70,19 +136,13 @@ class Security extends React.Component {
           <FormItem
           label={(
             <span>
-            Confirm Password&nbsp;
-            <Tooltip title={`- at least 8 characters
-            - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
-            - Can contain special characters`}>
-              <Icon type="question-circle-o" />
-            </Tooltip>
+              Confirm Password
             </span>
           )}
           >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('confirmPassword', {
             rules: [
-              { required: true, message: 'Please input your Password!' },
-              { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , message: 'The input is not valid Password!'}
+              { validator:  this.matchPassword.bind(this) }
             ],
           })(
             <Input type="password" disabled= {false}/>
@@ -90,10 +150,11 @@ class Security extends React.Component {
           </FormItem>
 
           <FormItem>
-            <Button type="primary" htmlType="submit">Update</Button>
+           <Button disabled={this.state.updateDisable} type="primary" htmlType="submit">Update</Button>
           </FormItem>
 
         </Form>
+        </Spin>
       </Card>
     );
   }

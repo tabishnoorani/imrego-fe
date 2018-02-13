@@ -418,3 +418,7 @@ export function updatePrivacy(formData){
     });
     console.log (formData)
 }
+
+export function updatePassword(oldPassword, newPassword){
+    
+}
