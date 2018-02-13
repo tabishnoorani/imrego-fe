@@ -65,14 +65,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    const Style={
-      allCenter:{
-          display:'flex', 
-          height: '100%', 
-          justifyContent:'center', 
-          alignItems:'center'
-      }
-    }
 
     const { getFieldDecorator } = this.props.form;
     

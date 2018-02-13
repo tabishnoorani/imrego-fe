@@ -399,3 +399,22 @@ export function removeImg(id){
         }
     });
 }
+
+export function updatePrivacy(formData){
+    Dispatch({
+        type: actions.PRIVACY_UPDATING,
+    });
+    AXIOS({
+        method:'POST', 
+        url:"/api/updateprivacy", 
+        multipart: false,
+        data:formData, 
+        cb:(res)=>{
+            Dispatch({
+                type: actions.PRIVACY_UPDATED,
+                payload: res.data.profile
+            })
+        }
+    });
+    console.log (formData)
+}

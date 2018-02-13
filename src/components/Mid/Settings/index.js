@@ -16,7 +16,7 @@ class Settings extends React.Component {
           <Profile user={user} profile={settings.profile}/>
         </Col>
         <Col span={12}>
-          <Privacy/>
+          <Privacy privacy={settings.privacy}/>
           <Security/>
         </Col>
       </Row>

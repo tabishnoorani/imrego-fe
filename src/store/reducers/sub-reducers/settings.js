@@ -15,8 +15,7 @@ const defaultState = {
     privacy: {
         _id:"",
         displayname: "",
-        visiblecontacts: ["email"],
-        visibleitem: false
+        visiblecontacts: ["Email"],
     },
 }
 
@@ -38,6 +37,20 @@ function Settings (state=defaultState, action) {
             return {...state,
                 profile: {
                     ...state.profile, 
+                    ...action.payload,
+                    loader: false
+                }
+            }
+        }
+        case actions.PRIVACY_UPDATING:{
+            return {...state,
+                privacy: {...state.privacy, loader: true}
+            }
+        }
+        case actions.PRIVACY_UPDATED:{
+            return {...state,
+                privacy: {
+                    ...state.privacy, 
                     ...action.payload,
                     loader: false
                 }
