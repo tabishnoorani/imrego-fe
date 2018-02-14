@@ -63,6 +63,18 @@ function Settings (state=defaultState, action) {
         case actions.SIGNOUT: {
             return {...defaultState}
         }
+        case actions.PASSWORD_UPDATING: {
+            return {
+                ...state,
+                security: {...state.security, loader: true}
+            }
+        }
+        case actions.PASSWORD_UPDATED: {
+            return {
+                ...state,
+                security: {...state.security, loader: false}
+            }
+        }
         default: {
             return {...state }
         }

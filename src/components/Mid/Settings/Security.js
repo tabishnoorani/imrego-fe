@@ -24,9 +24,10 @@ class Security extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => 
     {
       if (!err) {
-        const {_id} = this.props.privacy;
-        updatePassword({id:_id, ...values});
+        const {password, newPassword} = values;
+        updatePassword(password, newPassword);
         this.setState({updateDisable: true});
+        this.props.form.resetFields();
       }
     });
   }
@@ -96,7 +97,6 @@ class Security extends React.Component {
                 pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g , 
                 message: 'The input is not valid Password!'
               },
-              // { validator:  this.matchPassword.bind(this) }
             ],
           })(
             <Input type="password" />

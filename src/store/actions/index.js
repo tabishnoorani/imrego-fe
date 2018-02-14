@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {message} from 'antd';
+import {message, Modal} from 'antd';
 import {push} from 'react-router-redux';
 import actions from './action-const';
 import config from '../../config';
@@ -416,9 +416,59 @@ export function updatePrivacy(formData){
             })
         }
     });
-    console.log (formData)
 }
 
-export function updatePassword(oldPassword, newPassword){
-    
+export function updatePassword(password, newPassword){
+    Dispatch({
+        type: actions.PASSWORD_UPDATING,
+    });
+    AXIOS({
+        method:'POST', 
+        url:"/api/changepassword", 
+        multipart: false,
+        data:{
+            password, 
+            newPassword
+        }, 
+        cb:(res)=>{
+            console.log(res.data);
+            if (res.data.success){
+                const successMsg = Modal.success({
+                    title: 'Password updated',
+                    content: 'Password updated. To login again you have to use new password',
+                });
+                setTimeout(()=>successMsg.destroy(), 3000);
+            } else {
+                switch (res.data.errCode){
+                    case "dbErr":{
+                        Modal.error({
+                            title: 'Password updating failed. Error code: dbErr',
+                            content: 'Try again if the issue presists, please contact web administrator.'
+                        });
+                        break
+                    }
+                    case "incPwd":{
+                        Modal.error({
+                            title: 'Incorrect Password.',
+                            content: 'The password entered was incorrect. Please retype the password.',
+                        });
+                        break
+                    }
+                    case "unStdPwd":{
+                        Modal.error({
+                            title: 'Password not as per standard. Error code: unStdPwd',
+                            content: 'Please check the password. It should be at least 8 characters long, must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number. You can use special characters',
+                        });
+                        break
+                    }
+                    default:{
+                        message.error('Password updating failed');
+                    }
+                }
+            }
+            Dispatch({
+                type: actions.PASSWORD_UPDATED,
+            })
+        }
+    });
 }
