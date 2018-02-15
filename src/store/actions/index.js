@@ -472,3 +472,25 @@ export function updatePassword(password, newPassword){
         }
     });
 }
+
+export function searchItem(imNum){
+    if (imNum!=="" && imNum !==undefined){
+        Dispatch({
+            type: actions.SEARCHING,
+        });
+        AXIOS({
+            method:'POST', 
+            url:"/api/searchimrego", 
+            multipart: false,
+            data:{
+                imNum
+            }, 
+            cb:(res)=>{
+                console.log(res.data);
+                Dispatch({
+                    type: actions.SEARCH_COMPELETED,
+                })
+            }
+        });
+    }
+}

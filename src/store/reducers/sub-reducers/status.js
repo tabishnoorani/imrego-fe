@@ -45,29 +45,61 @@ function Status (state=defaultState, action) {
             }
         }
         case actions.RESET_SIGNIN_FAILED: {
-            return {...state, msg:{signinField:""}}
+            return {
+                ...state, 
+                msg:{...state.msg, signinField:""}
+            }
         }
         case actions.SIGNOUT_PROCESS: {
-            return {...state, loders: {signout: true} }
+            return {
+                ...state, 
+                loders: {...state.loders, signout: true} 
+            }
         }
         case actions.SIGNUP: {
-            return {...state, showSignupModal: true, DesSignupModal: false}
+            return {
+                ...state, 
+                showSignupModal: true, 
+                DesSignupModal: false
+            }
         }
         case actions.SIGNUP_CANCEL:{
-            return {...state, showSignupModal: false}
+            return {
+                ...state, 
+                showSignupModal: false
+            }
         }
         case actions.SIGNUP_CREATE:{
-            return {...state, loders: {createUser: true}}
+            return {
+                ...state, 
+                loders: {...state.loders, createUser: true}
+            }
         }
         case actions.SIGNUP_CREATED:{
-            return {...state,
+            return {
+                ...state,
                 Test:"Compeleted",
                 DesSignupModal: true, 
-                loders: {createUser: false}, 
-                showSignupModal: false }
+                loders: {...state.loders, createUser: false}, 
+                showSignupModal: false 
+            }
         }
         case actions.SIGNUP_REFUSED:{
-            return {...state, loders: {createUser: false}}
+            return {
+                ...state, 
+                loders: {...state.loders, createUser: false}}
+        }
+        case actions.SEARCHING: {
+            return {
+                ...state,
+                loders: {...state.loders, imregoSearch: true}
+            }
+        }
+        case actions.SEARCH_COMPELETED: {
+            return {
+                ...state,
+                loders: {...state.loders, imregoSearch: false}
+            }
         }
         default: {
             return {...state }

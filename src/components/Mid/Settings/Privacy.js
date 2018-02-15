@@ -4,8 +4,10 @@ import {
   Card,
   Checkbox, 
   Form, 
+  Icon,
   Input,
-  Spin,  
+  Spin,
+  Switch,  
 } from 'antd';
 import {updatePrivacy} from '../../../store/actions';
 
@@ -22,14 +24,12 @@ class Privacy extends React.Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => 
-    {
-      if (!err) {
-        const {_id} = this.props.privacy;
-        updatePrivacy({id:_id, ...values});
-        this.setState({updateDisable: true});
-      }
-    });
+    const {getFieldsValue} = this.props.form;
+    const values = getFieldsValue()
+    const {_id} = this.props.privacy;
+    console.log (values)
+    updatePrivacy({id:_id, ...values});
+    this.setState({updateDisable: true});
   }
 
   handleChange(e){
@@ -41,7 +41,7 @@ class Privacy extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     const {privacy} = this.props;
-    const {displayname, visiblecontacts} = privacy;
+    const {displayname, email, address, contact} = privacy;
 
     return (
         <Card title="Privacy" bordered={false} style={{ width: '100%' }}>
@@ -58,15 +58,21 @@ class Privacy extends React.Component {
             )}
           </FormItem>
 
-          <FormItem
-            label={<b>Visible contact details to public</b>}
-          >
-            {getFieldDecorator('visiblecontacts', {
-                initialValue: visiblecontacts
-            })(
-              <CheckboxGroup onChange={this.handleChange} options={['Email', 'Contact Number', 'Address']} />
+          <div style={{marginBottom:'30px'}}>
+            <p><b>Details visible in found search:</b></p>
+            {'Email: '}
+            {getFieldDecorator('email', {initialValue: email})(
+              <Switch onChange={this.handleChange} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} defaultChecked={email} />
             )}
-          </FormItem>
+            {'  Contact '}
+            {getFieldDecorator('contact', {initialValue: contact})(
+              <Switch onChange={this.handleChange} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} defaultChecked={contact} />
+            )}
+            {'  Address: '}
+            {getFieldDecorator('address', {initialValue: address})(
+              <Switch onChange={this.handleChange} checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} defaultChecked={address} />
+            )}
+          </div>
           <FormItem>
             <Button disabled={this.state.updateDisable} type="primary" htmlType="submit">Update</Button>
           </FormItem>
