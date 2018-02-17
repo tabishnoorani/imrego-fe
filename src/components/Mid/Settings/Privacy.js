@@ -21,9 +21,9 @@ class Privacy extends React.Component {
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit(e){
     const {getFieldsValue} = this.props.form;
     const values = getFieldsValue()
     const {_id} = this.props.privacy;
@@ -46,7 +46,7 @@ class Privacy extends React.Component {
     return (
         <Card title="Privacy" bordered={false} style={{ width: '100%' }}>
         <Spin size="large" spinning={this.props.privacy.loader}>
-        <Form onSubmit={this.handleSubmit} style={{width:'100%'}}>
+        <Form style={{width:'100%'}}>
           <FormItem
             label={<b>Display Name</b>}
           >
@@ -74,7 +74,7 @@ class Privacy extends React.Component {
             )}
           </div>
           <FormItem>
-            <Button disabled={this.state.updateDisable} type="primary" htmlType="submit">Update</Button>
+            <Button disabled={this.state.updateDisable} type="primary" onClick={this.handleSubmit}>Update</Button>
           </FormItem>
         </Form>
         </Spin>

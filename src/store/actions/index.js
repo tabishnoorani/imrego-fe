@@ -486,11 +486,56 @@ export function searchItem(imNum){
                 imNum
             }, 
             cb:(res)=>{
-                console.log(res.data);
+                console.log (res.data)
+
                 Dispatch({
                     type: actions.SEARCH_COMPELETED,
+                    payload: res.data
                 })
             }
         });
     }
 }
+
+export function cancelDisplayItem(){
+    Dispatch({
+        type: actions.HIDE_DISPLAY_ITEM
+    })
+}
+
+export function addFoundItem(_id){
+    if (_id){
+        Dispatch({
+            type: actions.ADDING_DISPLAY_ITEM,
+        });
+        AXIOS({
+            method:'POST',
+            url:"/api/addfounditem", 
+            multipart: false,
+            data:{
+                _id
+            }, 
+            cb:(res)=>{
+                console.log(res.data)
+                Dispatch({
+                    type: actions.ADDED_DISPLAY_ITEM,
+                    payload: res.data
+                })
+                if (res.data.errCode===undefined){
+                    const successMsg = Modal.success({
+                        title: 'IM# ADDED!',
+                        content: 'The item has been added to you Found Items. To update it further please goto Manage Items->Found Items.',
+                    });
+                    setTimeout(()=>successMsg.destroy(), 3000);
+                }
+                if (res.data.errCode==='addfounditem-000'){
+                    const warningMsg = Modal.warning({
+                        title: 'IM# already added',
+                        content: 'The item is already added to your Found Items. To update it further please goto Manage Items->Found Items.',
+                    });
+                    // setTimeout(()=>successMsg.destroy(), 3000);
+                }
+            }
+        });
+    }
+} 

@@ -123,4 +123,5 @@ XSS
 Form validations
 Responsive
 Code performance
+Add limits and world verification to the input fields.
 
