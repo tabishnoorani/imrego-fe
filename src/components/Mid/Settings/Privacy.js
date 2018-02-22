@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Button, 
   Card,
-  Checkbox, 
+  // Checkbox, 
   Form, 
   Icon,
   Input,
@@ -12,7 +12,7 @@ import {
 import {updatePrivacy} from '../../../store/actions';
 
 const FormItem = Form.Item;
-const CheckboxGroup = Checkbox.Group;
+// const CheckboxGroup = Checkbox.Group;
 
 class Privacy extends React.Component {
   state = {

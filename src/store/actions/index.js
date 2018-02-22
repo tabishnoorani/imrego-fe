@@ -516,7 +516,7 @@ export function addFoundItem(_id){
                 _id
             }, 
             cb:(res)=>{
-                console.log(res.data)
+                // console.log(res.data)
                 Dispatch({
                     type: actions.ADDED_DISPLAY_ITEM,
                     payload: res.data
@@ -529,13 +529,38 @@ export function addFoundItem(_id){
                     setTimeout(()=>successMsg.destroy(), 3000);
                 }
                 if (res.data.errCode==='addfounditem-000'){
-                    const warningMsg = Modal.warning({
+                    Modal.warning({
                         title: 'IM# already added',
                         content: 'The item is already added to your Found Items. To update it further please goto Manage Items->Found Items.',
                     });
-                    // setTimeout(()=>successMsg.destroy(), 3000);
                 }
             }
         });
     }
-} 
+}
+
+export function initializeFoundList() {
+    Dispatch({
+        type: actions.FOUND_LISTS_FETCHING
+    });
+    AXIOS({
+        method:'POST',
+        url:"/api/fetchfoundlist", 
+        multipart: false,
+        data:{}, 
+        cb:(res)=>{
+            if (res.data.success){
+                Dispatch({
+                    type: actions.FOUND_LISTS_FETCHED,
+                    payload: res.data.data
+                })
+                message.success('Found list updated!');
+            } else {
+                Dispatch({
+                    type: actions.FOUND_LIST_FETCHED_FAILED
+                });
+                message.error('Failed! Contact web administrator!')
+            }
+        }
+    });
+}

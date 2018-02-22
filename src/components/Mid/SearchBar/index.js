@@ -14,18 +14,23 @@ class SearchBar extends Component {
 
   const { searchLoader } = this.props
 
+  const IconType = (this.props.iconType) ? this.props.iconType : 'search';
+
+  console.log(IconType);
+
+  
   return (
     <div>
       <Row type="flex" justify="center">
         <Col span={20}>
           <h3 style={{color:"rgb(0, 0, 0, .4)"}}>
-          Found something - search for the onwer:
+          {(this.props.title)? this.props.title : 'Found something - search for the onwer:'}
           </h3>
           <Affix offsetTop={94}>
             <Search
             disabled = {searchLoader}
             placeholder="Enter IM#" 
-            enterButton={<Icon type={(searchLoader)?'loading':'search'} />}  
+            enterButton={<Icon type={(searchLoader)?'loading' : IconType} />}  
             size="large"
             onSearch={handleSearch}
             />

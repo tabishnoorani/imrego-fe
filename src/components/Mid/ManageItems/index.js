@@ -1,16 +1,18 @@
 import React from 'react';
-import { Button, Tooltip, Row, Col } from 'antd';
+import { Button, Tooltip, Row, Col, Tabs } from 'antd';
+import { connect } from 'react-redux';
 import config from '../../../config';
 import NotAuth from '../NotAuth';
 import AddItem from './AddItem';
 import ItemLists from './ItemLists';
+import FoundLists from './FoundLists/';
 import SortBy from './SortBy';
-import {itemListsInitilized, fetchItemLists} from '../../../store/actions';
+import SearchBar from '../SearchBar';
+import {
+    itemListsInitilized, fetchItemLists, Push, 
+    showAddItem, showAddItemCancel, addItem } from '../../../store/actions';
 
-import { 
-    showAddItem, 
-    showAddItemCancel, 
-    addItem } from '../../../store/actions';
+const TabPane = Tabs.TabPane; 
 
 class ManageItems extends React.Component {
     componentWillMount(){
@@ -47,6 +49,37 @@ class ManageItems extends React.Component {
             }
         });
     }
+
+    const pushValue = (value) => {
+        switch (value) {
+            case '1':
+                Push(`/manageitems`);
+                break;
+            
+            case '2':
+                Push(`/manageitems/founditems`);
+                break;
+        
+            default:
+                break;
+        }      
+    }
+
+    const setActiveKey = () => {
+        switch (this.props.pathname) {
+            case '/manageitems':
+            return ('1')
+            // break;
+
+            case '/manageitems/founditems':
+            return ('2')
+            // break;
+        
+            default:
+            return('1')
+            // break;
+        }
+    }
     
     const saveFormRef = (Form) => {
         this.form = Form;
@@ -55,10 +88,13 @@ class ManageItems extends React.Component {
     if (auth!==false){
         window.document.title=`${config.APP_NAME} - Manage Items`
         return (
+        <Tabs activeKey={setActiveKey()} defaultActiveKey="1" tabPosition='top' size='large' onChange={(activeKey)=>{pushValue(activeKey)}}>
+        
+        <TabPane tab="Manage Items" key="1">
         <div>
             <Row gutter={0} type="flex" 
             justify="center" 
-            style= {{width:'100vw'}}>
+            style= {{width:'100%'}}>
                 <Col span={20}>
                     <SortBy/>
                 </Col>
@@ -97,9 +133,34 @@ class ManageItems extends React.Component {
             
             <ItemLists />
             
-        </div>  
+        </div> 
+        </TabPane>
+
+        <TabPane tab="Found Items" key="2">
+        <div>
+            <Row gutter={0} type="flex" 
+            justify="center" 
+            style= {{width:'100%'}}>
+                <Col span={20}>
+                    <SearchBar 
+                    title='ADD THE FOUND ITEM:'
+                    iconType='plus'/>
+                </Col>
+            </Row>           
+            
+            <FoundLists />
+            
+        </div>
+        </TabPane>
+        </Tabs>
         )} else return (<NotAuth />)
     }
 }
 
-export default ManageItems
+const returnState = (store)=>{
+    return({
+      pathname: store.router.location.pathname
+    });
+}
+
+export default connect(returnState)(ManageItems);

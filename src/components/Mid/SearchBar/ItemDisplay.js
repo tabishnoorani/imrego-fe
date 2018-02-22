@@ -1,7 +1,7 @@
 import React from 'react';
-import {Modal, Row, Col, Button, Divider, Spin, Icon, Card, Collapse} from 'antd';
-import moment from 'moment';
-import config from '../../../config';
+import {Modal, Row, Col, Button, Spin, Icon, Card, Collapse} from 'antd';
+// import moment from 'moment';
+// import config from '../../../config';
 import { cancelDisplayItem, addFoundItem } from '../../../store/actions';
 
 const Panel = Collapse.Panel;
@@ -10,7 +10,7 @@ const gridStyle = {
 	textAlign: 'center',
 	wordWrap: "break-word",
 	};
-const confirm = Modal.confirm;
+// const confirm = Modal.confirm;
 
 const ItemList = (props)=>{
 	const Style={
@@ -51,7 +51,7 @@ const ItemList = (props)=>{
 	}>
 		{(item.success)?    
 		<Spin size='large' spinning={displayItemLoading}>
-			{(imrego.status!='Lost')?
+			{(imrego.status!=='Lost')?
 			<div style={{color:'red'}}>
 				<p><b>NOTE:</b> The item is not yet marked as <b>LOST</b>. You can add this item to your FOUND ITEMS by doing so the owner will be indicated about the item and as soon as it is marked as LOST you will get all the details.</p>
 			</div>:""}

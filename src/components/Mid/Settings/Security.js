@@ -16,9 +16,6 @@ class Security extends React.Component {
   state = {
     updateDisable: true,
   }
-  constructor(props){
-    super(props);
-  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => 
@@ -80,7 +77,11 @@ class Security extends React.Component {
 
 
   render() {
-    const { getFieldDecorator, getFieldValue, setFields } = this.props.form;
+    const { 
+      getFieldDecorator, 
+      // getFieldValue, 
+      // setFields 
+    } = this.props.form;
     return (
       <Card title="Security" bordered={false} style={{ width: '100%', marginTop:'20px' }}>        
         <Spin size="large" spinning={this.props.security.loader}>

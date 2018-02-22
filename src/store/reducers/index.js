@@ -8,6 +8,7 @@ import Mid from './sub-reducers/mid';
 import ModalForm from './sub-reducers/modal-form';
 import Settings from './sub-reducers/settings';
 import SearchBar from './sub-reducers/search-bar';
+import FoundLists from './sub-reducers/found-lists';
 
 const Reducers = combineReducers({
     Status: Status,
@@ -18,7 +19,8 @@ const Reducers = combineReducers({
     router: routerReducer,
     ModalForm: ModalForm,
     Settings: Settings,
-    SearchBar: SearchBar
+    SearchBar: SearchBar,
+    FoundLists: FoundLists,
 });
 
 export default Reducers;
