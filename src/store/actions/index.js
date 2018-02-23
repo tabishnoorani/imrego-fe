@@ -503,7 +503,8 @@ export function cancelDisplayItem(){
     })
 }
 
-export function addFoundItem(_id){
+export function addFoundItem({imrego, ownerData}){
+    const {_id} = imrego;
     if (_id){
         Dispatch({
             type: actions.ADDING_DISPLAY_ITEM,
@@ -516,7 +517,23 @@ export function addFoundItem(_id){
                 _id
             }, 
             cb:(res)=>{
-                // console.log(res.data)
+                if (res.data.success){
+                    console.log(res.data)
+                    const dataToAdd = {
+                        _id: res.data.data._id,
+                        key: res.data.data._id,
+                        imrego,
+                        ownerData,
+                        date:res.data.data.date,
+                        status:res.data.data.status,
+                    };
+    
+                    Dispatch({
+                        type: actions.FOUND_LISTS_ADD_ITEM,
+                        payload: dataToAdd
+                    })
+    
+                }
                 Dispatch({
                     type: actions.ADDED_DISPLAY_ITEM,
                     payload: res.data

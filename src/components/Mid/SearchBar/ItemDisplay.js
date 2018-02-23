@@ -33,7 +33,8 @@ const ItemList = (props)=>{
 	}
 
 	function handleOk() {
-		addFoundItem(imrego._id);
+		// addFoundItem(imrego._id);
+		addFoundItem(item);
 	}
 
 	return(

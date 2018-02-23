@@ -72,6 +72,11 @@ function FoundLists (state = defaultState, action) {
             }
         }
 
+        case actions.FOUND_LISTS_ADD_ITEM: {
+            const newState = {...state, FoundLists: [...state.FoundLists, action.payload] }
+            return (newState);
+        }
+
         default: {
             return {...state}
         }
