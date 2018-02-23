@@ -564,3 +564,33 @@ export function initializeFoundList() {
         }
     });
 }
+
+export function updateFoundItemStatus(_id, status){
+    Dispatch({
+        type: actions.FOUND_LISTS_STATUS_UPDATING,
+        payload: _id
+    })
+    AXIOS({
+        method:'POST',
+        url:"/api/updatefoundliststatus", 
+        multipart: false,
+        data:{
+            _id,
+            status
+        }, 
+        cb:(res)=>{
+            if (res.data.success){
+                Dispatch({
+                    type: actions.FOUND_LISTS_STATUS_UPDATED,
+                    payload: {_id, status}
+                })
+                message.success(`Item ${status}!`);
+            } else {
+                // Dispatch({
+                //     type: actions.FOUND_LIST_FETCHED_FAILED
+                // });
+                message.error('Failed! Contact web administrator!')
+            }
+        }
+    });
+}

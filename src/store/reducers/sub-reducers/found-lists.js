@@ -1,5 +1,5 @@
 import actions from '../../actions/action-const';
-// import _ from 'lodash';
+import _ from 'lodash';
 
 const defaultState = {
     catagories:[
@@ -32,6 +32,7 @@ const defaultState = {
     FoundLists: [],
     sortBy: "",
     FoundItemInitialized: false,
+    // loading: false,
 };
 
 function FoundLists (state = defaultState, action) {
@@ -40,7 +41,35 @@ function FoundLists (state = defaultState, action) {
             return {...state, fetching: true}
         }
         case actions.FOUND_LISTS_FETCHED: {
-            return {...state, fetching: false, FoundLists: action.payload}
+            return {...state, fetching: false, FoundLists: action.payload, FoundItemInitialized: true}
+        }
+        case actions.FOUND_LISTS_STATUS_UPDATING: {
+            const index=_.findIndex(state.FoundLists, {_id: action.payload})
+            const newState = {...state, fetching:true}
+            newState.FoundLists[index].status= [...newState.FoundLists[index].status, 'Loading']
+            return { ...newState }
+        }
+        case actions.FOUND_LISTS_STATUS_UPDATED: {
+            const {_id, status} = action.payload
+            const index=_.findIndex(state.FoundLists, {_id})
+            // var newState = {...state}
+            // console.log (newState)
+            switch (status) {
+                case 'Deleted':
+                {
+                    console.log(newState);
+                    const newState = {...state}
+                    newState.FoundLists.splice(index, 1)
+                    return ({...newState, fetching: false});                    
+                    break;
+                }
+                default:
+                {    const newState = {...state, fetching :false}
+                    newState.FoundLists[index].status= [...newState.FoundLists[index].status, status]
+                    return { ...newState }
+                    break;
+                }
+            }
         }
 
         default: {

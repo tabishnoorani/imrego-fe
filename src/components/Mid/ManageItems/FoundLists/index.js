@@ -6,7 +6,7 @@ import {
   Spin, 
   Table, 
 } from 'antd';
-import { initializeFoundList } from '../../../../store/actions/index';
+import { initializeFoundList, updateFoundItemStatus } from '../../../../store/actions/index';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -20,6 +20,10 @@ class FoundList extends React.Component {
   }
 
   render() {
+    function remove(_id){
+      updateFoundItemStatus(_id, 'Deleted')
+    }
+
     const Style= {
       allCenter: {
         display:'flex', 
@@ -42,7 +46,7 @@ class FoundList extends React.Component {
     const columns = [
       {
         title: 'Image',
-        dataIndex: 'imgURL',
+        dataIndex: 'imrego.imgURL',
         render: imgURL => 
           <Dropdown overlay={(imgURL)?fullImg(imgURL):<p/>} placement="bottomLeft">
             <img 
@@ -53,88 +57,107 @@ class FoundList extends React.Component {
       },
       {
         title: 'IMREGO',
-        dataIndex: 'imrego',
+        dataIndex: 'imrego.imNum',
       },
       {
         title: 'Title',
-        dataIndex: 'title',
+        dataIndex: 'imrego.title',
       }, 
       {
         title: 'Status',
         dataIndex: 'status',
         render: (status, record) => {
-          const menu = 
+          const SL = status.length-1;
+          record.key=record._id
+          const menu = (record.imrego!=='ITEM DELETED BY OWNER')?
           <p>
-            <Button type='primary' onClick={(e)=>{console.log({status, record})}}>Holding</Button>
-            <Button>Holding</Button>
-            <Button>Holding</Button>
-            <Button>Holding</Button>
+            <Button type='danger' onClick={(e)=>{remove(record.key)}}>Remove</Button>
+
+            <Button type={(status[SL]==='Holding')?'primary':'secondary'} 
+            onClick={(e)=>{updateFoundItemStatus(record.key, 'Holding')}}>
+              Holding
+            </Button>
+            
+            <Button type={(status[SL]==='Settled')?'primary':'secondary'} 
+            onClick={(e)=>{updateFoundItemStatus(record.key, 'Settled')}}>
+              Settled
+            </Button>
+            
+            {/* <Button type={(status[SL]==='Disposed')?'primary':'secondary'} 
+            onClick={(e)=>{updateFoundItemStatus(record.key, 'Disposed')}}>
+              Disposed
+            </Button>
+            
+            <Button type={(status[SL]==='Lost')?'primary':'secondary'} 
+            onClick={(e)=>{updateFoundItemStatus(record.key, 'Lost')}}>
+              Lost
+            </Button>
+            
+            <Button type={(status[SL]==='Transfered')?'primary':'secondary'} 
+            onClick={(e)=>{updateFoundItemStatus(record.key, 'Transfered')}}>
+              Transfered
+            </Button> */}
+
           </p>
+          :<p><Button type='danger' onClick={(e)=>{remove(record.key)}}>Remove</Button></p>
           return(
-            <Dropdown overlay={menu} placement="bottomRight">
-              <Button type='primary'>{status}</Button>
+            <Dropdown disabled={false} overlay={menu} placement="bottomRight">
+              <Button type='primary'>{status[SL]}</Button>
             </Dropdown>
           )
-        }
+       }
       },
-    
     ];
     
-    const data = _.map([...this.props.FoundLists], function (value){
+    const data = this.props.FoundLists;
+    
+    function itemDescription(value) {
+      
+      const {ownerData} = value;
       const dateIndex = value.date.length-1;
       const modifieddate = moment(value.date[dateIndex]).format(config.DATE_FORMAT);
       const modifiedtime = moment(value.date[dateIndex]).format(config.TIME_FORMAT);
-      const {ownerData, imrego} = value;
-      return ({
-        key: value._id,
-        status: value.status,
-        date: `${modifieddate} - ${modifiedtime}`,
-        
-        imrego: (imrego!==null)?imrego.imNum:'ITEM DELETED BY OWNER',
-        title: (imrego!==null)?imrego.title:'ITEM DELETED BY OWNER',
-        catagory: (imrego!==null)?imrego.catagory:'ITEM DELETED BY OWNER',
-        description: (imrego!==null)?
-                      (imrego.description!==undefined)?imrego.description : <i>undisclosed</i>
-                      :'ITEM DELETED BY OWNER',
-        imgURL: (imrego!==null)?imrego.imgURL:'/noitemimg.png',
+      const firstmodifieddate = moment(value.date[0]).format(config.DATE_FORMAT);
+      const firstmodifiedtime = moment(value.date[0]).format(config.TIME_FORMAT);
+      const date= `${modifieddate}-${modifiedtime}`
+      const firstDate= `${firstmodifieddate}-${firstmodifiedtime}`;
 
-        ownerName: (ownerData!==null)?ownerData.displayName: <i>undisclosed</i>,
-        email: (ownerData!==null)?
-                ((ownerData.email!==undefined)?ownerData.email:<i>undisclosed</i>)
-                : <i>undisclosed</i>,
-        contact: (ownerData!==null)?
-                ((ownerData.contact!==undefined)?ownerData.contact:<i>undisclosed</i>)
-                : <i>undisclosed</i>,
-        address: (ownerData!==null)?
-                ((ownerData.address!==undefined)?ownerData.address:<i>undisclosed</i>)
-                : <i>undisclosed</i>,
-      });
-    });
-    
-    function itemDescription(record) {
+      const ownerName = (ownerData!==null) ? ownerData.displayName: <i>undisclosed</i>;
+      const email= (ownerData!==null)?
+            ((ownerData.email!==undefined)?ownerData.email:<i>undisclosed</i>)
+            : <i>undisclosed</i>;
+      const contact= (ownerData!==null)?
+            ((ownerData.contact!==undefined)?ownerData.contact:<i>undisclosed</i>)
+            : <i>undisclosed</i>;
+      const address= (ownerData!==null)?
+            ((ownerData.address!==undefined)?ownerData.address:<i>undisclosed</i>)
+            : <i>undisclosed</i>;
+
       return (
         <div>
-          <p><b>Found on: </b> <i>{record.date}</i>  <b>Catagory: </b>{record.catagory}</p>
-          <p><b>Description: </b>{record.description}</p>
-          <p><b>Owner's Name: </b>{record.ownerName}</p>
-          <p><b>Email: </b>{record.email}</p>
-          <p><b>Contact: </b>{record.contact}</p>
-          <p><b>Address: </b>{record.address}</p>
+          <p><b>Found on: </b> <i>{firstDate} </i>   <b> Last Activity: </b> <i>{date}</i></p> 
+          <p><b>Catagory: </b>{value.imrego.catagory}</p>
+          <p><b>Description: </b>{value.imrego.description}</p>
+          <p><b>Owner's Name: </b>{ownerName}</p>
+          <p><b>Email: </b>{email}</p>
+          <p><b>Contact: </b>{contact}</p>
+          <p><b>Address: </b>{address}</p>
         </div>
       )
     }
 
     return(
-      <Spin spinning={this.props.deleting || false}>
+      // <Spin spinning={this.props.fetching || false}>
         <Row style={Style.mainRow} 
         justify="space-around" 
         align="middle">
       
           <Table 
+          loading={this.props.fetching}
           style={{width: '100%' }}
           columns={columns} 
           dataSource={data}
-          // expandRowByClick={true}
+          expandRowByClick={false}
           expandedRowRender={(record) => {
               return(
                 itemDescription(record)
@@ -143,7 +166,7 @@ class FoundList extends React.Component {
           } 
           />
         </Row>
-      </Spin>
+      // </Spin>
     )
   
 }
