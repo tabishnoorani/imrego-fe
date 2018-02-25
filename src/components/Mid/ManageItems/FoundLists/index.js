@@ -2,14 +2,12 @@ import React from 'react';
 import { 
   Button, 
   Dropdown,  
-  Row,  
-  Spin, 
+  Row,   
   Table, 
 } from 'antd';
 import { initializeFoundList, updateFoundItemStatus } from '../../../../store/actions/index';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import config from '../../../../config';
 
 class FoundList extends React.Component {
@@ -44,25 +42,31 @@ class FoundList extends React.Component {
     const fullImg= imgURL =>
       <img alt='Full size' style={{marginLeft:'2vw', maxWidth:'60vw', maxHeight:'60vh'}} src={(imgURL) ? imgURL:'/noitemimg.png'}/>
     
+    const deleteMsg = <span style={{color:'red'}}>Item deleted</span>
     const columns = [
       {
         title: 'Image',
         dataIndex: 'imrego.imgURL',
-        render: imgURL => 
-          <Dropdown overlay={(imgURL)?fullImg(imgURL):<p/>} placement="bottomLeft">
-            <img 
-            src={(imgURL)?imgURL:'/noitemimg.png'} 
-            alt='Item'
-            style={{maxHeight:'100px', maxWidth:'100px'}}/>
-          </Dropdown>
+        render: imgURL =>{ 
+          return(
+            <Dropdown overlay={(imgURL)?fullImg(imgURL):<p/>} placement="bottomLeft">
+              <img 
+              src={(imgURL)? imgURL : '/noitemimg.png'} 
+              alt='Item'
+              style={{maxHeight:'100px', maxWidth:'100px'}}/>
+            </Dropdown>
+          )
+        }
       },
       {
         title: 'IMREGO',
         dataIndex: 'imrego.imNum',
+        render: data => (data) ? data : deleteMsg
       },
       {
         title: 'Title',
         dataIndex: 'imrego.title',
+        render: data => (data) ? data : deleteMsg
       }, 
       {
         title: 'Status',
@@ -70,7 +74,7 @@ class FoundList extends React.Component {
         render: (status, record) => {
           const SL = status.length-1;
           record.key=record._id
-          const menu = (record.imrego!=='ITEM DELETED BY OWNER')?
+          const menu = (record.imrego!==null)?
           <p>
             <Button type='danger' onClick={(e)=>{remove(record.key)}}>Remove</Button>
 
@@ -113,38 +117,39 @@ class FoundList extends React.Component {
     const data = this.props.FoundLists;
     
     function itemDescription(value) {
-      
-      const {ownerData} = value;
-      const dateIndex = value.date.length-1;
-      const modifieddate = moment(value.date[dateIndex]).format(config.DATE_FORMAT);
-      const modifiedtime = moment(value.date[dateIndex]).format(config.TIME_FORMAT);
-      const firstmodifieddate = moment(value.date[0]).format(config.DATE_FORMAT);
-      const firstmodifiedtime = moment(value.date[0]).format(config.TIME_FORMAT);
-      const date= `${modifieddate}-${modifiedtime}`
-      const firstDate= `${firstmodifieddate}-${firstmodifiedtime}`;
+      if(value.ownerData!==null){
+        const {ownerData} = value;
+        const dateIndex = value.date.length-1;
+        const modifieddate = moment(value.date[dateIndex]).format(config.DATE_FORMAT);
+        const modifiedtime = moment(value.date[dateIndex]).format(config.TIME_FORMAT);
+        const firstmodifieddate = moment(value.date[0]).format(config.DATE_FORMAT);
+        const firstmodifiedtime = moment(value.date[0]).format(config.TIME_FORMAT);
+        const date= `${modifieddate}-${modifiedtime}`
+        const firstDate= `${firstmodifieddate}-${firstmodifiedtime}`;
 
-      const ownerName = (ownerData!==null) ? ownerData.displayName: <i>undisclosed</i>;
-      const email= (ownerData!==null)?
-            ((ownerData.email!==undefined)?ownerData.email:<i>undisclosed</i>)
-            : <i>undisclosed</i>;
-      const contact= (ownerData!==null)?
-            ((ownerData.contact!==undefined)?ownerData.contact:<i>undisclosed</i>)
-            : <i>undisclosed</i>;
-      const address= (ownerData!==null)?
-            ((ownerData.address!==undefined)?ownerData.address:<i>undisclosed</i>)
-            : <i>undisclosed</i>;
+        const ownerName = (ownerData!==null) ? ownerData.displayName: <i>undisclosed</i>;
+        const email= (ownerData!==null)?
+              ((ownerData.email!==undefined)?ownerData.email:<i>undisclosed</i>)
+              : <i>undisclosed</i>;
+        const contact= (ownerData!==null)?
+              ((ownerData.contact!==undefined)?ownerData.contact:<i>undisclosed</i>)
+              : <i>undisclosed</i>;
+        const address= (ownerData!==null)?
+              ((ownerData.address!==undefined)?ownerData.address:<i>undisclosed</i>)
+              : <i>undisclosed</i>;
 
-      return (
-        <div>
-          <p><b>Found on: </b> <i>{firstDate} </i>   <b> Last Activity: </b> <i>{date}</i></p> 
-          <p><b>Catagory: </b>{value.imrego.catagory}</p>
-          <p><b>Description: </b>{value.imrego.description}</p>
-          <p><b>Owner's Name: </b>{ownerName}</p>
-          <p><b>Email: </b>{email}</p>
-          <p><b>Contact: </b>{contact}</p>
-          <p><b>Address: </b>{address}</p>
-        </div>
-      )
+        return (
+          <div>
+            <p><b>Found on: </b> <i>{firstDate} </i>   <b> Last Activity: </b> <i>{date}</i></p> 
+            <p><b>Catagory: </b>{value.imrego.catagory}</p>
+            <p><b>Description: </b>{value.imrego.description}</p>
+            <p><b>Owner's Name: </b>{ownerName}</p>
+            <p><b>Email: </b>{email}</p>
+            <p><b>Contact: </b>{contact}</p>
+            <p><b>Address: </b>{address}</p>
+          </div>
+        )
+      } else return (deleteMsg)
     }
 
     return(
@@ -159,12 +164,7 @@ class FoundList extends React.Component {
           columns={columns} 
           dataSource={data}
           expandRowByClick={false}
-          expandedRowRender={(record) => {
-              return(
-                itemDescription(record)
-              )
-            }
-          } 
+          expandedRowRender={(record) => itemDescription(record)} 
           />
         </Row>
       // </Spin>

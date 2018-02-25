@@ -57,17 +57,14 @@ function FoundLists (state = defaultState, action) {
             switch (status) {
                 case 'Deleted':
                 {
-                    console.log(newState);
                     const newState = {...state}
                     newState.FoundLists.splice(index, 1)
                     return ({...newState, fetching: false});                    
-                    break;
                 }
                 default:
                 {    const newState = {...state, fetching :false}
                     newState.FoundLists[index].status= [...newState.FoundLists[index].status, status]
                     return { ...newState }
-                    break;
                 }
             }
         }
