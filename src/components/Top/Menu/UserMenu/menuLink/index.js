@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Tooltip } from 'antd';
+import { Button, Tooltip, Badge } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 const MenuLink = (props) => {
@@ -11,7 +11,9 @@ const MenuLink = (props) => {
             toolTip, 
             history,
             loading,
-            pathname} = props
+            pathname,
+            notification,            
+        } = props
             
     const linkName = pathname.split('/')
     var activeLink = (linkName[1]===link);
@@ -49,7 +51,9 @@ const MenuLink = (props) => {
 
     return(
             <Tooltip {...TooltipSettings} >
-                <Button {...buttonSettings}/>
+                <Badge style={{zIndex:'1'}}count={(link==='notifications')? notification.unseen : 0}>
+                    <Button {...buttonSettings}/>
+                </Badge>
             </Tooltip>
     )
 }

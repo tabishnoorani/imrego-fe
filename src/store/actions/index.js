@@ -611,3 +611,26 @@ export function updateFoundItemStatus(_id, status){
         }
     });
 }
+
+export function fetchNotifications(next=undefined){
+    Dispatch({
+        type: actions.NOTIFICATION_LOADING
+    });
+    AXIOS({
+        method:'POST',
+        url:"/api/notifications", 
+        multipart: false,
+        data: {next: next}, 
+        cb:(res)=>{
+            console.log (res.data);
+            if (res.data.success){
+                Dispatch({
+                    type: actions.NOTIFICATION_LOADED,
+                    payload: res.data.data
+                })
+            } else {
+                message.error('Failed! Contact web administrator!')
+            }
+        }
+    });
+}

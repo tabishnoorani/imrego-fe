@@ -9,6 +9,7 @@ import ModalForm from './sub-reducers/modal-form';
 import Settings from './sub-reducers/settings';
 import SearchBar from './sub-reducers/search-bar';
 import FoundLists from './sub-reducers/found-lists';
+import Notification from './sub-reducers/notification';
 
 const Reducers = combineReducers({
     Status: Status,
@@ -21,6 +22,7 @@ const Reducers = combineReducers({
     Settings: Settings,
     SearchBar: SearchBar,
     FoundLists: FoundLists,
+    Notification: Notification,
 });
 
 export default Reducers;

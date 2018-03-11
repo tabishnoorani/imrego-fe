@@ -13,7 +13,8 @@ const Menu = (props) => {
             dispatch={props.dispatch}
             token={props.token}
             pathname={props.pathname}
-            userMenu={props.userMenu}/>
+            userMenu={props.userMenu}
+            notification={props.notification}/>
             : 
             <SignInUp auth={props.auth} 
             loading={props.loading}/>}
@@ -27,7 +28,8 @@ const returnState = (store)=>{
       token: store.User.token,
       userMenu: store.UserMenu,
       loading: store.Status.loading,
-      pathname: store.router.location.pathname
+      pathname: store.router.location.pathname,
+      notification: store.Notification,
     });
   } 
 
