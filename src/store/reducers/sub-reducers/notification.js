@@ -2,8 +2,10 @@ import actions from '../../actions/action-const';
 
 const defaultState = {
     notification:[],
+    notificationArray:[],
     unseen:0,
-    loading: false
+    loading: false,
+    next: null,
 };
 
 function Notification (state=defaultState, action) {
@@ -19,7 +21,21 @@ function Notification (state=defaultState, action) {
             return {...state, loading: true}
         }
         case actions.NOTIFICATION_LOADED: {
-            return{...state, loading: false, unseen: 0}
+            return {
+                ...state, 
+                loading: false, 
+                unseen: 0, 
+                notificationArray: action.payload.data, 
+                next: action.payload.next
+            }
+        }
+        case actions.NOTIFICATION_LOADED_MORE: {
+            return {
+                ...state, 
+                loading: false, 
+                notificationArray: [...state.notificationArray, ...action.payload.data], 
+                next: action.payload.next
+            }
         }
         default: {
             return {...state}

@@ -622,11 +622,15 @@ export function fetchNotifications(next=undefined){
         multipart: false,
         data: {next: next}, 
         cb:(res)=>{
-            console.log (res.data);
             if (res.data.success){
                 Dispatch({
-                    type: actions.NOTIFICATION_LOADED,
-                    payload: res.data.data
+                    type: (next===undefined) ? 
+                            actions.NOTIFICATION_LOADED : 
+                            actions.NOTIFICATION_LOADED_MORE,
+                    payload: {
+                        data: res.data.data,
+                        next: res.data.next,
+                    }
                 })
             } else {
                 message.error('Failed! Contact web administrator!')
