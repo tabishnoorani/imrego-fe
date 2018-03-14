@@ -54,7 +54,10 @@ class Notifications extends React.Component {
                 dataIndex: 'title',
                 key: 'description',
                 width: 250,
-                render:  (title, data) => <p>{`Some one has found your ${data.data.title}. IM# ${data.data.imNum}`}</p>
+                render:  (title, data) => <p>
+                    Some one has found your <b>{data.data.title}</b>. 
+                    <br/> <i>IM# {data.data.imNum}</i>.
+                </p>
             },
         ];
           console.log(pathname)

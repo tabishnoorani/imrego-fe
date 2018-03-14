@@ -19,7 +19,6 @@ class FoundList extends React.Component {
 
   render() {
     function remove(_id){
-      console.log(_id)
       updateFoundItemStatus(_id, 'Deleted')
     }
 
