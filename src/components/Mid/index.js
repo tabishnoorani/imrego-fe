@@ -27,37 +27,20 @@ const Mid = (props)=> {
             <ManageItems {...ManageItemsProps}/>:""}
             {(Pathname==='settings')?
             <Settings auth={auth}/>:""}
+            {(Pathname==='home')?
+            <Home auth={auth}/>:""}
         </Row> 
-        : <NoAuth/>
+        : (Pathname==='') ? "Display Show" : <NoAuth/>
     
     return(
         <Content style={{  
             marginTop: '150px', 
             marginBottom:'20px',
             height: '100%'
-            }}>
+        }}>
 
-            {(Pathname==='home'||Pathname==='')?
-                <div>
-                    <SearchBar/>
-                    {(Pathname==='home')?
-                    <Home auth={auth}/>:""}
-                </div>
-                :Render}
-            
-            {/* {Render} */}
-            
-            {/* {(Pathname==='home'||Pathname==='')?<SearchBar/>:""}                
-            <Row type="flex" justify="center">
-                {(Pathname==='home')?
-                <Home auth={auth}/>:""}
-                {(Pathname==='notifications')?
-                <Notifications auth={auth}/>:""}
-                {(Pathname==='manageitems')?
-                <ManageItems {...ManageItemsProps}/>:""}
-                {(Pathname==='settings')?
-                <Settings auth={auth}/>:""}
-            </Row> */}
+            {Render}
+        
         </Content>
     );
 }
